@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:intf="http://www.ais.it/wsdl" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns1="http://www.ais.it/types" xmlns:impl="http://www.ais.it/wsdl" targetNamespace="http://www.ais.it/wsdl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.ais.it/types">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:complexType name="ArrayOfString">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="xsd:string[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="availableRequest" />
+  <wsdl:message name="availableResponse">
+    <wsdl:part name="result" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="closeRequest" />
+  <wsdl:message name="closeResponse" />
+  <wsdl:message name="getDocumentRequest">
+    <wsdl:part name="arrayOfString_1" type="tns1:ArrayOfString" />
+  </wsdl:message>
+  <wsdl:message name="getDocumentResponse">
+    <wsdl:part name="result" type="xsd:base64Binary" />
+  </wsdl:message>
+  <wsdl:message name="openRequest">
+    <wsdl:part name="arrayOfString_1" type="tns1:ArrayOfString" />
+  </wsdl:message>
+  <wsdl:message name="openResponse" />
+  <wsdl:message name="readRequest">
+    <wsdl:part name="int_1" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="readResponse">
+    <wsdl:part name="result" type="xsd:base64Binary" />
+  </wsdl:message>
+  <wsdl:portType name="DirectSearchIF">
+    <wsdl:operation name="available">
+      <wsdl:input name="availableRequest" message="impl:availableRequest" />
+      <wsdl:output name="availableResponse" message="impl:availableResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="close">
+      <wsdl:input name="closeRequest" message="impl:closeRequest" />
+      <wsdl:output name="closeResponse" message="impl:closeResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getDocument" parameterOrder="arrayOfString_1">
+      <wsdl:input name="getDocumentRequest" message="impl:getDocumentRequest" />
+      <wsdl:output name="getDocumentResponse" message="impl:getDocumentResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="open" parameterOrder="arrayOfString_1">
+      <wsdl:input name="openRequest" message="impl:openRequest" />
+      <wsdl:output name="openResponse" message="impl:openResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="read" parameterOrder="int_1">
+      <wsdl:input name="readRequest" message="impl:readRequest" />
+      <wsdl:output name="readResponse" message="impl:readResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="directsearchSoapBinding" type="impl:DirectSearchIF">
+    <wsdlsoap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="available">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="availableRequest">
+        <wsdlsoap:body use="encoded" namespace="http://www.ais.it/wsdl" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="availableResponse">
+        <wsdlsoap:body use="encoded" namespace="http://www.ais.it/wsdl" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="close">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="closeRequest">
+        <wsdlsoap:body use="encoded" namespace="http://www.ais.it/wsdl" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="closeResponse">
+        <wsdlsoap:body use="encoded" namespace="http://www.ais.it/wsdl" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDocument">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="getDocumentRequest">
+        <wsdlsoap:body use="encoded" namespace="http://www.ais.it/wsdl" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="getDocumentResponse">
+        <wsdlsoap:body use="encoded" namespace="http://www.ais.it/wsdl" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="open">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="openRequest">
+        <wsdlsoap:body use="encoded" namespace="http://www.ais.it/wsdl" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="openResponse">
+        <wsdlsoap:body use="encoded" namespace="http://www.ais.it/wsdl" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="read">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="readRequest">
+        <wsdlsoap:body use="encoded" namespace="http://www.ais.it/wsdl" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="readResponse">
+        <wsdlsoap:body use="encoded" namespace="http://www.ais.it/wsdl" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DirectSearch">
+    <wsdl:port name="directsearch" binding="impl:directsearchSoapBinding">
+      <wsdlsoap:address location="http://ged.postel.it/Direct_search_isole_digitali/services/mr2_consulting" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

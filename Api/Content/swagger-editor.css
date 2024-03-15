@@ -1,0 +1,77 @@
+#message-bar {
+    display: none!important
+}
+
+#api_selector {
+    display: none!important
+}
+
+#logo img {
+    display: none!important
+}
+
+.swagger-section .swagger-ui-wrap {
+    max-width: 1200px !important;
+}
+
+.info {
+    padding: 20px 20px 0 20px!important;
+    background: #f1f1f1!important;
+    border-bottom: solid 1px #ddd!important;
+    box-shadow: 0 3px 5px #ddd!important;
+    color: #333!important;
+}
+
+.resource:nth-child(2n+1) {
+    background: #f1f1f1!important;
+    padding: 3px 10px!important;
+    margin: 0 0 5px 0!important;
+}
+.resource:nth-child(2n) {
+    background: #fafafa!important;
+    padding: 3px 10px!important;
+    margin: 0 0 5px 0!important;
+}
+
+.swagger-section .swagger-ui-wrap ul#resources li.resource div.heading h2 {
+    font-size: 16px !important;
+    font-weight: normal!important; 
+}
+
+.swagger-section .swagger-ui-wrap ul#resources li.resource div.heading h2 a{
+    color: #008000!important; 
+}
+
+.active {
+    box-shadow: 3px 3px 10px #ddd!important; 
+}
+
+.active h2 a{
+    font-weight: bold!important; 
+}
+
+.swagger-section .swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation {
+    padding: 5px !important;
+}
+
+.swagger-section .swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation.post div.heading,
+.swagger-section .swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation.get div.heading,
+.swagger-section .swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation.put div.heading{
+    padding: 7px !important;
+}
+
+.swagger-section .swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation div.heading h3 span.http_method a {
+    padding: 8px 11px !important;
+}
+
+.footer {
+    display: none !important;
+}
+
+.swagger-section .swagger-ui-wrap .info_title {
+    font-size: 15px !important;
+    text-transform: uppercase !important;
+    text-align: center !important;
+    color: rgb(0, 128, 0) !important;
+    font-weight: normal !important;
+}

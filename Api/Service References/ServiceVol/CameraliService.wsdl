@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://comunicazionielettroniche.posteitaliane.it/camerali/service" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="CameraliService" targetNamespace="http://comunicazionielettroniche.posteitaliane.it/camerali/service" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://comunicazionielettroniche.posteitaliane.it/camerali/service" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://comunicazionielettroniche.posteitaliane.it/camerali/data" />
+      <xs:element name="Invio">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q1="http://comunicazionielettroniche.posteitaliane.it/camerali/data" minOccurs="0" name="request" nillable="true" type="q1:InvioRequest" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="InvioResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q2="http://comunicazionielettroniche.posteitaliane.it/camerali/data" minOccurs="0" name="InvioResult" nillable="true" type="q2:InvioResponse" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Conferma">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q3="http://comunicazionielettroniche.posteitaliane.it/camerali/data" minOccurs="0" name="request" nillable="true" type="q3:ConfermaInvioRequest" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ConfermaResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q4="http://comunicazionielettroniche.posteitaliane.it/camerali/data" minOccurs="0" name="ConfermaResult" nillable="true" type="q4:ConfermaInvioResponse" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="RecuperaDocumento">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q5="http://comunicazionielettroniche.posteitaliane.it/camerali/data" minOccurs="0" name="request" nillable="true" type="q5:RecuperaDocumentoRequest" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="RecuperaDocumentoResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q6="http://comunicazionielettroniche.posteitaliane.it/camerali/data" minOccurs="0" name="RecuperaDocumentoResult" nillable="true" type="q6:RecuperaDocumentoResponse" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="RecuperaServizio">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q7="http://comunicazionielettroniche.posteitaliane.it/camerali/data" minOccurs="0" name="request" nillable="true" type="q7:RecuperaServizioRequest" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="RecuperaServizioResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q8="http://comunicazionielettroniche.posteitaliane.it/camerali/data" minOccurs="0" name="RecuperaServizioResult" nillable="true" type="q8:RecuperaServizioResponse" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="RecuperaStato">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q9="http://comunicazionielettroniche.posteitaliane.it/camerali/data" minOccurs="0" name="request" nillable="true" type="q9:RecuperaStatoRequest" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="RecuperaStatoResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q10="http://comunicazionielettroniche.posteitaliane.it/camerali/data" minOccurs="0" name="RecuperaStatoResult" nillable="true" type="q10:RecuperaStatoResponse" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="anyType" nillable="true" type="xs:anyType" />
+      <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
+      <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
+      <xs:element name="boolean" nillable="true" type="xs:boolean" />
+      <xs:element name="byte" nillable="true" type="xs:byte" />
+      <xs:element name="dateTime" nillable="true" type="xs:dateTime" />
+      <xs:element name="decimal" nillable="true" type="xs:decimal" />
+      <xs:element name="double" nillable="true" type="xs:double" />
+      <xs:element name="float" nillable="true" type="xs:float" />
+      <xs:element name="int" nillable="true" type="xs:int" />
+      <xs:element name="long" nillable="true" type="xs:long" />
+      <xs:element name="QName" nillable="true" type="xs:QName" />
+      <xs:element name="short" nillable="true" type="xs:short" />
+      <xs:element name="string" nillable="true" type="xs:string" />
+      <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte" />
+      <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" />
+      <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong" />
+      <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort" />
+      <xs:element name="char" nillable="true" type="tns:char" />
+      <xs:simpleType name="char">
+        <xs:restriction base="xs:int" />
+      </xs:simpleType>
+      <xs:element name="duration" nillable="true" type="tns:duration" />
+      <xs:simpleType name="duration">
+        <xs:restriction base="xs:duration">
+          <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" />
+          <xs:minInclusive value="-P10675199DT2H48M5.4775808S" />
+          <xs:maxInclusive value="P10675199DT2H48M5.4775807S" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="guid" nillable="true" type="tns:guid" />
+      <xs:simpleType name="guid">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:attribute name="FactoryType" type="xs:QName" />
+      <xs:attribute name="Id" type="xs:ID" />
+      <xs:attribute name="Ref" type="xs:IDREF" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://comunicazionielettroniche.posteitaliane.it/camerali/data" elementFormDefault="qualified" targetNamespace="http://comunicazionielettroniche.posteitaliane.it/camerali/data" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://comunicazionielettroniche.posteitaliane.it/postaevo/data" />
+      <xs:import namespace="http://comunicazionielettroniche.posteitaliane/camerali/data" />
+      <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xs:complexType name="InvioRequest">
+        <xs:complexContent mixed="false">
+          <xs:extension xmlns:q1="http://comunicazionielettroniche.posteitaliane.it/postaevo/data" base="q1:PostaEvoRequest">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="DatiOpzionali" nillable="true" type="tns:DatiOpzionali" />
+              <xs:element minOccurs="0" name="Destinatario" nillable="true" type="tns:Destinatario" />
+              <xs:element minOccurs="0" name="Documento" nillable="true" type="tns:Documento" />
+              <xs:element minOccurs="0" name="Richiedente" nillable="true" type="tns:Richiedente" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="InvioRequest" nillable="true" type="tns:InvioRequest" />
+      <xs:complexType name="DatiOpzionali">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CentroCostoCliente" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Note" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Oggetto" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="DatiOpzionali" nillable="true" type="tns:DatiOpzionali" />
+      <xs:complexType name="Destinatario">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CAP" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Indirizzo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Localita" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Nominativo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TipoRecapito" type="tns:TipoRecapito" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Destinatario" nillable="true" type="tns:Destinatario" />
+      <xs:simpleType name="TipoRecapito">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="S" />
+          <xs:enumeration value="E" />
+          <xs:enumeration value="D" />
+          <xs:enumeration value="P" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="TipoRecapito" nillable="true" type="tns:TipoRecapito" />
+      <xs:complexType name="Documento">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Bollo" type="xs:boolean" />
+          <xs:element minOccurs="0" name="Chiusura" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CodiceDocumento" type="tns:CodiceDocumento" />
+          <xs:element minOccurs="0" name="Formato" nillable="true" type="tns:Formato" />
+          <xs:element xmlns:q2="http://comunicazionielettroniche.posteitaliane/camerali/data" minOccurs="0" name="Intestatario" nillable="true" type="q2:Intestatario" />
+          <xs:element minOccurs="0" name="TipoDocumento" type="tns:TipoDocumento" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Documento" nillable="true" type="tns:Documento" />
+      <xs:simpleType name="CodiceDocumento">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="CART" />
+          <xs:enumeration value="CRIA" />
+          <xs:enumeration value="CRIM" />
+          <xs:enumeration value="CRIS" />
+          <xs:enumeration value="ATTI" />
+          <xs:enumeration value="BICM" />
+          <xs:enumeration value="FASC" />
+          <xs:enumeration value="RIPR" />
+          <xs:enumeration value="SCPE" />
+          <xs:enumeration value="SCSC" />
+          <xs:enumeration value="SCSO" />
+          <xs:enumeration value="SOST" />
+          <xs:enumeration value="TRSF" />
+          <xs:enumeration value="VISO" />
+          <xs:enumeration value="VISS" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="CodiceDocumento" nillable="true" type="tns:CodiceDocumento" />
+      <xs:simpleType name="Formato">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="XML" />
+          <xs:enumeration value="PDF" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="Formato" nillable="true" type="tns:Formato" />
+      <xs:simpleType name="TipoDocumento">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="CertificatoCamerale" />
+          <xs:enumeration value="VisuraCamerale" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="TipoDocumento" nillable="true" type="tns:TipoDocumento" />
+      <xs:complexType name="Richiedente">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CAP" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Cognome" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Indirizzo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Localita" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Nome" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Telefono" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Richiedente" nillable="true" type="tns:Richiedente" />
+      <xs:complexType name="InvioResponse">
+        <xs:complexContent mixed="false">
+          <xs:extension xmlns:q3="http://comunicazionielettroniche.posteitaliane.it/postaevo/data" base="q3:PostaEvoResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="DatiIntestatarioValidati" nillable="true" type="tns:DatiIntestatarioValidati" />
+              <xs:element minOccurs="0" name="DatiOpzionali" nillable="true" type="tns:DatiOpzionali" />
+              <xs:element minOccurs="0" name="Destinatario" nillable="true" type="tns:Destinatario" />
+              <xs:element minOccurs="0" name="Documento" nillable="true" type="tns:Documento" />
+              <xs:element minOccurs="0" name="IdRichiesta" nillable="true" type="xs:string" />
+              <xs:element minOccurs="0" name="IdTicket" nillable="true" type="xs:string" />
+              <xs:element minOccurs="0" name="Richiedente" nillable="true" type="tns:Richiedente" />
+              <xs:element minOccurs="0" name="Valorizzazione" nillable="true" type="tns:ValorizzazioneServizio" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="InvioResponse" nillable="true" type="tns:InvioResponse" />
+      <xs:complexType name="DatiIntestatarioValidati">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CCIAA" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CodiceFiscale" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Cognome" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DataDiNascita" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="NREA" type="xs:int" />
+          <xs:element minOccurs="0" name="Nome" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="RagioneSociale" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="DatiIntestatarioValidati" nillable="true" type="tns:DatiIntestatarioValidati" />
+      <xs:complexType name="ValorizzazioneServizio">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="IdRichiesta" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ImportoNetto" type="xs:double" />
+          <xs:element xmlns:q4="http://comunicazionielettroniche.posteitaliane.it/postaevo/data" minOccurs="0" name="ProdottiAmministrativi" nillable="true" type="q4:ArrayOfProdottoAmministrativo" />
+          <xs:element minOccurs="0" name="Valuta" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ValorizzazioneServizio" nillable="true" type="tns:ValorizzazioneServizio" />
+      <xs:complexType name="ConfermaInvioRequest">
+        <xs:complexContent mixed="false">
+          <xs:extension xmlns:q5="http://comunicazionielettroniche.posteitaliane.it/postaevo/data" base="q5:PostaEvoRequest">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="IdRichiesta" nillable="true" type="xs:string" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="ConfermaInvioRequest" nillable="true" type="tns:ConfermaInvioRequest" />
+      <xs:complexType name="ConfermaInvioResponse">
+        <xs:complexContent mixed="false">
+          <xs:extension xmlns:q6="http://comunicazionielettroniche.posteitaliane.it/postaevo/data" base="q6:PostaEvoResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="DataAccettazione" type="xs:dateTime" />
+              <xs:element minOccurs="0" name="IdTicket" nillable="true" type="xs:string" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="ConfermaInvioResponse" nillable="true" type="tns:ConfermaInvioResponse" />
+      <xs:complexType name="RecuperaDocumentoRequest">
+        <xs:complexContent mixed="false">
+          <xs:extension xmlns:q7="http://comunicazionielettroniche.posteitaliane.it/postaevo/data" base="q7:PostaEvoRequest">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="IdRichiesta" nillable="true" type="xs:string" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="RecuperaDocumentoRequest" nillable="true" type="tns:RecuperaDocumentoRequest" />
+      <xs:complexType name="RecuperaDocumentoResponse">
+        <xs:complexContent mixed="false">
+          <xs:extension xmlns:q8="http://comunicazionielettroniche.posteitaliane.it/postaevo/data" base="q8:PostaEvoResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="Documento" nillable="true" type="q8:Documento" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="RecuperaDocumentoResponse" nillable="true" type="tns:RecuperaDocumentoResponse" />
+      <xs:complexType name="RecuperaServizioRequest">
+        <xs:complexContent mixed="false">
+          <xs:extension xmlns:q9="http://comunicazionielettroniche.posteitaliane.it/postaevo/data" base="q9:PostaEvoRequest">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="CodiceDocumento" nillable="true" type="xs:string" />
+              <xs:element minOccurs="0" name="CodiceFiscaleIntestatario" nillable="true" type="xs:string" />
+              <xs:element minOccurs="0" name="CognomeIntestatario" nillable="true" type="xs:string" />
+              <xs:element minOccurs="0" name="DataConfermaRichiestaA" nillable="true" type="xs:dateTime" />
+              <xs:element minOccurs="0" name="DataConfermaRichiestaDa" nillable="true" type="xs:dateTime" />
+              <xs:element minOccurs="0" name="DataInvioRichiestaA" nillable="true" type="xs:dateTime" />
+              <xs:element minOccurs="0" name="DataInvioRichiestaDa" nillable="true" type="xs:dateTime" />
+              <xs:element xmlns:q10="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="IdRichieste" nillable="true" type="q10:ArrayOfstring" />
+              <xs:element minOccurs="0" name="NomeIntestatario" nillable="true" type="xs:string" />
+              <xs:element minOccurs="0" name="Note" nillable="true" type="xs:string" />
+              <xs:element minOccurs="0" name="NumeroElementiPerPagina" nillable="true" type="xs:int" />
+              <xs:element minOccurs="0" name="NumeroPagina" nillable="true" type="xs:int" />
+              <xs:element minOccurs="0" name="NumeroREAIntestatario" nillable="true" type="xs:string" />
+              <xs:element minOccurs="0" name="Oggetto" nillable="true" type="xs:string" />
+              <xs:element minOccurs="0" name="RagioneSocialeIntestatario" nillable="true" type="xs:string" />
+              <xs:element minOccurs="0" name="StatoLavorazione" nillable="true" type="xs:string" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="RecuperaServizioRequest" nillable="true" type="tns:RecuperaServizioRequest" />
+      <xs:complexType name="RecuperaServizioResponse">
+        <xs:complexContent mixed="false">
+          <xs:extension xmlns:q11="http://comunicazionielettroniche.posteitaliane.it/postaevo/data" base="q11:PostaEvoResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="NumeroPaginaCorrente" type="xs:int" />
+              <xs:element minOccurs="0" name="NumeroTotaleElementi" type="xs:int" />
+              <xs:element minOccurs="0" name="NumeroTotalePagine" type="xs:int" />
+              <xs:element minOccurs="0" name="Servizi" nillable="true" type="tns:ArrayOfServizio" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="RecuperaServizioResponse" nillable="true" type="tns:RecuperaServizioResponse" />
+      <xs:complexType name="ArrayOfServizio">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Servizio" nillable="true" type="tns:Servizio" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfServizio" nillable="true" type="tns:ArrayOfServizio" />
+      <xs:complexType name="Servizio">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="DataConfermaRichiesta" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="DatiOpzionali" nillable="true" type="tns:DatiOpzionali" />
+          <xs:element minOccurs="0" name="Destinatario" nillable="true" type="tns:Destinatario" />
+          <xs:element minOccurs="0" name="Documento" nillable="true" type="tns:Documento" />
+          <xs:element minOccurs="0" name="IdRichiesta" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Richiedente" nillable="true" type="tns:Richiedente" />
+          <xs:element minOccurs="0" name="StatoLavorazione" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Valorizzazione" nillable="true" type="tns:ValorizzazioneServizio" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Servizio" nillable="true" type="tns:Servizio" />
+      <xs:complexType name="RecuperaStatoRequest">
+        <xs:complexContent mixed="false">
+          <xs:extension xmlns:q12="http://comunicazionielettroniche.posteitaliane.it/postaevo/data" base="q12:PostaEvoRequest">
+            <xs:sequence>
+              <xs:element xmlns:q13="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="IdRichiesta" nillable="true" type="q13:ArrayOfstring" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="RecuperaStatoRequest" nillable="true" type="tns:RecuperaStatoRequest" />
+      <xs:complexType name="RecuperaStatoResponse">
+        <xs:complexContent mixed="false">
+          <xs:extension xmlns:q14="http://comunicazionielettroniche.posteitaliane.it/postaevo/data" base="q14:PostaEvoResponse">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="StatiRichieste" nillable="true" type="tns:ArrayOfStatoRichiesta" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="RecuperaStatoResponse" nillable="true" type="tns:RecuperaStatoResponse" />
+      <xs:complexType name="ArrayOfStatoRichiesta">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="StatoRichiesta" nillable="true" type="tns:StatoRichiesta" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfStatoRichiesta" nillable="true" type="tns:ArrayOfStatoRichiesta" />
+      <xs:complexType name="StatoRichiesta">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Codice" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Data" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Descrizione" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="IdRichiesta" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="StatoRichiesta" nillable="true" type="tns:StatoRichiesta" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://comunicazionielettroniche.posteitaliane.it/postaevo/data" elementFormDefault="qualified" targetNamespace="http://comunicazionielettroniche.posteitaliane.it/postaevo/data" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="PostaEvoRequest">
+        <xs:sequence />
+      </xs:complexType>
+      <xs:element name="PostaEvoRequest" nillable="true" type="tns:PostaEvoRequest" />
+      <xs:complexType name="PostaEvoResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Errori" nillable="true" type="tns:ArrayOfErrorePostaEvo" />
+          <xs:element minOccurs="0" name="Esito" type="tns:EsitoPostaEvo" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="PostaEvoResponse" nillable="true" type="tns:PostaEvoResponse" />
+      <xs:complexType name="ArrayOfErrorePostaEvo">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ErrorePostaEvo" nillable="true" type="tns:ErrorePostaEvo" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfErrorePostaEvo" nillable="true" type="tns:ArrayOfErrorePostaEvo" />
+      <xs:complexType name="ErrorePostaEvo">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Codice" type="xs:int" />
+          <xs:element minOccurs="0" name="Messaggio" nillable="true" type="xs:anyType" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ErrorePostaEvo" nillable="true" type="tns:ErrorePostaEvo" />
+      <xs:simpleType name="EsitoPostaEvo">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="OK" />
+          <xs:enumeration value="KO" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="EsitoPostaEvo" nillable="true" type="tns:EsitoPostaEvo" />
+      <xs:complexType name="ArrayOfProdottoAmministrativo">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ProdottoAmministrativo" nillable="true" type="tns:ProdottoAmministrativo" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfProdottoAmministrativo" nillable="true" type="tns:ArrayOfProdottoAmministrativo" />
+      <xs:complexType name="ProdottoAmministrativo">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CodiceMateriale" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DescrizioneCodiceMateriale" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ImportoNettoCodiceMateriale" type="xs:double" />
+          <xs:element minOccurs="0" name="Quantita" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ProdottoAmministrativo" nillable="true" type="tns:ProdottoAmministrativo" />
+      <xs:complexType name="Documento">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Contenuto" nillable="true" type="xs:base64Binary" />
+          <xs:element minOccurs="0" name="Estensione" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="MD5" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Documento" nillable="true" type="tns:Documento" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://comunicazionielettroniche.posteitaliane/camerali/data" elementFormDefault="qualified" targetNamespace="http://comunicazionielettroniche.posteitaliane/camerali/data" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="Intestatario">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CCIAA" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Cognome" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DatoFiscale" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="NREA" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="Nome" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="RagioneSociale" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Intestatario" nillable="true" type="tns:Intestatario" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="ArrayOfstring">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfstring" nillable="true" type="tns:ArrayOfstring" />
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="ICameraliService_Invio_InputMessage">
+    <wsdl:part name="parameters" element="tns:Invio" />
+  </wsdl:message>
+  <wsdl:message name="ICameraliService_Invio_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InvioResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICameraliService_Conferma_InputMessage">
+    <wsdl:part name="parameters" element="tns:Conferma" />
+  </wsdl:message>
+  <wsdl:message name="ICameraliService_Conferma_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConfermaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICameraliService_RecuperaDocumento_InputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperaDocumento" />
+  </wsdl:message>
+  <wsdl:message name="ICameraliService_RecuperaDocumento_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperaDocumentoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICameraliService_RecuperaServizio_InputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperaServizio" />
+  </wsdl:message>
+  <wsdl:message name="ICameraliService_RecuperaServizio_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperaServizioResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICameraliService_RecuperaStato_InputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperaStato" />
+  </wsdl:message>
+  <wsdl:message name="ICameraliService_RecuperaStato_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperaStatoResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ICameraliService">
+    <wsdl:operation name="Invio">
+      <wsdl:input wsaw:Action="http://comunicazionielettroniche.posteitaliane.it/camerali/service/ICameraliService/Invio" message="tns:ICameraliService_Invio_InputMessage" />
+      <wsdl:output wsaw:Action="http://comunicazionielettroniche.posteitaliane.it/camerali/service/ICameraliService/InvioResponse" message="tns:ICameraliService_Invio_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Conferma">
+      <wsdl:input wsaw:Action="http://comunicazionielettroniche.posteitaliane.it/camerali/service/ICameraliService/Conferma" message="tns:ICameraliService_Conferma_InputMessage" />
+      <wsdl:output wsaw:Action="http://comunicazionielettroniche.posteitaliane.it/camerali/service/ICameraliService/ConfermaResponse" message="tns:ICameraliService_Conferma_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaDocumento">
+      <wsdl:input wsaw:Action="http://comunicazionielettroniche.posteitaliane.it/camerali/service/ICameraliService/RecuperaDocumento" message="tns:ICameraliService_RecuperaDocumento_InputMessage" />
+      <wsdl:output wsaw:Action="http://comunicazionielettroniche.posteitaliane.it/camerali/service/ICameraliService/RecuperaDocumentoResponse" message="tns:ICameraliService_RecuperaDocumento_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaServizio">
+      <wsdl:input wsaw:Action="http://comunicazionielettroniche.posteitaliane.it/camerali/service/ICameraliService/RecuperaServizio" message="tns:ICameraliService_RecuperaServizio_InputMessage" />
+      <wsdl:output wsaw:Action="http://comunicazionielettroniche.posteitaliane.it/camerali/service/ICameraliService/RecuperaServizioResponse" message="tns:ICameraliService_RecuperaServizio_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaStato">
+      <wsdl:input wsaw:Action="http://comunicazionielettroniche.posteitaliane.it/camerali/service/ICameraliService/RecuperaStato" message="tns:ICameraliService_RecuperaStato_InputMessage" />
+      <wsdl:output wsaw:Action="http://comunicazionielettroniche.posteitaliane.it/camerali/service/ICameraliService/RecuperaStatoResponse" message="tns:ICameraliService_RecuperaStato_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="basicHttp" type="tns:ICameraliService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Invio">
+      <soap:operation soapAction="http://comunicazionielettroniche.posteitaliane.it/camerali/service/ICameraliService/Invio" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Conferma">
+      <soap:operation soapAction="http://comunicazionielettroniche.posteitaliane.it/camerali/service/ICameraliService/Conferma" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaDocumento">
+      <soap:operation soapAction="http://comunicazionielettroniche.posteitaliane.it/camerali/service/ICameraliService/RecuperaDocumento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaServizio">
+      <soap:operation soapAction="http://comunicazionielettroniche.posteitaliane.it/camerali/service/ICameraliService/RecuperaServizio" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaStato">
+      <soap:operation soapAction="http://comunicazionielettroniche.posteitaliane.it/camerali/service/ICameraliService/RecuperaStato" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CameraliService">
+    <wsdl:port name="basicHttp" binding="tns:basicHttp">
+      <soap:address location="http://sptest.posteitaliane.it/Camerali/CameraliService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

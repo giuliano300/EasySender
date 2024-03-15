@@ -1,0 +1,2183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ApiH2HModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bulletins">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="namesId" Type="int" Nullable="false" />
+          <Property Name="NumeroContoCorrente" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IntestatoA" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="FormatoStampa" Type="nvarchar(max)" />
+          <Property Name="Template" Type="nvarchar(max)" />
+          <Property Name="AdditionalInfo" Type="nvarchar(max)" />
+          <Property Name="IBAN" Type="nvarchar(max)" />
+          <Property Name="CodiceCliente" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ImportoEuro" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="EseguitoDaNominativo" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="EseguitoDaIndirizzo" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="EseguitoDaCAP" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="EseguitoDaLocalita" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Causale" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="BulletinType" Type="int" Nullable="false" />
+          <Property Name="namesListsId" Type="int" Nullable="false" />
+          <Property Name="Scadenza" Type="nvarchar" MaxLength="50" />
+          <Property Name="CBILL" Type="nvarchar" MaxLength="50" />
+          <Property Name="PagoPA" Type="bit" />
+          <Property Name="CodiciAvvisi" Type="nvarchar(max)" />
+          <Property Name="Pagato" Type="bit" />
+          <Property Name="Controllato" Type="bit" />
+          <Property Name="DataPagamento" Type="datetime" />
+        </EntityType>
+        <EntityType Name="GED">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fileName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="pathFile" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Lists">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="550" Nullable="false" />
+          <Property Name="description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="temporary" Type="bit" Nullable="false" />
+          <Property Name="userParentId" Type="int" />
+        </EntityType>
+        <EntityType Name="Loghi">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="logo" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="parentUserId" Type="int" />
+        </EntityType>
+        <EntityType Name="Logs">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="logType" Type="int" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Names">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="businessName" Type="nvarchar" MaxLength="50" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="surname" Type="nvarchar" MaxLength="50" />
+          <Property Name="complementNames" Type="nvarchar(max)" />
+          <Property Name="complementAddress" Type="nvarchar(max)" />
+          <Property Name="dug" Type="nvarchar" MaxLength="10" />
+          <Property Name="address" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="houseNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="cap" Type="nvarchar" MaxLength="20" />
+          <Property Name="city" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="province" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="state" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="insertDate" Type="datetime" Nullable="false" />
+          <Property Name="currentState" Type="int" Nullable="false" />
+          <Property Name="valid" Type="bit" Nullable="false" />
+          <Property Name="operationId" Type="int" Nullable="false" />
+          <Property Name="requestId" Type="nvarchar(max)" />
+          <Property Name="orderId" Type="nvarchar(max)" />
+          <Property Name="codice" Type="nvarchar(max)" />
+          <Property Name="price" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="vatPrice" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="totalPrice" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="attachedFile" Type="varbinary(max)" />
+          <Property Name="fileName" Type="nvarchar(max)" />
+          <Property Name="presaInCaricoDate" Type="datetime" />
+          <Property Name="consegnatoDate" Type="datetime" />
+          <Property Name="stato" Type="nvarchar(max)" />
+          <Property Name="guidUser" Type="nvarchar" MaxLength="550" />
+          <Property Name="tipoStampa" Type="bit" />
+          <Property Name="fronteRetro" Type="bit" />
+          <Property Name="ricevutaRitorno" Type="bit" />
+          <Property Name="locked" Type="bit" Nullable="false" />
+          <Property Name="reSendGuid" Type="uniqueidentifier" />
+          <Property Name="fiscalCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="mobile" Type="nvarchar" MaxLength="50" />
+          <Property Name="namePriority" Type="int" Nullable="false" />
+          <Property Name="tipoLettera" Type="nvarchar" MaxLength="50" />
+          <Property Name="IndiceNelLotto" Type="int" />
+          <Property Name="idLotto" Type="nvarchar(max)" />
+          <Property Name="pathRecoveryFile" Type="nvarchar(max)" />
+          <Property Name="finalState" Type="bit" />
+          <Property Name="numberOfPages" Type="int" />
+          <Property Name="NREA" Type="int" />
+          <Property Name="codiceChiusura" Type="nvarchar" MaxLength="50" />
+          <Property Name="codiceDocumento" Type="int" />
+          <Property Name="tipoDocumento" Type="int" />
+          <Property Name="pathGEDUrl" Type="nvarchar(max)" />
+          <Property Name="numberOfErrors" Type="int" />
+          <Property Name="notificato" Type="bit" />
+          <Property Name="notificaLetta" Type="bit" />
+          <Property Name="product" Type="nvarchar" MaxLength="350" />
+          <Property Name="shipmentDate" Type="datetime" />
+          <Property Name="weight" Type="int" />
+          <Property Name="height" Type="int" />
+          <Property Name="length" Type="int" />
+          <Property Name="width" Type="int" />
+          <Property Name="contentText" Type="nvarchar" MaxLength="350" />
+          <Property Name="pathUrl" Type="nvarchar(max)" />
+          <Property Name="additionalServices" Type="nvarchar(max)" />
+          <Property Name="senderFromContract" Type="bit" />
+          <Property Name="contrassegno" Type="nvarchar" MaxLength="50" />
+          <Property Name="ritornoAlMittente" Type="nvarchar" MaxLength="50" />
+          <Property Name="assicurazione" Type="nvarchar" MaxLength="50" />
+          <Property Name="sms" Type="bit" />
+          <Property Name="testoSms" Type="nvarchar(max)" />
+          <Property Name="logo" Type="nvarchar(max)" />
+          <Property Name="fileScaricato" Type="bit" />
+          <Property Name="dataDownload" Type="nvarchar" MaxLength="150" />
+          <Property Name="sendFromNewApi" Type="bit" />
+          <Property Name="ultimoControllo" Type="datetime" />
+          <Property Name="dataScansione" Type="datetime" />
+          <Property Name="operationType" Type="int" />
+          <Property Name="AvvisoRicevimentoDigitale" Type="bit" />
+          <Property Name="pec" Type="nvarchar" MaxLength="450" />
+          <Property Name="cron" Type="nvarchar" MaxLength="450" />
+        </EntityType>
+        <EntityType Name="NamesLists">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="businessName" Type="nvarchar" MaxLength="50" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="surname" Type="nvarchar" MaxLength="50" />
+          <Property Name="complementNames" Type="nvarchar(max)" />
+          <Property Name="complementAddress" Type="nvarchar(max)" />
+          <Property Name="dug" Type="nvarchar" MaxLength="10" />
+          <Property Name="address" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="houseNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="cap" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="city" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="province" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="state" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="listId" Type="int" Nullable="false" />
+          <Property Name="fileName" Type="nvarchar(max)" />
+          <Property Name="fiscalCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="mobile" Type="nvarchar" MaxLength="50" />
+          <Property Name="noUse" Type="bit" />
+          <Property Name="NREA" Type="int" />
+          <Property Name="codiceChiusura" Type="nvarchar" MaxLength="50" />
+          <Property Name="codiceDocumento" Type="int" />
+          <Property Name="tipoDocumento" Type="int" />
+          <Property Name="product" Type="nvarchar" MaxLength="350" />
+          <Property Name="shipmentDate" Type="datetime" />
+          <Property Name="weight" Type="int" />
+          <Property Name="height" Type="int" />
+          <Property Name="length" Type="int" />
+          <Property Name="width" Type="int" />
+          <Property Name="contentText" Type="nvarchar" MaxLength="350" />
+          <Property Name="pathUrl" Type="nvarchar(max)" />
+          <Property Name="additionalServices" Type="nvarchar(max)" />
+          <Property Name="senderFromContract" Type="bit" />
+          <Property Name="contrassegno" Type="nvarchar" MaxLength="50" />
+          <Property Name="ritornoAlMittente" Type="nvarchar" MaxLength="50" />
+          <Property Name="assicurazione" Type="nvarchar" MaxLength="50" />
+          <Property Name="sms" Type="bit" />
+          <Property Name="testoSms" Type="nvarchar(max)" />
+          <Property Name="logo" Type="nvarchar(max)" />
+          <Property Name="AvvisoRicevimentoDigitale" Type="bit" />
+          <Property Name="pec" Type="nvarchar" MaxLength="450" />
+          <Property Name="cron" Type="nvarchar" MaxLength="450" />
+        </EntityType>
+        <EntityType Name="Notifications">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="550" Nullable="false" />
+          <Property Name="description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="enabled" Type="bit" Nullable="false" />
+          <Property Name="usersId" Type="nvarchar(max)" />
+          <Property Name="notificationType" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="operationFeatures">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="operationId" Type="int" Nullable="false" />
+          <Property Name="featureType" Type="nvarchar" MaxLength="550" Nullable="false" />
+          <Property Name="featureValue" Type="nvarchar" MaxLength="550" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Operations">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="operationType" Type="int" Nullable="false" />
+          <Property Name="demoOperation" Type="bit" Nullable="false" />
+          <Property Name="complete" Type="bit" Nullable="false" />
+          <Property Name="userParentId" Type="int" />
+          <Property Name="areaTestOperation" Type="bit" Nullable="false" />
+          <Property Name="operationPriority" Type="int" Nullable="false" />
+          <Property Name="lottoCompleto" Type="bit" />
+          <Property Name="lotto" Type="bit" />
+          <Property Name="formatoSpeciale" Type="bit" />
+          <Property Name="formatoSpecialeInviato" Type="bit" />
+          <Property Name="error" Type="bit" />
+          <Property Name="errorMessage" Type="nvarchar(max)" />
+          <Property Name="csvFileName" Type="nvarchar(max)" />
+          <Property Name="specialOperation" Type="bit" />
+          <Property Name="specialOperationId" Type="int" />
+        </EntityType>
+        <EntityType Name="Property">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="550" />
+          <Property Name="description" Type="nvarchar(max)" />
+          <Property Name="username" Type="nvarchar" MaxLength="150" />
+          <Property Name="password" Type="nvarchar" MaxLength="150" />
+          <Property Name="logo" Type="nvarchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ApiH2H.dbo.SelectItemFromProducts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="SelectItemFromProducts">
+          <Key>
+            <PropertyRef Name="productType" />
+            <PropertyRef Name="selectedQuantityInvio" />
+            <PropertyRef Name="chunkedByInvio" />
+            <PropertyRef Name="selectedQuantityValorizza" />
+            <PropertyRef Name="chunkedByValorizza" />
+            <PropertyRef Name="selectedQuantityConferma" />
+            <PropertyRef Name="chunkedByConferma" />
+            <PropertyRef Name="startHour" />
+            <PropertyRef Name="endHour" />
+          </Key>
+          <Property Name="productType" Type="int" Nullable="false" />
+          <Property Name="selectedQuantityInvio" Type="int" Nullable="false" />
+          <Property Name="chunkedByInvio" Type="int" Nullable="false" />
+          <Property Name="selectedQuantityValorizza" Type="int" Nullable="false" />
+          <Property Name="chunkedByValorizza" Type="int" Nullable="false" />
+          <Property Name="selectedQuantityConferma" Type="int" Nullable="false" />
+          <Property Name="chunkedByConferma" Type="int" Nullable="false" />
+          <Property Name="startHour" Type="int" Nullable="false" />
+          <Property Name="endHour" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" />
+        </EntityType>
+        <EntityType Name="Senders">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="350" />
+          <Property Name="surname" Type="nvarchar" MaxLength="350" />
+          <Property Name="businessName" Type="nvarchar" MaxLength="400" />
+          <Property Name="dug" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="address" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="houseNumber" Type="nvarchar" MaxLength="5" />
+          <Property Name="cap" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="city" Type="nvarchar" MaxLength="350" Nullable="false" />
+          <Property Name="province" Type="nvarchar" MaxLength="2" Nullable="false" />
+          <Property Name="state" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="operationId" Type="int" Nullable="false" />
+          <Property Name="complementNames" Type="nvarchar(max)" />
+          <Property Name="complementAddress" Type="nvarchar(max)" />
+          <Property Name="AR" Type="bit" />
+          <Property Name="email" Type="nvarchar" MaxLength="550" />
+          <Property Name="telefono" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="SendersUsers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="350" />
+          <Property Name="surname" Type="nvarchar" MaxLength="350" />
+          <Property Name="businessName" Type="nvarchar(max)" />
+          <Property Name="dug" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="address" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="houseNumber" Type="nvarchar" MaxLength="5" />
+          <Property Name="cap" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="city" Type="nvarchar" MaxLength="350" Nullable="false" />
+          <Property Name="province" Type="nvarchar" MaxLength="2" Nullable="false" />
+          <Property Name="state" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="userParentId" Type="int" />
+          <Property Name="temporary" Type="bit" />
+          <Property Name="complementNames" Type="nvarchar(max)" />
+          <Property Name="complementAddress" Type="nvarchar(max)" />
+          <Property Name="email" Type="nvarchar" MaxLength="550" />
+          <Property Name="telefono" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="TemporaryValidateTable">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="sessionId" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="valid" Type="bit" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="totalNames" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserPermits">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="rol" Type="bit" Nullable="false" />
+          <Property Name="lol" Type="bit" Nullable="false" />
+          <Property Name="tol" Type="bit" Nullable="false" />
+          <Property Name="mol" Type="bit" Nullable="false" />
+          <Property Name="col" Type="bit" Nullable="false" />
+          <Property Name="pec" Type="bit" Nullable="false" />
+          <Property Name="pacchi" Type="bit" Nullable="false" />
+          <Property Name="sms" Type="bit" Nullable="false" />
+          <Property Name="marketing" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usernamePoste" Type="nvarchar" MaxLength="350" />
+          <Property Name="pwdPoste" Type="nvarchar" MaxLength="350" />
+          <Property Name="porpertyId" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="lastName" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="userType" Type="int" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="guidUser" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="businessName" Type="nvarchar" MaxLength="550" Nullable="false" />
+          <Property Name="baseUrl" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="pwd" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="address" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="cap" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="city" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="province" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="mobile" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="demoUser" Type="bit" Nullable="false" />
+          <Property Name="parentId" Type="int" Nullable="false" />
+          <Property Name="sendersId" Type="nvarchar(max)" />
+          <Property Name="usernamePosteAreaTest" Type="nvarchar" MaxLength="350" />
+          <Property Name="pwdPosteAreaTest" Type="nvarchar" MaxLength="350" />
+          <Property Name="areaTestUser" Type="bit" Nullable="false" />
+          <Property Name="mol" Type="bit" />
+          <Property Name="CodiceContrattoMOL" Type="nvarchar" MaxLength="250" />
+          <Property Name="CodiceContrattoCOL" Type="nvarchar" MaxLength="250" />
+          <Property Name="changePwd" Type="bit" />
+          <Property Name="userPriority" Type="int" Nullable="false" />
+          <Property Name="col" Type="bit" />
+          <Property Name="logoPA" Type="nvarchar(max)" />
+          <Property Name="denominazioneEntePA" Type="nvarchar" MaxLength="250" />
+          <Property Name="infoEntePA" Type="nvarchar" MaxLength="250" />
+          <Property Name="settoreEntePA" Type="nvarchar" MaxLength="250" />
+          <Property Name="codiceFiscaleEntePA" Type="nvarchar" MaxLength="250" />
+          <Property Name="attivoPA" Type="bit" />
+          <Property Name="downloadFile" Type="bit" />
+          <Property Name="piva" Type="nvarchar" MaxLength="250" />
+          <Property Name="usernameGED" Type="nvarchar" MaxLength="250" />
+          <Property Name="passwordGED" Type="nvarchar" MaxLength="250" />
+          <Property Name="GED" Type="bit" />
+          <Property Name="master" Type="bit" />
+          <Property Name="collegatoMasterId" Type="int" />
+          <Property Name="conciliazioneBollettini" Type="bit" />
+          <Property Name="abilitato" Type="bit" />
+          <Property Name="pacchi" Type="bit" />
+          <Property Name="usernamePacchi" Type="nvarchar" MaxLength="350" />
+          <Property Name="passwordPacchi" Type="nvarchar" MaxLength="350" />
+          <Property Name="centerCostPacchi" Type="nvarchar" MaxLength="350" />
+          <Property Name="sms" Type="bit" />
+          <Property Name="senderPkgId" Type="int" />
+          <Property Name="downloadableFileFromPage" Type="bit" />
+          <Property Name="fiscalCode" Type="nvarchar" MaxLength="250" />
+          <Property Name="emailPec" Type="nvarchar" MaxLength="250" />
+          <Property Name="hidePrice" Type="bit" />
+          <Property Name="sso" Type="bit" />
+          <Property Name="CodiceContrattoAGOLM" Type="nvarchar" MaxLength="350" />
+          <Property Name="CodiceContrattoAGOLB" Type="nvarchar" MaxLength="350" />
+          <Property Name="expireDate" Type="datetime" />
+          <Property Name="insertDate" Type="datetime" />
+          <Property Name="RendicontazioneFatture" Type="bit" />
+        </EntityType>
+        <EntityType Name="VisureDocumentType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="documentType" Type="int" Nullable="false" />
+          <Property Name="value" Type="int" Nullable="false" />
+          <Property Name="attribute" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="enabled" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_GED_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="GED" Type="Self.GED" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="GED">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lists_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Lists" Type="Self.Lists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Lists">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Loghi_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Loghi" Type="Self.Loghi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Loghi">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Logs_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Logs" Type="Self.Logs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Logs">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Names_Operations">
+          <End Role="Operations" Type="Self.Operations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Names" Type="Self.Names" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operations">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Names">
+              <PropertyRef Name="operationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NamesLists_Lists">
+          <End Role="Lists" Type="Self.Lists" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="NamesLists" Type="Self.NamesLists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lists">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="NamesLists">
+              <PropertyRef Name="listId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_operationFeatures_Operations">
+          <End Role="Operations" Type="Self.Operations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="operationFeatures" Type="Self.operationFeatures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operations">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="operationFeatures">
+              <PropertyRef Name="operationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Operations_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Operations" Type="Self.Operations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Operations">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Senders_Operations">
+          <End Role="Operations" Type="Self.Operations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Senders" Type="Self.Senders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operations">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Senders">
+              <PropertyRef Name="operationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SendersUsers_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="SendersUsers" Type="Self.SendersUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SendersUsers">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TemporaryValidateTable_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TemporaryValidateTable" Type="Self.TemporaryValidateTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TemporaryValidateTable">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPermits_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserPermits" Type="Self.UserPermits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UserPermits">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Property">
+          <End Role="Property" Type="Self.Property" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Property">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="porpertyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="DisplayCounters" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sqlCommand" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="GetCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sqlCommand" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="GetExportableData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="startdate" Type="datetime" Mode="In" />
+          <Parameter Name="enddate" Type="datetime" Mode="In" />
+          <Parameter Name="userId" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="GetGrapiquePartner" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="startDate" Type="date" Mode="In" />
+          <Parameter Name="endDate" Type="date" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetNamess" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetPrice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sqlCommand" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="GetReportSpedizioni" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sqlCommand" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="GetSale" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="startDate" Type="datetime" Mode="In" />
+          <Parameter Name="endDate" Type="datetime" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="LockNames" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="LockNamesOther" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="LockNamesParameters" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="operationType" Type="int" Mode="In" />
+          <Parameter Name="currentState" Type="int" Mode="In" />
+          <Parameter Name="qtaTop" Type="int" Mode="In" />
+          <Parameter Name="valid" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="UnLockNames" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="reSendGuid" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <EntityContainer Name="ApiH2HModelStoreContainer">
+          <EntitySet Name="Bulletins" EntityType="Self.Bulletins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GED" EntityType="Self.GED" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lists" EntityType="Self.Lists" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Loghi" EntityType="Self.Loghi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Logs" EntityType="Self.Logs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Names" EntityType="Self.Names" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NamesLists" EntityType="Self.NamesLists" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="operationFeatures" EntityType="Self.operationFeatures" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Operations" EntityType="Self.Operations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Property" EntityType="Self.Property" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Senders" EntityType="Self.Senders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SendersUsers" EntityType="Self.SendersUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TemporaryValidateTable" EntityType="Self.TemporaryValidateTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserPermits" EntityType="Self.UserPermits" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VisureDocumentType" EntityType="Self.VisureDocumentType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SelectItemFromProducts" EntityType="Self.SelectItemFromProducts" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SelectItemFromProducts].[productType] AS [productType], 
+    [SelectItemFromProducts].[selectedQuantityInvio] AS [selectedQuantityInvio], 
+    [SelectItemFromProducts].[chunkedByInvio] AS [chunkedByInvio], 
+    [SelectItemFromProducts].[selectedQuantityValorizza] AS [selectedQuantityValorizza], 
+    [SelectItemFromProducts].[chunkedByValorizza] AS [chunkedByValorizza], 
+    [SelectItemFromProducts].[selectedQuantityConferma] AS [selectedQuantityConferma], 
+    [SelectItemFromProducts].[chunkedByConferma] AS [chunkedByConferma], 
+    [SelectItemFromProducts].[startHour] AS [startHour], 
+    [SelectItemFromProducts].[endHour] AS [endHour], 
+    [SelectItemFromProducts].[id] AS [id]
+    FROM [dbo].[SelectItemFromProducts] AS [SelectItemFromProducts]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_GED_Users" Association="Self.FK_GED_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="GED" EntitySet="GED" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lists_Users" Association="Self.FK_Lists_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Lists" EntitySet="Lists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Loghi_Users" Association="Self.FK_Loghi_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Loghi" EntitySet="Loghi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Logs_Users" Association="Self.FK_Logs_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Logs" EntitySet="Logs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Names_Operations" Association="Self.FK_Names_Operations">
+            <End Role="Operations" EntitySet="Operations" />
+            <End Role="Names" EntitySet="Names" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NamesLists_Lists" Association="Self.FK_NamesLists_Lists">
+            <End Role="Lists" EntitySet="Lists" />
+            <End Role="NamesLists" EntitySet="NamesLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_operationFeatures_Operations" Association="Self.FK_operationFeatures_Operations">
+            <End Role="Operations" EntitySet="Operations" />
+            <End Role="operationFeatures" EntitySet="operationFeatures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Operations_Users" Association="Self.FK_Operations_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Operations" EntitySet="Operations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Senders_Operations" Association="Self.FK_Senders_Operations">
+            <End Role="Operations" EntitySet="Operations" />
+            <End Role="Senders" EntitySet="Senders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SendersUsers_Users" Association="Self.FK_SendersUsers_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="SendersUsers" EntitySet="SendersUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TemporaryValidateTable_Users" Association="Self.FK_TemporaryValidateTable_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="TemporaryValidateTable" EntitySet="TemporaryValidateTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPermits_Users" Association="Self.FK_UserPermits_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserPermits" EntitySet="UserPermits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Property" Association="Self.FK_Users_Property">
+            <End Role="Property" EntitySet="Property" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ApiH2HModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Bulletins">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="namesId" Type="Int32" Nullable="false" />
+          <Property Name="NumeroContoCorrente" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IntestatoA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FormatoStampa" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Template" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AdditionalInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IBAN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CodiceCliente" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ImportoEuro" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="EseguitoDaNominativo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EseguitoDaIndirizzo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EseguitoDaCAP" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EseguitoDaLocalita" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Causale" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BulletinType" Type="Int32" Nullable="false" />
+          <Property Name="namesListsId" Type="Int32" Nullable="false" />
+          <Property Name="Scadenza" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CBILL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PagoPA" Type="Boolean" />
+          <Property Name="CodiciAvvisi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Pagato" Type="Boolean" />
+          <Property Name="Controllato" Type="Boolean" />
+          <Property Name="DataPagamento" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="GED">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="pathFile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_GED_Users" FromRole="GED" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Lists">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="550" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="temporary" Type="Boolean" Nullable="false" />
+          <Property Name="userParentId" Type="Int32" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Lists_Users" FromRole="Lists" ToRole="Users" />
+          <NavigationProperty Name="NamesLists" Relationship="Self.FK_NamesLists_Lists" FromRole="Lists" ToRole="NamesLists" />
+        </EntityType>
+        <EntityType Name="Loghi">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="logo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="parentUserId" Type="Int32" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Loghi_Users" FromRole="Loghi" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Logs">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="logType" Type="Int32" Nullable="false" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Logs_Users" FromRole="Logs" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Names">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="businessName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="complementNames" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="complementAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="dug" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="houseNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cap" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="province" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="state" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="insertDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="currentState" Type="Int32" Nullable="false" />
+          <Property Name="valid" Type="Boolean" Nullable="false" />
+          <Property Name="operationId" Type="Int32" Nullable="false" />
+          <Property Name="requestId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="orderId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="codice" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="price" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="vatPrice" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="totalPrice" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="attachedFile" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="fileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="presaInCaricoDate" Type="DateTime" Precision="3" />
+          <Property Name="consegnatoDate" Type="DateTime" Precision="3" />
+          <Property Name="stato" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="guidUser" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+          <Property Name="tipoStampa" Type="Boolean" />
+          <Property Name="fronteRetro" Type="Boolean" />
+          <Property Name="ricevutaRitorno" Type="Boolean" />
+          <Property Name="locked" Type="Boolean" Nullable="false" />
+          <Property Name="reSendGuid" Type="Guid" />
+          <Property Name="fiscalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="namePriority" Type="Int32" Nullable="false" />
+          <Property Name="tipoLettera" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IndiceNelLotto" Type="Int32" />
+          <Property Name="idLotto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="pathRecoveryFile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="finalState" Type="Boolean" />
+          <Property Name="numberOfPages" Type="Int32" />
+          <Property Name="NREA" Type="Int32" />
+          <Property Name="codiceChiusura" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="codiceDocumento" Type="Int32" />
+          <Property Name="tipoDocumento" Type="Int32" />
+          <Property Name="pathGEDUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="numberOfErrors" Type="Int32" />
+          <Property Name="notificato" Type="Boolean" />
+          <Property Name="notificaLetta" Type="Boolean" />
+          <Property Name="product" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="shipmentDate" Type="DateTime" Precision="3" />
+          <Property Name="weight" Type="Int32" />
+          <Property Name="height" Type="Int32" />
+          <Property Name="length" Type="Int32" />
+          <Property Name="width" Type="Int32" />
+          <Property Name="contentText" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="pathUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="additionalServices" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="senderFromContract" Type="Boolean" />
+          <Property Name="contrassegno" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ritornoAlMittente" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="assicurazione" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sms" Type="Boolean" />
+          <Property Name="testoSms" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="logo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="fileScaricato" Type="Boolean" />
+          <Property Name="dataDownload" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="sendFromNewApi" Type="Boolean" />
+          <Property Name="ultimoControllo" Type="DateTime" Precision="3" />
+          <Property Name="dataScansione" Type="DateTime" Precision="3" />
+          <Property Name="operationType" Type="Int32" />
+          <Property Name="cron" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Operations" Relationship="Self.FK_Names_Operations" FromRole="Names" ToRole="Operations" />
+          <Property Name="AvvisoRicevimentoDigitale" Type="Boolean" />
+          <Property Name="pec" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="NamesLists">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="businessName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="complementNames" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="complementAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="dug" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="houseNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cap" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="province" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="state" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="listId" Type="Int32" Nullable="false" />
+          <Property Name="fileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="fiscalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="noUse" Type="Boolean" />
+          <Property Name="NREA" Type="Int32" />
+          <Property Name="codiceChiusura" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="codiceDocumento" Type="Int32" />
+          <Property Name="tipoDocumento" Type="Int32" />
+          <Property Name="product" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="shipmentDate" Type="DateTime" Precision="3" />
+          <Property Name="weight" Type="Int32" />
+          <Property Name="height" Type="Int32" />
+          <Property Name="length" Type="Int32" />
+          <Property Name="width" Type="Int32" />
+          <Property Name="contentText" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="pathUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="additionalServices" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="senderFromContract" Type="Boolean" />
+          <Property Name="contrassegno" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ritornoAlMittente" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="assicurazione" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sms" Type="Boolean" />
+          <Property Name="testoSms" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="logo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Lists" Relationship="Self.FK_NamesLists_Lists" FromRole="NamesLists" ToRole="Lists" />
+          <Property Name="AvvisoRicevimentoDigitale" Type="Boolean" />
+          <Property Name="pec" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="cron" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Notifications">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="550" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="enabled" Type="Boolean" Nullable="false" />
+          <Property Name="usersId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="notificationType" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="operationFeatures">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="operationId" Type="Int32" Nullable="false" />
+          <Property Name="featureType" Type="String" MaxLength="550" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="featureValue" Type="String" MaxLength="550" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Operations" Relationship="Self.FK_operationFeatures_Operations" FromRole="operationFeatures" ToRole="Operations" />
+        </EntityType>
+        <EntityType Name="Operations">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="operationType" Type="Int32" Nullable="false" />
+          <Property Name="demoOperation" Type="Boolean" Nullable="false" />
+          <Property Name="complete" Type="Boolean" Nullable="false" />
+          <Property Name="userParentId" Type="Int32" />
+          <Property Name="areaTestOperation" Type="Boolean" Nullable="false" />
+          <Property Name="operationPriority" Type="Int32" Nullable="false" />
+          <Property Name="lottoCompleto" Type="Boolean" />
+          <Property Name="lotto" Type="Boolean" />
+          <Property Name="formatoSpeciale" Type="Boolean" />
+          <Property Name="formatoSpecialeInviato" Type="Boolean" />
+          <Property Name="error" Type="Boolean" />
+          <Property Name="errorMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="csvFileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="specialOperation" Type="Boolean" />
+          <Property Name="specialOperationId" Type="Int32" />
+          <NavigationProperty Name="Names" Relationship="Self.FK_Names_Operations" FromRole="Operations" ToRole="Names" />
+          <NavigationProperty Name="operationFeatures" Relationship="Self.FK_operationFeatures_Operations" FromRole="Operations" ToRole="operationFeatures" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Operations_Users" FromRole="Operations" ToRole="Users" />
+          <NavigationProperty Name="Senders" Relationship="Self.FK_Senders_Operations" FromRole="Operations" ToRole="Senders" />
+        </EntityType>
+        <EntityType Name="Property">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="username" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="logo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Property" FromRole="Property" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Senders">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="surname" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="businessName" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Name="dug" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="houseNumber" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="cap" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="city" Type="String" MaxLength="350" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="province" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="state" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="operationId" Type="Int32" Nullable="false" />
+          <Property Name="complementNames" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="complementAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AR" Type="Boolean" />
+          <Property Name="email" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+          <Property Name="telefono" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Operations" Relationship="Self.FK_Senders_Operations" FromRole="Senders" ToRole="Operations" />
+        </EntityType>
+        <EntityType Name="SendersUsers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="surname" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="businessName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="dug" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="houseNumber" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="cap" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="city" Type="String" MaxLength="350" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="province" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="state" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="userParentId" Type="Int32" />
+          <Property Name="temporary" Type="Boolean" />
+          <Property Name="complementNames" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="complementAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+          <Property Name="telefono" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_SendersUsers_Users" FromRole="SendersUsers" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="TemporaryValidateTable">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Guid" Nullable="false" />
+          <Property Name="sessionId" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="valid" Type="Boolean" Nullable="false" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="totalNames" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_TemporaryValidateTable_Users" FromRole="TemporaryValidateTable" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="UserPermits">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="rol" Type="Boolean" Nullable="false" />
+          <Property Name="lol" Type="Boolean" Nullable="false" />
+          <Property Name="tol" Type="Boolean" Nullable="false" />
+          <Property Name="mol" Type="Boolean" Nullable="false" />
+          <Property Name="col" Type="Boolean" Nullable="false" />
+          <Property Name="pec" Type="Boolean" Nullable="false" />
+          <Property Name="pacchi" Type="Boolean" Nullable="false" />
+          <Property Name="sms" Type="Boolean" Nullable="false" />
+          <Property Name="marketing" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_UserPermits_Users" FromRole="UserPermits" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usernamePoste" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="pwdPoste" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="porpertyId" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="lastName" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="userType" Type="Int32" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="guidUser" Type="Guid" Nullable="false" />
+          <Property Name="businessName" Type="String" MaxLength="550" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="baseUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="pwd" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="cap" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="city" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="province" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="demoUser" Type="Boolean" Nullable="false" />
+          <Property Name="parentId" Type="Int32" Nullable="false" />
+          <Property Name="sendersId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="usernamePosteAreaTest" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="pwdPosteAreaTest" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="areaTestUser" Type="Boolean" Nullable="false" />
+          <Property Name="mol" Type="Boolean" />
+          <Property Name="CodiceContrattoMOL" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CodiceContrattoCOL" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="changePwd" Type="Boolean" />
+          <Property Name="userPriority" Type="Int32" Nullable="false" />
+          <Property Name="col" Type="Boolean" />
+          <Property Name="logoPA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="denominazioneEntePA" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="infoEntePA" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="settoreEntePA" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="codiceFiscaleEntePA" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="attivoPA" Type="Boolean" />
+          <Property Name="downloadFile" Type="Boolean" />
+          <Property Name="piva" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="usernameGED" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="passwordGED" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="GED" Type="Boolean" />
+          <Property Name="master" Type="Boolean" />
+          <Property Name="collegatoMasterId" Type="Int32" />
+          <Property Name="conciliazioneBollettini" Type="Boolean" />
+          <Property Name="abilitato" Type="Boolean" />
+          <Property Name="pacchi" Type="Boolean" />
+          <Property Name="usernamePacchi" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="passwordPacchi" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="centerCostPacchi" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="sms" Type="Boolean" />
+          <Property Name="senderPkgId" Type="Int32" />
+          <Property Name="downloadableFileFromPage" Type="Boolean" />
+          <Property Name="fiscalCode" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="emailPec" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="hidePrice" Type="Boolean" />
+          <Property Name="sso" Type="Boolean" />
+          <Property Name="expireDate" Type="DateTime" Precision="3" />
+          <Property Name="insertDate" Type="DateTime" Precision="3" />
+          <Property Name="RendicontazioneFatture" Type="Boolean" />
+          <NavigationProperty Name="GED1" Relationship="Self.FK_GED_Users" FromRole="Users" ToRole="GED" />
+          <NavigationProperty Name="Lists" Relationship="Self.FK_Lists_Users" FromRole="Users" ToRole="Lists" />
+          <NavigationProperty Name="Loghi" Relationship="Self.FK_Loghi_Users" FromRole="Users" ToRole="Loghi" />
+          <NavigationProperty Name="Logs" Relationship="Self.FK_Logs_Users" FromRole="Users" ToRole="Logs" />
+          <NavigationProperty Name="Operations" Relationship="Self.FK_Operations_Users" FromRole="Users" ToRole="Operations" />
+          <NavigationProperty Name="Property" Relationship="Self.FK_Users_Property" FromRole="Users" ToRole="Property" />
+          <NavigationProperty Name="SendersUsers" Relationship="Self.FK_SendersUsers_Users" FromRole="Users" ToRole="SendersUsers" />
+          <NavigationProperty Name="TemporaryValidateTable" Relationship="Self.FK_TemporaryValidateTable_Users" FromRole="Users" ToRole="TemporaryValidateTable" />
+          <NavigationProperty Name="UserPermits" Relationship="Self.FK_UserPermits_Users" FromRole="Users" ToRole="UserPermits" />
+          <Property Name="CodiceContrattoAGOLM" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="CodiceContrattoAGOLB" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="VisureDocumentType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="documentType" Type="Int32" Nullable="false" />
+          <Property Name="value" Type="Int32" Nullable="false" />
+          <Property Name="attribute" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="enabled" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SelectItemFromProducts">
+          <Key>
+            <PropertyRef Name="productType" />
+            <PropertyRef Name="selectedQuantityInvio" />
+            <PropertyRef Name="chunkedByInvio" />
+            <PropertyRef Name="selectedQuantityValorizza" />
+            <PropertyRef Name="chunkedByValorizza" />
+            <PropertyRef Name="selectedQuantityConferma" />
+            <PropertyRef Name="chunkedByConferma" />
+            <PropertyRef Name="startHour" />
+            <PropertyRef Name="endHour" />
+          </Key>
+          <Property Name="productType" Type="Int32" Nullable="false" />
+          <Property Name="selectedQuantityInvio" Type="Int32" Nullable="false" />
+          <Property Name="chunkedByInvio" Type="Int32" Nullable="false" />
+          <Property Name="selectedQuantityValorizza" Type="Int32" Nullable="false" />
+          <Property Name="chunkedByValorizza" Type="Int32" Nullable="false" />
+          <Property Name="selectedQuantityConferma" Type="Int32" Nullable="false" />
+          <Property Name="chunkedByConferma" Type="Int32" Nullable="false" />
+          <Property Name="startHour" Type="Int32" Nullable="false" />
+          <Property Name="endHour" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_GED_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="GED" Type="Self.GED" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="GED">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lists_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Lists" Type="Self.Lists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Lists">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NamesLists_Lists">
+          <End Role="Lists" Type="Self.Lists" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="NamesLists" Type="Self.NamesLists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lists">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="NamesLists">
+              <PropertyRef Name="listId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Loghi_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Loghi" Type="Self.Loghi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Loghi">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Logs_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Logs" Type="Self.Logs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Logs">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Names_Operations">
+          <End Role="Operations" Type="Self.Operations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Names" Type="Self.Names" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operations">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Names">
+              <PropertyRef Name="operationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_operationFeatures_Operations">
+          <End Role="Operations" Type="Self.Operations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="operationFeatures" Type="Self.operationFeatures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operations">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="operationFeatures">
+              <PropertyRef Name="operationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Operations_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Operations" Type="Self.Operations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Operations">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Senders_Operations">
+          <End Role="Operations" Type="Self.Operations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Senders" Type="Self.Senders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operations">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Senders">
+              <PropertyRef Name="operationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Property">
+          <End Role="Property" Type="Self.Property" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Property">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="porpertyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SendersUsers_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="SendersUsers" Type="Self.SendersUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SendersUsers">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TemporaryValidateTable_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TemporaryValidateTable" Type="Self.TemporaryValidateTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TemporaryValidateTable">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPermits_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserPermits" Type="Self.UserPermits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UserPermits">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bulletins" EntityType="Self.Bulletins" />
+          <EntitySet Name="GED" EntityType="Self.GED" />
+          <EntitySet Name="Lists" EntityType="Self.Lists" />
+          <EntitySet Name="Loghi" EntityType="Self.Loghi" />
+          <EntitySet Name="Logs" EntityType="Self.Logs" />
+          <EntitySet Name="Names" EntityType="Self.Names" />
+          <EntitySet Name="NamesLists" EntityType="Self.NamesLists" />
+          <EntitySet Name="Notifications" EntityType="Self.Notifications" />
+          <EntitySet Name="operationFeatures" EntityType="Self.operationFeatures" />
+          <EntitySet Name="Operations" EntityType="Self.Operations" />
+          <EntitySet Name="Property" EntityType="Self.Property" />
+          <EntitySet Name="Senders" EntityType="Self.Senders" />
+          <EntitySet Name="SendersUsers" EntityType="Self.SendersUsers" />
+          <EntitySet Name="TemporaryValidateTable" EntityType="Self.TemporaryValidateTable" />
+          <EntitySet Name="UserPermits" EntityType="Self.UserPermits" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <EntitySet Name="VisureDocumentType" EntityType="Self.VisureDocumentType" />
+          <EntitySet Name="SelectItemFromProducts" EntityType="Self.SelectItemFromProducts" />
+          <AssociationSet Name="FK_GED_Users" Association="Self.FK_GED_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="GED" EntitySet="GED" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lists_Users" Association="Self.FK_Lists_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Lists" EntitySet="Lists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NamesLists_Lists" Association="Self.FK_NamesLists_Lists">
+            <End Role="Lists" EntitySet="Lists" />
+            <End Role="NamesLists" EntitySet="NamesLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Loghi_Users" Association="Self.FK_Loghi_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Loghi" EntitySet="Loghi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Logs_Users" Association="Self.FK_Logs_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Logs" EntitySet="Logs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Names_Operations" Association="Self.FK_Names_Operations">
+            <End Role="Operations" EntitySet="Operations" />
+            <End Role="Names" EntitySet="Names" />
+          </AssociationSet>
+          <AssociationSet Name="FK_operationFeatures_Operations" Association="Self.FK_operationFeatures_Operations">
+            <End Role="Operations" EntitySet="Operations" />
+            <End Role="operationFeatures" EntitySet="operationFeatures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Operations_Users" Association="Self.FK_Operations_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Operations" EntitySet="Operations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Senders_Operations" Association="Self.FK_Senders_Operations">
+            <End Role="Operations" EntitySet="Operations" />
+            <End Role="Senders" EntitySet="Senders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Property" Association="Self.FK_Users_Property">
+            <End Role="Property" EntitySet="Property" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SendersUsers_Users" Association="Self.FK_SendersUsers_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="SendersUsers" EntitySet="SendersUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TemporaryValidateTable_Users" Association="Self.FK_TemporaryValidateTable_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="TemporaryValidateTable" EntitySet="TemporaryValidateTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPermits_Users" Association="Self.FK_UserPermits_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserPermits" EntitySet="UserPermits" />
+          </AssociationSet>
+          <FunctionImport Name="DisplayCounters">
+          <Parameter Name="sqlCommand" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetCount">
+          <Parameter Name="sqlCommand" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetExportableData" ReturnType="Collection(ApiH2HModel.GetExportableData_Result)">
+            <Parameter Name="startdate" Mode="In" Type="DateTime" />
+            <Parameter Name="enddate" Mode="In" Type="DateTime" />
+            <Parameter Name="userId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetGrapiquePartner" ReturnType="Collection(ApiH2HModel.GetGrapiquePartner_Result)">
+            <Parameter Name="startDate" Mode="In" Type="DateTime" />
+            <Parameter Name="endDate" Mode="In" Type="DateTime" />
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetNamess" ReturnType="Collection(ApiH2HModel.GetNamess_Result)" />
+          <FunctionImport Name="GetPrice">
+          <Parameter Name="sqlCommand" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetReportSpedizioni">
+          <Parameter Name="sqlCommand" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetSale" ReturnType="Collection(ApiH2HModel.GetSale_Result)">
+            <Parameter Name="startDate" Mode="In" Type="DateTime" />
+            <Parameter Name="endDate" Mode="In" Type="DateTime" />
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="LockNames" />
+          <FunctionImport Name="LockNamesOther" />
+          <FunctionImport Name="LockNamesParameters" ReturnType="Collection(ApiH2HModel.LockNamesParameters_Result)">
+            <Parameter Name="operationType" Mode="In" Type="Int32" />
+            <Parameter Name="currentState" Mode="In" Type="Int32" />
+            <Parameter Name="qtaTop" Mode="In" Type="Int32" />
+            <Parameter Name="valid" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="UnLockNames">
+          <Parameter Name="reSendGuid" Mode="In" Type="Guid" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="GetExportableData_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="nomeUtente" Nullable="false" MaxLength="1454" />
+          <Property Type="String" Name="Canale" Nullable="true" MaxLength="550" />
+          <Property Type="Int32" Name="Rol" Nullable="true" />
+          <Property Type="Decimal" Name="PriceRol" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="Int32" Name="Lol" Nullable="true" />
+          <Property Type="Decimal" Name="PriceLol" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="Int32" Name="Tol" Nullable="true" />
+          <Property Type="Decimal" Name="PriceTol" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="Int32" Name="Mol" Nullable="true" />
+          <Property Type="Decimal" Name="PriceMol" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="Int32" Name="Col" Nullable="true" />
+          <Property Type="Decimal" Name="PriceCol" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="Int32" Name="Vol" Nullable="true" />
+          <Property Type="Decimal" Name="PriceVol" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="Int32" Name="Total" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetGrapiquePartner_Result">
+          <Property Type="Decimal" Name="PriceTotal" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="Int32" Name="Mese" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetNamess_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="stato" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetSale_Result">
+          <Property Type="Decimal" Name="fatturatoEasysender" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="Decimal" Name="fatturatoPartner" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="Int32" Name="totalYearSends" Nullable="true" />
+          <Property Type="Int32" Name="totalYearPartnerSends" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="LockNamesParameters_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="businessName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="surname" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="complementNames" Nullable="true" />
+          <Property Type="String" Name="complementAddress" Nullable="true" />
+          <Property Type="String" Name="dug" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="address" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="houseNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="cap" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="city" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="province" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="state" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="insertDate" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="currentState" Nullable="false" />
+          <Property Type="Boolean" Name="valid" Nullable="false" />
+          <Property Type="Int32" Name="operationId" Nullable="false" />
+          <Property Type="String" Name="requestId" Nullable="true" />
+          <Property Type="String" Name="orderId" Nullable="true" />
+          <Property Type="String" Name="codice" Nullable="true" />
+          <Property Type="Decimal" Name="price" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="vatPrice" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="totalPrice" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="Binary" Name="attachedFile" Nullable="true" />
+          <Property Type="String" Name="fileName" Nullable="true" />
+          <Property Type="DateTime" Name="presaInCaricoDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="consegnatoDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="stato" Nullable="true" />
+          <Property Type="String" Name="guidUser" Nullable="true" MaxLength="550" />
+          <Property Type="Boolean" Name="tipoStampa" Nullable="true" />
+          <Property Type="Boolean" Name="fronteRetro" Nullable="true" />
+          <Property Type="Boolean" Name="ricevutaRitorno" Nullable="true" />
+          <Property Type="Boolean" Name="locked" Nullable="false" />
+          <Property Type="Guid" Name="reSendGuid" Nullable="true" />
+          <Property Type="String" Name="fiscalCode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="mobile" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="namePriority" Nullable="false" />
+          <Property Type="String" Name="tipoLettera" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IndiceNelLotto" Nullable="true" />
+          <Property Type="String" Name="idLotto" Nullable="true" />
+          <Property Type="String" Name="pathRecoveryFile" Nullable="true" />
+          <Property Type="Boolean" Name="finalState" Nullable="true" />
+          <Property Type="Int32" Name="numberOfPages" Nullable="true" />
+          <Property Type="Int32" Name="NREA" Nullable="true" />
+          <Property Type="String" Name="codiceChiusura" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="codiceDocumento" Nullable="true" />
+          <Property Type="Int32" Name="tipoDocumento" Nullable="true" />
+          <Property Type="String" Name="pathGEDUrl" Nullable="true" />
+          <Property Type="Int32" Name="numberOfErrors" Nullable="true" />
+          <Property Type="Boolean" Name="notificato" Nullable="true" />
+          <Property Type="Boolean" Name="notificaLetta" Nullable="true" />
+          <Property Type="String" Name="product" Nullable="true" MaxLength="350" />
+          <Property Type="DateTime" Name="shipmentDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="weight" Nullable="true" />
+          <Property Type="Int32" Name="height" Nullable="true" />
+          <Property Type="Int32" Name="length" Nullable="true" />
+          <Property Type="Int32" Name="width" Nullable="true" />
+          <Property Type="String" Name="contentText" Nullable="true" MaxLength="350" />
+          <Property Type="String" Name="pathUrl" Nullable="true" />
+          <Property Type="String" Name="additionalServices" Nullable="true" />
+          <Property Type="Boolean" Name="senderFromContract" Nullable="true" />
+          <Property Type="String" Name="contrassegno" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ritornoAlMittente" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="assicurazione" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="sms" Nullable="true" />
+          <Property Type="String" Name="testoSms" Nullable="true" />
+          <Property Type="String" Name="logo" Nullable="true" />
+          <Property Type="Boolean" Name="fileScaricato" Nullable="true" />
+          <Property Type="String" Name="dataDownload" Nullable="true" MaxLength="150" />
+          <Property Type="Boolean" Name="sendFromNewApi" Nullable="true" />
+          <Property Type="DateTime" Name="ultimoControllo" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="dataScansione" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="operationType" Nullable="true" />
+          <Property Type="String" Name="cron" Nullable="true" MaxLength="450" />
+          <Property Type="Int32" Name="userId" Nullable="false" />
+          <Property Type="Guid" Name="guidUtente" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ApiH2HModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Bulletins">
+            <EntityTypeMapping TypeName="ApiH2HModel.Bulletins">
+              <MappingFragment StoreEntitySet="Bulletins">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="namesId" ColumnName="namesId" />
+                <ScalarProperty Name="NumeroContoCorrente" ColumnName="NumeroContoCorrente" />
+                <ScalarProperty Name="IntestatoA" ColumnName="IntestatoA" />
+                <ScalarProperty Name="FormatoStampa" ColumnName="FormatoStampa" />
+                <ScalarProperty Name="Template" ColumnName="Template" />
+                <ScalarProperty Name="AdditionalInfo" ColumnName="AdditionalInfo" />
+                <ScalarProperty Name="IBAN" ColumnName="IBAN" />
+                <ScalarProperty Name="CodiceCliente" ColumnName="CodiceCliente" />
+                <ScalarProperty Name="ImportoEuro" ColumnName="ImportoEuro" />
+                <ScalarProperty Name="EseguitoDaNominativo" ColumnName="EseguitoDaNominativo" />
+                <ScalarProperty Name="EseguitoDaIndirizzo" ColumnName="EseguitoDaIndirizzo" />
+                <ScalarProperty Name="EseguitoDaCAP" ColumnName="EseguitoDaCAP" />
+                <ScalarProperty Name="EseguitoDaLocalita" ColumnName="EseguitoDaLocalita" />
+                <ScalarProperty Name="Causale" ColumnName="Causale" />
+                <ScalarProperty Name="BulletinType" ColumnName="BulletinType" />
+                <ScalarProperty Name="namesListsId" ColumnName="namesListsId" />
+                <ScalarProperty Name="Scadenza" ColumnName="Scadenza" />
+                <ScalarProperty Name="CBILL" ColumnName="CBILL" />
+                <ScalarProperty Name="PagoPA" ColumnName="PagoPA" />
+                <ScalarProperty Name="CodiciAvvisi" ColumnName="CodiciAvvisi" />
+                <ScalarProperty Name="Pagato" ColumnName="Pagato" />
+                <ScalarProperty Name="Controllato" ColumnName="Controllato" />
+                <ScalarProperty Name="DataPagamento" ColumnName="DataPagamento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GED">
+            <EntityTypeMapping TypeName="ApiH2HModel.GED">
+              <MappingFragment StoreEntitySet="GED">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="fileName" ColumnName="fileName" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="pathFile" ColumnName="pathFile" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lists">
+            <EntityTypeMapping TypeName="ApiH2HModel.Lists">
+              <MappingFragment StoreEntitySet="Lists">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="temporary" ColumnName="temporary" />
+                <ScalarProperty Name="userParentId" ColumnName="userParentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Loghi">
+            <EntityTypeMapping TypeName="ApiH2HModel.Loghi">
+              <MappingFragment StoreEntitySet="Loghi">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="logo" ColumnName="logo" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="parentUserId" ColumnName="parentUserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logs">
+            <EntityTypeMapping TypeName="ApiH2HModel.Logs">
+              <MappingFragment StoreEntitySet="Logs">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="logType" ColumnName="logType" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Names">
+            <EntityTypeMapping TypeName="ApiH2HModel.Names">
+              <MappingFragment StoreEntitySet="Names">
+                <ScalarProperty Name="pec" ColumnName="pec" />
+                <ScalarProperty Name="AvvisoRicevimentoDigitale" ColumnName="AvvisoRicevimentoDigitale" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="businessName" ColumnName="businessName" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="complementNames" ColumnName="complementNames" />
+                <ScalarProperty Name="complementAddress" ColumnName="complementAddress" />
+                <ScalarProperty Name="dug" ColumnName="dug" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="houseNumber" ColumnName="houseNumber" />
+                <ScalarProperty Name="cap" ColumnName="cap" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="province" ColumnName="province" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="insertDate" ColumnName="insertDate" />
+                <ScalarProperty Name="currentState" ColumnName="currentState" />
+                <ScalarProperty Name="valid" ColumnName="valid" />
+                <ScalarProperty Name="operationId" ColumnName="operationId" />
+                <ScalarProperty Name="requestId" ColumnName="requestId" />
+                <ScalarProperty Name="orderId" ColumnName="orderId" />
+                <ScalarProperty Name="codice" ColumnName="codice" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="vatPrice" ColumnName="vatPrice" />
+                <ScalarProperty Name="totalPrice" ColumnName="totalPrice" />
+                <ScalarProperty Name="attachedFile" ColumnName="attachedFile" />
+                <ScalarProperty Name="fileName" ColumnName="fileName" />
+                <ScalarProperty Name="presaInCaricoDate" ColumnName="presaInCaricoDate" />
+                <ScalarProperty Name="consegnatoDate" ColumnName="consegnatoDate" />
+                <ScalarProperty Name="stato" ColumnName="stato" />
+                <ScalarProperty Name="guidUser" ColumnName="guidUser" />
+                <ScalarProperty Name="tipoStampa" ColumnName="tipoStampa" />
+                <ScalarProperty Name="fronteRetro" ColumnName="fronteRetro" />
+                <ScalarProperty Name="ricevutaRitorno" ColumnName="ricevutaRitorno" />
+                <ScalarProperty Name="locked" ColumnName="locked" />
+                <ScalarProperty Name="reSendGuid" ColumnName="reSendGuid" />
+                <ScalarProperty Name="fiscalCode" ColumnName="fiscalCode" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="namePriority" ColumnName="namePriority" />
+                <ScalarProperty Name="tipoLettera" ColumnName="tipoLettera" />
+                <ScalarProperty Name="IndiceNelLotto" ColumnName="IndiceNelLotto" />
+                <ScalarProperty Name="idLotto" ColumnName="idLotto" />
+                <ScalarProperty Name="pathRecoveryFile" ColumnName="pathRecoveryFile" />
+                <ScalarProperty Name="finalState" ColumnName="finalState" />
+                <ScalarProperty Name="numberOfPages" ColumnName="numberOfPages" />
+                <ScalarProperty Name="NREA" ColumnName="NREA" />
+                <ScalarProperty Name="codiceChiusura" ColumnName="codiceChiusura" />
+                <ScalarProperty Name="codiceDocumento" ColumnName="codiceDocumento" />
+                <ScalarProperty Name="tipoDocumento" ColumnName="tipoDocumento" />
+                <ScalarProperty Name="pathGEDUrl" ColumnName="pathGEDUrl" />
+                <ScalarProperty Name="numberOfErrors" ColumnName="numberOfErrors" />
+                <ScalarProperty Name="notificato" ColumnName="notificato" />
+                <ScalarProperty Name="notificaLetta" ColumnName="notificaLetta" />
+                <ScalarProperty Name="product" ColumnName="product" />
+                <ScalarProperty Name="shipmentDate" ColumnName="shipmentDate" />
+                <ScalarProperty Name="weight" ColumnName="weight" />
+                <ScalarProperty Name="height" ColumnName="height" />
+                <ScalarProperty Name="length" ColumnName="length" />
+                <ScalarProperty Name="width" ColumnName="width" />
+                <ScalarProperty Name="contentText" ColumnName="contentText" />
+                <ScalarProperty Name="pathUrl" ColumnName="pathUrl" />
+                <ScalarProperty Name="additionalServices" ColumnName="additionalServices" />
+                <ScalarProperty Name="senderFromContract" ColumnName="senderFromContract" />
+                <ScalarProperty Name="contrassegno" ColumnName="contrassegno" />
+                <ScalarProperty Name="ritornoAlMittente" ColumnName="ritornoAlMittente" />
+                <ScalarProperty Name="assicurazione" ColumnName="assicurazione" />
+                <ScalarProperty Name="sms" ColumnName="sms" />
+                <ScalarProperty Name="testoSms" ColumnName="testoSms" />
+                <ScalarProperty Name="logo" ColumnName="logo" />
+                <ScalarProperty Name="fileScaricato" ColumnName="fileScaricato" />
+                <ScalarProperty Name="dataDownload" ColumnName="dataDownload" />
+                <ScalarProperty Name="sendFromNewApi" ColumnName="sendFromNewApi" />
+                <ScalarProperty Name="ultimoControllo" ColumnName="ultimoControllo" />
+                <ScalarProperty Name="dataScansione" ColumnName="dataScansione" />
+                <ScalarProperty Name="operationType" ColumnName="operationType" />
+                <ScalarProperty Name="cron" ColumnName="cron" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NamesLists">
+            <EntityTypeMapping TypeName="ApiH2HModel.NamesLists">
+              <MappingFragment StoreEntitySet="NamesLists">
+                <ScalarProperty Name="cron" ColumnName="cron" />
+                <ScalarProperty Name="pec" ColumnName="pec" />
+                <ScalarProperty Name="AvvisoRicevimentoDigitale" ColumnName="AvvisoRicevimentoDigitale" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="businessName" ColumnName="businessName" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="complementNames" ColumnName="complementNames" />
+                <ScalarProperty Name="complementAddress" ColumnName="complementAddress" />
+                <ScalarProperty Name="dug" ColumnName="dug" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="houseNumber" ColumnName="houseNumber" />
+                <ScalarProperty Name="cap" ColumnName="cap" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="province" ColumnName="province" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="listId" ColumnName="listId" />
+                <ScalarProperty Name="fileName" ColumnName="fileName" />
+                <ScalarProperty Name="fiscalCode" ColumnName="fiscalCode" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="noUse" ColumnName="noUse" />
+                <ScalarProperty Name="NREA" ColumnName="NREA" />
+                <ScalarProperty Name="codiceChiusura" ColumnName="codiceChiusura" />
+                <ScalarProperty Name="codiceDocumento" ColumnName="codiceDocumento" />
+                <ScalarProperty Name="tipoDocumento" ColumnName="tipoDocumento" />
+                <ScalarProperty Name="product" ColumnName="product" />
+                <ScalarProperty Name="shipmentDate" ColumnName="shipmentDate" />
+                <ScalarProperty Name="weight" ColumnName="weight" />
+                <ScalarProperty Name="height" ColumnName="height" />
+                <ScalarProperty Name="length" ColumnName="length" />
+                <ScalarProperty Name="width" ColumnName="width" />
+                <ScalarProperty Name="contentText" ColumnName="contentText" />
+                <ScalarProperty Name="pathUrl" ColumnName="pathUrl" />
+                <ScalarProperty Name="additionalServices" ColumnName="additionalServices" />
+                <ScalarProperty Name="senderFromContract" ColumnName="senderFromContract" />
+                <ScalarProperty Name="contrassegno" ColumnName="contrassegno" />
+                <ScalarProperty Name="ritornoAlMittente" ColumnName="ritornoAlMittente" />
+                <ScalarProperty Name="assicurazione" ColumnName="assicurazione" />
+                <ScalarProperty Name="sms" ColumnName="sms" />
+                <ScalarProperty Name="testoSms" ColumnName="testoSms" />
+                <ScalarProperty Name="logo" ColumnName="logo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notifications">
+            <EntityTypeMapping TypeName="ApiH2HModel.Notifications">
+              <MappingFragment StoreEntitySet="Notifications">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="enabled" ColumnName="enabled" />
+                <ScalarProperty Name="usersId" ColumnName="usersId" />
+                <ScalarProperty Name="notificationType" ColumnName="notificationType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="operationFeatures">
+            <EntityTypeMapping TypeName="ApiH2HModel.operationFeatures">
+              <MappingFragment StoreEntitySet="operationFeatures">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="operationId" ColumnName="operationId" />
+                <ScalarProperty Name="featureType" ColumnName="featureType" />
+                <ScalarProperty Name="featureValue" ColumnName="featureValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Operations">
+            <EntityTypeMapping TypeName="ApiH2HModel.Operations">
+              <MappingFragment StoreEntitySet="Operations">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="operationType" ColumnName="operationType" />
+                <ScalarProperty Name="demoOperation" ColumnName="demoOperation" />
+                <ScalarProperty Name="complete" ColumnName="complete" />
+                <ScalarProperty Name="userParentId" ColumnName="userParentId" />
+                <ScalarProperty Name="areaTestOperation" ColumnName="areaTestOperation" />
+                <ScalarProperty Name="operationPriority" ColumnName="operationPriority" />
+                <ScalarProperty Name="lottoCompleto" ColumnName="lottoCompleto" />
+                <ScalarProperty Name="lotto" ColumnName="lotto" />
+                <ScalarProperty Name="formatoSpeciale" ColumnName="formatoSpeciale" />
+                <ScalarProperty Name="formatoSpecialeInviato" ColumnName="formatoSpecialeInviato" />
+                <ScalarProperty Name="error" ColumnName="error" />
+                <ScalarProperty Name="errorMessage" ColumnName="errorMessage" />
+                <ScalarProperty Name="csvFileName" ColumnName="csvFileName" />
+                <ScalarProperty Name="specialOperation" ColumnName="specialOperation" />
+                <ScalarProperty Name="specialOperationId" ColumnName="specialOperationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Property">
+            <EntityTypeMapping TypeName="ApiH2HModel.Property">
+              <MappingFragment StoreEntitySet="Property">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="logo" ColumnName="logo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Senders">
+            <EntityTypeMapping TypeName="ApiH2HModel.Senders">
+              <MappingFragment StoreEntitySet="Senders">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="businessName" ColumnName="businessName" />
+                <ScalarProperty Name="dug" ColumnName="dug" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="houseNumber" ColumnName="houseNumber" />
+                <ScalarProperty Name="cap" ColumnName="cap" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="province" ColumnName="province" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="operationId" ColumnName="operationId" />
+                <ScalarProperty Name="complementNames" ColumnName="complementNames" />
+                <ScalarProperty Name="complementAddress" ColumnName="complementAddress" />
+                <ScalarProperty Name="AR" ColumnName="AR" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SendersUsers">
+            <EntityTypeMapping TypeName="ApiH2HModel.SendersUsers">
+              <MappingFragment StoreEntitySet="SendersUsers">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="businessName" ColumnName="businessName" />
+                <ScalarProperty Name="dug" ColumnName="dug" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="houseNumber" ColumnName="houseNumber" />
+                <ScalarProperty Name="cap" ColumnName="cap" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="province" ColumnName="province" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="userParentId" ColumnName="userParentId" />
+                <ScalarProperty Name="temporary" ColumnName="temporary" />
+                <ScalarProperty Name="complementNames" ColumnName="complementNames" />
+                <ScalarProperty Name="complementAddress" ColumnName="complementAddress" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TemporaryValidateTable">
+            <EntityTypeMapping TypeName="ApiH2HModel.TemporaryValidateTable">
+              <MappingFragment StoreEntitySet="TemporaryValidateTable">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="sessionId" ColumnName="sessionId" />
+                <ScalarProperty Name="valid" ColumnName="valid" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="totalNames" ColumnName="totalNames" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserPermits">
+            <EntityTypeMapping TypeName="ApiH2HModel.UserPermits">
+              <MappingFragment StoreEntitySet="UserPermits">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="rol" ColumnName="rol" />
+                <ScalarProperty Name="lol" ColumnName="lol" />
+                <ScalarProperty Name="tol" ColumnName="tol" />
+                <ScalarProperty Name="mol" ColumnName="mol" />
+                <ScalarProperty Name="col" ColumnName="col" />
+                <ScalarProperty Name="pec" ColumnName="pec" />
+                <ScalarProperty Name="pacchi" ColumnName="pacchi" />
+                <ScalarProperty Name="sms" ColumnName="sms" />
+                <ScalarProperty Name="marketing" ColumnName="marketing" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ApiH2HModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="CodiceContrattoAGOLB" ColumnName="CodiceContrattoAGOLB" />
+                <ScalarProperty Name="CodiceContrattoAGOLM" ColumnName="CodiceContrattoAGOLM" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="usernamePoste" ColumnName="usernamePoste" />
+                <ScalarProperty Name="pwdPoste" ColumnName="pwdPoste" />
+                <ScalarProperty Name="porpertyId" ColumnName="porpertyId" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="userType" ColumnName="userType" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="guidUser" ColumnName="guidUser" />
+                <ScalarProperty Name="businessName" ColumnName="businessName" />
+                <ScalarProperty Name="baseUrl" ColumnName="baseUrl" />
+                <ScalarProperty Name="pwd" ColumnName="pwd" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="cap" ColumnName="cap" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="province" ColumnName="province" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="demoUser" ColumnName="demoUser" />
+                <ScalarProperty Name="parentId" ColumnName="parentId" />
+                <ScalarProperty Name="sendersId" ColumnName="sendersId" />
+                <ScalarProperty Name="usernamePosteAreaTest" ColumnName="usernamePosteAreaTest" />
+                <ScalarProperty Name="pwdPosteAreaTest" ColumnName="pwdPosteAreaTest" />
+                <ScalarProperty Name="areaTestUser" ColumnName="areaTestUser" />
+                <ScalarProperty Name="mol" ColumnName="mol" />
+                <ScalarProperty Name="CodiceContrattoMOL" ColumnName="CodiceContrattoMOL" />
+                <ScalarProperty Name="CodiceContrattoCOL" ColumnName="CodiceContrattoCOL" />
+                <ScalarProperty Name="changePwd" ColumnName="changePwd" />
+                <ScalarProperty Name="userPriority" ColumnName="userPriority" />
+                <ScalarProperty Name="col" ColumnName="col" />
+                <ScalarProperty Name="logoPA" ColumnName="logoPA" />
+                <ScalarProperty Name="denominazioneEntePA" ColumnName="denominazioneEntePA" />
+                <ScalarProperty Name="infoEntePA" ColumnName="infoEntePA" />
+                <ScalarProperty Name="settoreEntePA" ColumnName="settoreEntePA" />
+                <ScalarProperty Name="codiceFiscaleEntePA" ColumnName="codiceFiscaleEntePA" />
+                <ScalarProperty Name="attivoPA" ColumnName="attivoPA" />
+                <ScalarProperty Name="downloadFile" ColumnName="downloadFile" />
+                <ScalarProperty Name="piva" ColumnName="piva" />
+                <ScalarProperty Name="usernameGED" ColumnName="usernameGED" />
+                <ScalarProperty Name="passwordGED" ColumnName="passwordGED" />
+                <ScalarProperty Name="GED" ColumnName="GED" />
+                <ScalarProperty Name="master" ColumnName="master" />
+                <ScalarProperty Name="collegatoMasterId" ColumnName="collegatoMasterId" />
+                <ScalarProperty Name="conciliazioneBollettini" ColumnName="conciliazioneBollettini" />
+                <ScalarProperty Name="abilitato" ColumnName="abilitato" />
+                <ScalarProperty Name="pacchi" ColumnName="pacchi" />
+                <ScalarProperty Name="usernamePacchi" ColumnName="usernamePacchi" />
+                <ScalarProperty Name="passwordPacchi" ColumnName="passwordPacchi" />
+                <ScalarProperty Name="centerCostPacchi" ColumnName="centerCostPacchi" />
+                <ScalarProperty Name="sms" ColumnName="sms" />
+                <ScalarProperty Name="senderPkgId" ColumnName="senderPkgId" />
+                <ScalarProperty Name="downloadableFileFromPage" ColumnName="downloadableFileFromPage" />
+                <ScalarProperty Name="fiscalCode" ColumnName="fiscalCode" />
+                <ScalarProperty Name="emailPec" ColumnName="emailPec" />
+                <ScalarProperty Name="hidePrice" ColumnName="hidePrice" />
+                <ScalarProperty Name="sso" ColumnName="sso" />
+                <ScalarProperty Name="expireDate" ColumnName="expireDate" />
+                <ScalarProperty Name="insertDate" ColumnName="insertDate" />
+                <ScalarProperty Name="RendicontazioneFatture" ColumnName="RendicontazioneFatture" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VisureDocumentType">
+            <EntityTypeMapping TypeName="ApiH2HModel.VisureDocumentType">
+              <MappingFragment StoreEntitySet="VisureDocumentType">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="documentType" ColumnName="documentType" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="attribute" ColumnName="attribute" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="enabled" ColumnName="enabled" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SelectItemFromProducts">
+            <EntityTypeMapping TypeName="ApiH2HModel.SelectItemFromProducts">
+              <MappingFragment StoreEntitySet="SelectItemFromProducts">
+                <ScalarProperty Name="productType" ColumnName="productType" />
+                <ScalarProperty Name="selectedQuantityInvio" ColumnName="selectedQuantityInvio" />
+                <ScalarProperty Name="chunkedByInvio" ColumnName="chunkedByInvio" />
+                <ScalarProperty Name="selectedQuantityValorizza" ColumnName="selectedQuantityValorizza" />
+                <ScalarProperty Name="chunkedByValorizza" ColumnName="chunkedByValorizza" />
+                <ScalarProperty Name="selectedQuantityConferma" ColumnName="selectedQuantityConferma" />
+                <ScalarProperty Name="chunkedByConferma" ColumnName="chunkedByConferma" />
+                <ScalarProperty Name="startHour" ColumnName="startHour" />
+                <ScalarProperty Name="endHour" ColumnName="endHour" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="DisplayCounters" FunctionName="ApiH2HModel.Store.DisplayCounters" />
+          <FunctionImportMapping FunctionImportName="GetCount" FunctionName="ApiH2HModel.Store.GetCount" />
+          <FunctionImportMapping FunctionImportName="GetExportableData" FunctionName="ApiH2HModel.Store.GetExportableData">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ApiH2HModel.GetExportableData_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nomeUtente" ColumnName="nomeUtente" />
+                <ScalarProperty Name="Canale" ColumnName="Canale" />
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+                <ScalarProperty Name="PriceRol" ColumnName="PriceRol" />
+                <ScalarProperty Name="Lol" ColumnName="Lol" />
+                <ScalarProperty Name="PriceLol" ColumnName="PriceLol" />
+                <ScalarProperty Name="Tol" ColumnName="Tol" />
+                <ScalarProperty Name="PriceTol" ColumnName="PriceTol" />
+                <ScalarProperty Name="Mol" ColumnName="Mol" />
+                <ScalarProperty Name="PriceMol" ColumnName="PriceMol" />
+                <ScalarProperty Name="Col" ColumnName="Col" />
+                <ScalarProperty Name="PriceCol" ColumnName="PriceCol" />
+                <ScalarProperty Name="Vol" ColumnName="Vol" />
+                <ScalarProperty Name="PriceVol" ColumnName="PriceVol" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetGrapiquePartner" FunctionName="ApiH2HModel.Store.GetGrapiquePartner">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ApiH2HModel.GetGrapiquePartner_Result">
+                <ScalarProperty Name="PriceTotal" ColumnName="PriceTotal" />
+                <ScalarProperty Name="Mese" ColumnName="Mese" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetNamess" FunctionName="ApiH2HModel.Store.GetNamess">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ApiH2HModel.GetNamess_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="stato" ColumnName="stato" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetPrice" FunctionName="ApiH2HModel.Store.GetPrice" />
+          <FunctionImportMapping FunctionImportName="GetReportSpedizioni" FunctionName="ApiH2HModel.Store.GetReportSpedizioni" />
+          <FunctionImportMapping FunctionImportName="GetSale" FunctionName="ApiH2HModel.Store.GetSale">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ApiH2HModel.GetSale_Result">
+                <ScalarProperty Name="fatturatoEasysender" ColumnName="fatturatoEasysender" />
+                <ScalarProperty Name="fatturatoPartner" ColumnName="fatturatoPartner" />
+                <ScalarProperty Name="totalYearSends" ColumnName="totalYearSends" />
+                <ScalarProperty Name="totalYearPartnerSends" ColumnName="totalYearPartnerSends" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="LockNames" FunctionName="ApiH2HModel.Store.LockNames" />
+          <FunctionImportMapping FunctionImportName="LockNamesOther" FunctionName="ApiH2HModel.Store.LockNamesOther" />
+          <FunctionImportMapping FunctionImportName="LockNamesParameters" FunctionName="ApiH2HModel.Store.LockNamesParameters">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ApiH2HModel.LockNamesParameters_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="businessName" ColumnName="businessName" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="complementNames" ColumnName="complementNames" />
+                <ScalarProperty Name="complementAddress" ColumnName="complementAddress" />
+                <ScalarProperty Name="dug" ColumnName="dug" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="houseNumber" ColumnName="houseNumber" />
+                <ScalarProperty Name="cap" ColumnName="cap" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="province" ColumnName="province" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="insertDate" ColumnName="insertDate" />
+                <ScalarProperty Name="currentState" ColumnName="currentState" />
+                <ScalarProperty Name="valid" ColumnName="valid" />
+                <ScalarProperty Name="operationId" ColumnName="operationId" />
+                <ScalarProperty Name="requestId" ColumnName="requestId" />
+                <ScalarProperty Name="orderId" ColumnName="orderId" />
+                <ScalarProperty Name="codice" ColumnName="codice" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="vatPrice" ColumnName="vatPrice" />
+                <ScalarProperty Name="totalPrice" ColumnName="totalPrice" />
+                <ScalarProperty Name="attachedFile" ColumnName="attachedFile" />
+                <ScalarProperty Name="fileName" ColumnName="fileName" />
+                <ScalarProperty Name="presaInCaricoDate" ColumnName="presaInCaricoDate" />
+                <ScalarProperty Name="consegnatoDate" ColumnName="consegnatoDate" />
+                <ScalarProperty Name="stato" ColumnName="stato" />
+                <ScalarProperty Name="guidUser" ColumnName="guidUser" />
+                <ScalarProperty Name="tipoStampa" ColumnName="tipoStampa" />
+                <ScalarProperty Name="fronteRetro" ColumnName="fronteRetro" />
+                <ScalarProperty Name="ricevutaRitorno" ColumnName="ricevutaRitorno" />
+                <ScalarProperty Name="locked" ColumnName="locked" />
+                <ScalarProperty Name="reSendGuid" ColumnName="reSendGuid" />
+                <ScalarProperty Name="fiscalCode" ColumnName="fiscalCode" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="namePriority" ColumnName="namePriority" />
+                <ScalarProperty Name="tipoLettera" ColumnName="tipoLettera" />
+                <ScalarProperty Name="IndiceNelLotto" ColumnName="IndiceNelLotto" />
+                <ScalarProperty Name="idLotto" ColumnName="idLotto" />
+                <ScalarProperty Name="pathRecoveryFile" ColumnName="pathRecoveryFile" />
+                <ScalarProperty Name="finalState" ColumnName="finalState" />
+                <ScalarProperty Name="numberOfPages" ColumnName="numberOfPages" />
+                <ScalarProperty Name="NREA" ColumnName="NREA" />
+                <ScalarProperty Name="codiceChiusura" ColumnName="codiceChiusura" />
+                <ScalarProperty Name="codiceDocumento" ColumnName="codiceDocumento" />
+                <ScalarProperty Name="tipoDocumento" ColumnName="tipoDocumento" />
+                <ScalarProperty Name="pathGEDUrl" ColumnName="pathGEDUrl" />
+                <ScalarProperty Name="numberOfErrors" ColumnName="numberOfErrors" />
+                <ScalarProperty Name="notificato" ColumnName="notificato" />
+                <ScalarProperty Name="notificaLetta" ColumnName="notificaLetta" />
+                <ScalarProperty Name="product" ColumnName="product" />
+                <ScalarProperty Name="shipmentDate" ColumnName="shipmentDate" />
+                <ScalarProperty Name="weight" ColumnName="weight" />
+                <ScalarProperty Name="height" ColumnName="height" />
+                <ScalarProperty Name="length" ColumnName="length" />
+                <ScalarProperty Name="width" ColumnName="width" />
+                <ScalarProperty Name="contentText" ColumnName="contentText" />
+                <ScalarProperty Name="pathUrl" ColumnName="pathUrl" />
+                <ScalarProperty Name="additionalServices" ColumnName="additionalServices" />
+                <ScalarProperty Name="senderFromContract" ColumnName="senderFromContract" />
+                <ScalarProperty Name="contrassegno" ColumnName="contrassegno" />
+                <ScalarProperty Name="ritornoAlMittente" ColumnName="ritornoAlMittente" />
+                <ScalarProperty Name="assicurazione" ColumnName="assicurazione" />
+                <ScalarProperty Name="sms" ColumnName="sms" />
+                <ScalarProperty Name="testoSms" ColumnName="testoSms" />
+                <ScalarProperty Name="logo" ColumnName="logo" />
+                <ScalarProperty Name="fileScaricato" ColumnName="fileScaricato" />
+                <ScalarProperty Name="dataDownload" ColumnName="dataDownload" />
+                <ScalarProperty Name="sendFromNewApi" ColumnName="sendFromNewApi" />
+                <ScalarProperty Name="ultimoControllo" ColumnName="ultimoControllo" />
+                <ScalarProperty Name="dataScansione" ColumnName="dataScansione" />
+                <ScalarProperty Name="operationType" ColumnName="operationType" />
+                <ScalarProperty Name="cron" ColumnName="cron" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="guidUtente" ColumnName="guidUtente" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UnLockNames" FunctionName="ApiH2HModel.Store.UnLockNames" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Nessuno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
