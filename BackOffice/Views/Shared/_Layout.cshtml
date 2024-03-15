@@ -1,0 +1,171 @@
+﻿@if(!Convert.ToBoolean(Session["connessoH2H"]))
+{
+    Response.Redirect("/Login");
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Easy sender</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i%7CQuicksand:300,400,500,700" rel="stylesheet">
+    <!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" href="/app-assets/vendors/css/vendors.min.css">
+
+    <!-- END: Vendor CSS-->
+    <!-- BEGIN: Theme CSS-->
+    <link rel="stylesheet" type="text/css" href="/app-assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/app-assets/css/bootstrap-extended.css">
+    <link rel="stylesheet" type="text/css" href="/app-assets/css/colors.css">
+    <link rel="stylesheet" type="text/css" href="/app-assets/css/components.css">
+    <!-- END: Theme CSS-->
+    <!-- BEGIN: Page CSS-->
+    <link rel="stylesheet" type="text/css" href="/app-assets/css/core/menu/menu-types/vertical-compact-menu.css">
+    <link rel="stylesheet" type="text/css" href="/app-assets/css/core/colors/palette-gradient.css">
+    <link rel="stylesheet" type="text/css" href="/app-assets/fonts/mobiriseicons/24px/mobirise/style.css">
+    <link rel="stylesheet" type="text/css" href="/app-assets/css/plugins/forms/switch.css">
+    <link rel="stylesheet" type="text/css" href="/app-assets/fonts/simple-line-icons/style.css">
+    <link rel="stylesheet" type="text/css" href="/app-assets/css/core/colors/palette-gradient.css">
+    <link rel="stylesheet" type="text/css" href="/app-assets/vendors/css/forms/toggle/switchery.min.css">
+    <!-- END: Page CSS-->
+    <!-- BEGIN: Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+
+    <script src="/app-assets/vendors/js/vendors.min.js"></script>
+
+</head>
+<body class="vertical-layout vertical-compact-menu 2-columns fixed-navbar" data-open="click" data-menu="vertical-compact-menu" data-col="2-columns">
+
+    <!-- BEGIN: Header-->
+    <nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-light navbar-shadow navbar-brand-center">
+        <div class="navbar-wrapper">
+            <div class="navbar-header">
+                <ul class="nav navbar-nav flex-row">
+                    <li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu font-large-1"></i></a></li>
+                    <li class="nav-item">
+                        <img class="brand-logo pt-1" alt="modern admin logo" src="~/app-assets/images/logo/logo-or.png">
+                    </li>
+                    <li class="nav-item d-md-none"><a class="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile"><i class="la la-ellipsis-v"></i></a></li>
+                </ul>
+            </div>
+            <div class="navbar-container content">
+                <div class="collapse navbar-collapse" id="navbar-mobile">
+                    <ul class="nav navbar-nav mr-auto float-left">
+                        <li class="nav-item d-none d-md-block"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu"></i></a></li>
+                        <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-expand" href="#"><i class="ficon ft-maximize"></i></a></li>
+                    </ul>
+                    <ul class="nav navbar-nav float-right">
+                        <li class="dropdown dropdown-user nav-item">
+                            <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
+                                <span class="avatar avatar-online"><img src="/app-assets/images/logo/logo.png" alt="avatar"><i></i></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="/Users"><i class="ft-users"></i> Users</a>
+                                <a class="dropdown-item" href="/Counter/Invii"><i class="la la-send"></i> Invii</a>
+                                <a class="dropdown-item" href="/Counter"><i class="la la-bar-chart"></i> Report Invii</a>
+                                <a class="dropdown-item" href="/Notifications"><i class="la la-bell-o"></i> Notifiche</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/Login/LogOff"><i class="ft-power"></i> Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- END: Header-->
+    <!-- BEGIN: Main Menu-->
+    <div class="main-menu menu-fixed menu-light menu-accordion menu-shadow" data-scroll-to-active="true">
+        <div class="main-menu-content">
+            <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+                <li class=" nav-item">
+                    <a href="/Home"><i class="mbri-desktop"></i><span class="menu-title" data-i18n="Dashboard">Dashboard</span></a>
+                </li>
+                <li class=" nav-item">
+                    <a href="#"><i class="la la-users"></i><span class="menu-title" data-i18n="Utenti">Utenti</span></a>
+                    <ul class="menu-content">
+                        <li>
+                            <a class="menu-item" href="/Users/New"><i class="la la-user-plus"></i><span data-i18n="add">Aggiungi Utente</span></a>
+                        </li>
+                        <li>
+                            <a class="menu-item" href="/Users"><i class="la la-users"></i><span data-i18n="view">Vedi Utenti</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" nav-item">
+                    <a href="#"><i class="la la-send"></i><span class="menu-title" data-i18n="Invii">Invii</span></a>
+                    <ul class="menu-content">
+                        <li>
+                            <a class="menu-item" href="/Counter/Invii"><i class="la la-send"></i><span data-i18n="add">Vedi Invii</span></a>
+                        </li>
+                        <li>
+                            <a class="menu-item" href="/Counter"><i class="la la-bar-chart"></i><span data-i18n="view">Vedi Report</span></a>
+                        </li>
+                        <li>
+                            <a class="menu-item" href="/Counter/ReportTot"><i class="la la-bar-chart"></i><span data-i18n="view">Vedi Report Totale</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" nav-item">
+                    <a href="#"><i class="la la-bell-o"></i><span class="menu-title" data-i18n="Notifiche">Notifiche</span></a>
+                    <ul class="menu-content">
+                        <li>
+                            <a class="menu-item" href="/Notifications/New"><i class="la la-bell-o"></i><span data-i18n="add">Aggiungi Notifica</span></a>
+                        </li>
+                        <li>
+                            <a class="menu-item" href="/Notifications"><i class="la la-bell-o"></i><span data-i18n="view">Vedi Notifiche</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" nav-item">
+                    <a href="/Sync"><i class="la la-rotate-right"></i><span class="menu-title" data-i18n="Sync">Sync</span></a>
+                </li>
+                <li class=" nav-item">
+                    <a href="/Login/LogOff"><i class="ft-power"></i> Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- END: Main Menu-->
+    <!-- Page wraper -->
+    <div class="app-content content">
+        <div class="content-overlay"></div>
+        @RenderBody()
+    </div>
+
+    <!-- Main view  -->
+
+    <div class="sidenav-overlay"></div>
+    <div class="drag-target"></div>
+    <!-- BEGIN: Footer-->
+    <footer class="footer footer-static footer-light navbar-border navbar-shadow fixed-bottom">
+        <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2">
+            <span class="float-md-left d-block d-md-inline-block">
+                Copyright &copy; 2023
+                <a class="text-bold-800 grey darken-2" href="https://easyway.technology/" target="_blank">Easywaytechnology</a>
+            </span>
+            <span id="scroll-top"></span>
+        </p>
+    </footer>
+    <!-- END: Footer-->
+    <!-- BEGIN Vendor JS-->
+    <!-- BEGIN: Page Vendor JS-->
+    <script src="/app-assets/data/jvector/visitor-data.js"></script>
+    <!-- END: Page Vendor JS-->
+    <script src="/app-assets/vendors/js/forms/toggle/bootstrap-switch.min.js"></script>
+
+    <script src="/app-assets/vendors/js/forms/toggle/switchery.min.js"></script>
+    <script src="/app-assets/vendors/js/forms/toggle/bootstrap-checkbox.min.js"></script>
+    <!-- BEGIN: Theme JS-->
+    <script src="/app-assets/js/core/app-menu.js"></script>
+    <script src="/app-assets/js/core/app.js"></script>
+    <!-- END: Theme JS-->
+    <script src="/app-assets/js/scripts/forms/switch.js"></script>
+</body>
+</html>

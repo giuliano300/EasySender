@@ -1,0 +1,109 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Easy sender</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i%7CQuicksand:300,400,500,700" rel="stylesheet">
+    <!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" href="/app-assets/vendors/css/vendors.min.css">
+    <link rel="stylesheet" type="text/css" href="/app-assets/vendors/css/forms/icheck/icheck.css">
+    <link rel="stylesheet" type="text/css" href="/app-assets/vendors/css/forms/icheck/custom.css">
+    <!-- END: Vendor CSS-->
+    <!-- BEGIN: Theme CSS-->
+    <link rel="stylesheet" type="text/css" href="/app-assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/app-assets/css/bootstrap-extended.css">
+    <link rel="stylesheet" type="text/css" href="/app-assets/css/colors.css">
+    <link rel="stylesheet" type="text/css" href="/app-assets/css/components.css">
+    <!-- END: Theme CSS-->
+    <!-- BEGIN: Page CSS-->
+    <link rel="stylesheet" type="text/css" href="/app-assets/css/core/menu/menu-types/vertical-menu.css">
+    <link rel="stylesheet" type="text/css" href="/app-assets/css/core/colors/palette-gradient.css">
+    <link rel="stylesheet" type="text/css" href="/app-assets/css/pages/login-register.css">
+    <!-- END: Page CSS-->
+    <!-- BEGIN: Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <!-- END: Custom CSS-->
+</head>
+
+<body class="vertical-layout vertical-menu 1-column bg-full-screen-image blank-page pace-done" data-open="click" data-menu="vertical-menu" data-col="1-column">
+    <!-- BEGIN: Content-->
+    <div class="app-content content">
+        <div class="content-overlay"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
+            </div>
+            <div class="content-body">
+                <section class="row flexbox-container">
+                    <div class="col-12 d-flex align-items-center justify-content-center">
+                        <div class="col-lg-4 col-md-8 col-10 box-shadow-2 p-0">
+                            <div class="card border-grey border-lighten-3 mb-0 pb-0">
+                                <div class="card-header border-0 mb-0 pb-0">
+                                    <div class="card-title text-center">
+                                        <div class="pt-1"><img src="/app-assets/images/logo/logo-or.png" alt="branding logo"></div>
+                                    </div>
+                                    <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2">
+                                        <span>Login with easy sender</span>
+                                    </h6>
+                                </div>
+                                <div class="card-content mt-0 pt-0">
+                                    <div class="card-body">
+                                        @if (Request.IsAuthenticated)
+                                        {
+                                            Response.Redirect("/Home/Dashboard");
+                                        }
+                                        else
+                                        {
+                                            using (Html.BeginForm("Login", "Login", FormMethod.Post, new { @class = "m-t" }))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="Username" name="email">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="password" class="form-control" placeholder="Password" name="password">
+                                                </div>
+                                                <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
+                                                <div class="error">
+                                                    @ViewBag.errormessage
+                                                </div>
+                                            }
+                                            <p class="m-t mt-1"> <small>Easywaytechonolgy framework base on Bootstrap 4 &copy; 2023</small></p>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <!-- END: Content-->
+    <!-- BEGIN: Vendor JS-->
+    <script src="/app-assets/vendors/js/vendors.min.js"></script>
+    <!-- BEGIN Vendor JS-->
+    <!-- BEGIN: Page Vendor JS-->
+    <script src="/app-assets/vendors/js/forms/icheck/icheck.min.js"></script>
+    <script src="/app-assets/vendors/js/forms/validation/jqBootstrapValidation.js"></script>
+    <!-- END: Page Vendor JS-->
+    <!-- BEGIN: Theme JS-->
+    <script src="/app-assets/js/core/app-menu.js"></script>
+    <script src="/app-assets/js/core/app.js"></script>
+    <!-- END: Theme JS-->
+    <!-- BEGIN: Page JS-->
+    <script src="/app-assets/js/scripts/forms/form-login-register.js"></script>
+    <!-- END: Page JS-->
+</body>
+</html>
+
+

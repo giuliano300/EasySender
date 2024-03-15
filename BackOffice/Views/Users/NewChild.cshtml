@@ -1,0 +1,183 @@
+﻿@model BackOffice.Models.Users
+
+@using Microsoft.Ajax.Utilities
+
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper mb-0">
+    <div class="content-header row">
+        <div class="content-header-left col-md-6 col-12 mb-2">
+            <h3 class="content-header-title mb-0">Utenti figlio</h3>
+            <div class="row breadcrumbs-top">
+                <div class="breadcrumb-wrapper col-12">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="/Home">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            @ViewBag.HeaderPage Utenti figlio
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content-wrapper pt-0">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card mb-1">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        @using (Html.BeginForm("SaveChild", "Users", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
+                        {
+                            <h4 class="form-section"><i class="ft-user"></i> Sezione Login</h4>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Tipo utente</label>
+                                        <select name="userType" class="form-control" required>
+                                            <option value="2" @if (Model.userType == 2) { <text> selected </text> }>Utente che invia e visualizza</option>
+                                            <option value="3" @if (Model.userType == 3) { <text> selected </text> }>Utente che visualizza</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        @Html.TextBoxFor(m => Model.email, new { @class = "form-control", @type = "email" })
+                                        @Html.ValidationMessageFor(m => Model.email)
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Password</label>
+                                        @Html.TextBoxFor(m => Model.pwd, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => Model.pwd)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Nome</label>
+                                        @Html.TextBoxFor(m => Model.name, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => Model.name)
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Cognome</label>
+                                        @Html.TextBoxFor(m => Model.lastName, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => Model.lastName)
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-1">
+                                <div class="col-md-6">
+                                    <h4 class="form-section"><i class="ft-eye-off"></i> Nascondi i prezzi</h4>
+                                    <div class="row">
+                                        <div class="col-md-11">
+                                            <div class="form-group">
+                                                <label>Nascondi i prezzi</label><br />
+                                                <small class="text-navy">Seleziona se vuoi che l'utente non veda i prezzi</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <div class="form-group">
+                                                <input type="checkbox" class="switchery float-right" data-switchery="true" name="hidePrice" @if (Model.hidePrice) { <text> checked </text> } /><i></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <h4 class="form-section"><i class="ft-user"></i> Sso </h4>
+                                    <div class="row">
+                                        <div class="col-md-11">
+                                            <div class="form-group">
+                                                <label>Log-in tramite Sso</label><br />
+                                                <small class="text-navy">Seleziona se vuoi che l'utente possa loggarsi tramite Sso</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <div class="form-group">
+                                                <input type="checkbox" class="switchery float-right" data-switchery="true" name="sso" @if ((bool)Model.sso) { <text> checked </text> } /><i></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                    <button class="btn btn-black" type="button" onclick="javascript: location.href = '/Users/Children/@ViewBag.parentId'">Cancella</button>
+                                    <button class="btn btn-primary" type="submit">Salva Utente</button>
+                                </div>
+                            </div>
+                            <input type="hidden" value="@Model.id" name="id" />
+                            <input type="hidden" value="@ViewBag.parentId" name="parentId" />
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        GetUserParent();
+
+        $('.parentId').on('change', function () {
+            SetDefaultValue($(this).val());
+        });
+    });
+
+    function GetUserParent() {
+        $.getJSON("/Scripts/api/configuration.json", function (c) {
+            $.get(c.apiurl + "api/Users",
+                function (f) {
+                    for (var x = 0; x < f.length; x++) {
+                        $('.parentId').append('<option value=' + f.id + '>' + f[x].name + ' ' + f[x].lastName + ' - ' + f[x].businessName + '</option>');
+                    }
+                })
+        })
+    }
+
+    function SetDefaultValue() {
+        $('.userPriority').empty();
+        $.getJSON("/Scripts/api/configuration.json", function (c) {
+            $.get(c.apiurl + "api/Users",
+                function (f) {
+                    for (var x = 0; x < f.length; x++) {
+                        $('.parentId').append('<option value=' + f.id + '>' + f[x].name + ' ' + f[x].lastName + ' - ' + f[x].businessName + '</option>');
+                    }
+                })
+        })
+    }
+
+    $.validator.methods.range = function (value, element, param) {
+        var globalizedValue = value.replace(",", ".");
+        return this.optional(element) || (globalizedValue >= param[0] && globalizedValue <= param[1]);
+    }
+
+    $.validator.methods.number = function (value, element) {
+        return this.optional(element) || /-?(?:\d+|\d{1,3}(?:[\s\.,]\d{3})+)(?:[\.,]\d+)?$/.test(value);
+    }
+    //Date dd/MM/yyyy
+    $.validator.methods.date = function (value, element) {
+        var date = value.split("/");
+        return this.optional(element) || !/Invalid|NaN/.test(new Date(date[2], date[1], date[0]).toString());
+    }
+</script>
+

@@ -1,0 +1,106 @@
+﻿@{
+    ViewBag.Title = "Sync";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper mb-0">
+    <div class="content-header row">
+        <div class="content-header-left col-md-6 col-12 mb-2">
+            <h3 class="content-header-title mb-0">Sincronizzazioni</h3>
+            <div class="row breadcrumbs-top">
+                <div class="breadcrumb-wrapper col-12">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="/Home">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            Sincronizzazioni
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content-wrapper pt-0">
+    <div class="row">
+        <div class="col-lg-4 col-lg-offset-1">
+            <div class="card box-sync">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h3>Sincronizza GED</h3>
+                    </div>
+                    <div class="ibox-content min-height">
+                        <a href="#" class="sync" onclick="SyncGed()">SINCRONIZZA</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-lg-offset-1">
+            <div class="card box-sync">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h3>Sincronizza ROL/MOL/COL <span class="count"></span></h3>
+                    </div>
+                    <div class="ibox-content min-height">
+                        <a href="#" class="sync" onclick="SyncRolMolCol()">SINCRONIZZA</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<style>
+
+    .count {
+        float: right;
+    }
+
+    .min-height {
+        min-height: 120px;
+    }
+
+    .sync {
+        float: left;
+        margin: 20px 25%;
+        width: 50%;
+        background: #19aa8d;
+        text-align: center;
+        padding: 12px;
+        color: #ffffff
+    }
+
+        .sync:hover, .sync:visited {
+            background: #3dd7b8;
+            color: #ffffff
+        }
+</style>
+<script src="/app-assets/vendors/js/tables/datatable/datatables.min.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        $.get("https://apinewtest.easysender.it/api/Backoffice/GetROLMOLCOLCount", function (res) {
+            $('.count').html(res);
+        });
+    });
+
+    function SyncGed() {
+        if (!confirm("Vuoi avviare la sincronizzazione delle GED?"))
+            return false;
+
+        $.get("https://sync.easysender.it/api/Rol/GEDControl");
+        alert("Sincronizzazione avviata!");
+    }
+
+    function SyncRolMolCol() {
+        if (!confirm("Vuoi avviare la sincronizzazione delle ROL/MOL/COL?"))
+            return false;
+
+        $.get("https://sync.easysender.it/api/Sending/SetNameState");
+        alert("Sincronizzazione avviata!");
+    }
+
+</script>

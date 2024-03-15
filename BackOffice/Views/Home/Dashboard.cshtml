@@ -1,0 +1,229 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    h1 {
+        font-size: 35px !important;
+    }
+
+        h1 span {
+            font-size: 25px !important;
+        }
+</style>
+<div class="content-wrapper">
+    <div class="wrapper wrapper-content">
+        <div class="row">
+            <div class="col-xl-3 col-md-6 col-12">
+                <div class="card bg-success">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div class="media d-flex">
+                                <div class="media-body text-white text-left">
+                                    <h1 class="text-white allDay">...</h1>
+                                    <span>Giorno <b>@DateTime.Now.Day/@DateTime.Now.Month</b></span>
+                                </div>
+                                <div class="align-self-center">
+                                    <i class="icon-paper-plane font-large-2 text-white float-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 col-12">
+                <div class="card bg-success">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div class="media d-flex">
+                                <div class="media-body text-white text-left">
+                                    <h1 class="text-white allWeek">...</h1>
+                                    <span>Settimana <b>@BackOffice.Models.DateTimeExtensions.GetWeekOfMonth(DateTime.Now)</b> del Mese <b>@DateTime.Now.Month/@DateTime.Now.Year</b></span>
+                                </div>
+                                <div class="align-self-center">
+                                    <i class="icon-paper-plane font-large-2 text-white float-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 col-12">
+                <div class="card bg-success">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div class="media d-flex">
+                                <div class="media-body text-white text-left">
+                                    <h1 class="text-white allMonth">...</h1>
+                                    <span>Mese <b>@DateTime.Now.Month/@DateTime.Now.Year</b></span>
+                                </div>
+                                <div class="align-self-center">
+                                    <i class="icon-paper-plane font-large-2 text-white float-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 col-12">
+                <div class="card bg-info">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div class="media d-flex">
+                                <div class="media-body text-white text-left">
+                                    <h1 class="text-white allPreviousMonth">...</h1>
+                                    <span>Mese Precedente <b>@DateTime.Now.AddMonths(-1).Month/@DateTime.Now.Year</b></span>
+                                </div>
+                                <div class="align-self-center">
+                                    <i class="icon-paper-plane font-large-2 text-white float-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-3 col-md-6 col-12">
+                <div class="card bg-warning">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div class="media d-flex">
+                                <div class="media-body text-white text-left">
+                                    <h1 class="text-white errorDay error" onclick="GetInvii('day')">...</h1>
+                                    <span>Errori del giorno <b>@DateTime.Now.Day/@DateTime.Now.Month</b></span>
+                                </div>
+                                <div class="align-self-center">
+                                    <i class="icon-dislike font-large-2 text-white float-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 col-12">
+                <div class="card bg-warning">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div class="media d-flex">
+                                <div class="media-body text-white text-left">
+                                    <h1 class="text-white errorWeek error" onclick="GetInvii('week')">...</h1>
+                                    <span>Errori della settimana <b>@BackOffice.Models.DateTimeExtensions.GetWeekOfMonth(DateTime.Now)</b> del Mese <b>@DateTime.Now.Month/@DateTime.Now.Year</b></span>
+                                </div>
+                                <div class="align-self-center">
+                                    <i class="icon-dislike font-large-2 text-white float-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 col-12">
+                <div class="card bg-warning">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div class="media d-flex">
+                                <div class="media-body text-white text-left">
+                                    <h1 class="text-white errorMonth error" onclick="GetInvii('month')">...</h1>
+                                    <span>Errori del mese <b>@DateTime.Now.Month/@DateTime.Now.Year</b></span>
+                                </div>
+                                <div class="align-self-center">
+                                    <i class="icon-dislike font-large-2 text-white float-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 col-12">
+                <div class="card bg-danger">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div class="media d-flex">
+                                <div class="media-body text-white text-left">
+                                    <h1 class="text-white errorPreviousMonth error" onclick="GetInvii('previousMonth')">...</h1>
+                                    <span>Errori del mese precedente <b>@DateTime.Now.AddMonths(-1).Month/@DateTime.Now.Year</b></span>
+                                </div>
+                                <div class="align-self-center">
+                                    <i class="icon-dislike font-large-2 text-white float-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .red {
+        color: #ff0000 !important;
+        cursor:pointer;
+    }
+</style>
+
+<script src="/Scripts/jquery.session.js"></script>
+
+<script>
+    function GetInvii(d) {
+        var start = '@DateTime.Now.ToString("yyyy-MM-dd")';
+        var end = '@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")';
+
+        if (d == "month") {
+            start = '@Convert.ToDateTime(DateTime.Now.Year + "/" + DateTime.Now.Month + "/01").ToString("yyyy-MM-dd")';
+            end = '@Convert.ToDateTime(DateTime.Now.Year + "/" + DateTime.Now.Month + "/01").AddMonths(1).AddDays(-1).ToString("yyyy-MM-dd")';
+        };
+
+        if (d == "previousMonth") {
+            start = '@Convert.ToDateTime(DateTime.Now.Year + "/" + DateTime.Now.AddMonths(-1).Month + "/01").ToString("yyyy-MM-dd")';
+            end = '@Convert.ToDateTime(DateTime.Now.Year + "/" + DateTime.Now.AddMonths(-1).Month + "/01").AddMonths(1).AddDays(-1).ToString("yyyy-MM-dd")';
+        };
+
+        if (d == "week") {
+            start = '@Convert.ToDateTime(DateTime.Now.AddDays(-(int)DateTime.Now.DayOfWeek).AddDays(1).ToString("yyyy-MM-dd")).ToString("yyyy-MM-dd")';
+            end = '@Convert.ToDateTime(DateTime.Now.AddDays(-(int)DateTime.Now.DayOfWeek).AddDays(7).ToString("yyyy-MM-dd")).AddDays(1).ToString("yyyy-MM-dd")';
+        };
+
+        var filter = "?valid=0&notificato=false&startDate=" + start + "&endDate=" + end;
+
+        $.session.set('FilterInvii', filter);
+
+        location.href = "/Counter/Invii";
+
+    };
+
+    $(function () {
+        $.getJSON("/Scripts/api/configuration.json", function (c) {
+            $.get(c.apiurl + "api/Backoffice/Errors",
+                function (f) {
+                    $('.allDay').html(f.daySends);
+                    $('.allWeek').html(f.weekSends);
+                    $('.allMonth').html(f.monthSends);
+                    $('.allPreviousMonth').html(f.previousMonthSends);
+                    $('.errorDay').html(f.dayErrors);
+                    $('.errorWeek').html(f.weekErrors);
+                    $('.errorMonth').html(f.monthErrors);
+                    $('.errorPreviousMonth').html(f.previousMonthErrors);
+                });
+
+            setInterval(function () {
+                $.get(c.apiurl + "api/Backoffice/Errors",
+                    function (f) {
+                        $('.allDay').html(f.daySends);
+                        $('.allWeek').html(f.weekSends);
+                        $('.allMonth').html(f.monthSends);
+                        $('.allPreviousMonth').html(f.previousMonthSends);
+                        $('.errorDay').html(f.dayErrors);
+                        $('.errorWeek').html(f.weekErrors);
+                        $('.errorMonth').html(f.monthErrors);
+                        $('.errorPreviousMonth').html(f.previousMonthErrors);
+                    });
+            }, 30000);
+
+        });
+    });
+</script>
+

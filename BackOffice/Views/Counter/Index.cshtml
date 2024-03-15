@@ -1,0 +1,193 @@
+﻿
+@{
+    ViewBag.Title = "Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper mb-0">
+    <div class="content-header row">
+        <div class="content-header-left col-md-6 col-12 mb-2">
+            <h3 class="content-header-title mb-0">Report invii</h3>
+            <div class="row breadcrumbs-top">
+                <div class="breadcrumb-wrapper col-12">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="/Home">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            Report invii
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content-wrapper pt-0">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card mb-1 filter">
+
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <a class="add">Report Invii</a>
+                        <a class="back total"></a>
+                    </div>
+                    <div class="ibox-title">
+                        <select name="users" class="userId">
+                            <option value="">Seleziona un utente</option>
+                        </select>
+                        <input type="date" name="startDate" class="startDate" />
+                        <input type="date" name="endDate" class="endDate" />
+                        <select name="sendType" class="sendType">
+                            <option value="">Seleziona un tipo</option>
+                            <option value="rol">ROL</option>
+                            <option value="lol1">LOL P1</option>
+                            <option value="lol4">LOL P4</option>
+                            <option value="mol">MOL</option>
+                            <option value="col">COL</option>
+                            <option value="tol">TOL</option>
+                            <option value="vol">VISURE/CERTIFICATI</option>
+                        </select>
+                        <select name="property" class="property">
+                            <option value="">Canali</option>
+                            <option value="1">EWT</option>
+                            <option value="2">NOVISERVICE</option>
+                            <option value="3">H2H Consulting</option>
+                            <option value="4">Red Logic</option>
+                            <option value="5">Info Tech</option>
+                            <option value="6">Indi</option>
+                        </select>
+                        <input type="button" onclick="ReloadData()" value="filtra" />
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="card mb-1 filter">
+                <div class="ibox-content relative">
+                    <div class="processing"><p>caricamento in corso...</p></div>
+                    <table class="table table-striped table-bordered table-hover dataTables">
+                        <thead>
+                            <tr>
+                                <th style="width:80%">Cliente</th>
+                                <th>Numero Invii</th>
+                                <th>Numero Ged</th>
+                                <th>Ged Poste</th>
+                                <th>Prezzo</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .btn-group {
+        position: absolute !important;
+    }
+</style>
+<script src="~/Scripts/jquery.session.js"></script>
+<script src="/app-assets/vendors/js/tables/datatable/datatables.min.js"></script>
+
+<script type="text/javascript">
+
+    Array.prototype.sum = function (prop) {
+        var total = 0
+        for (var i = 0, _len = this.length; i < _len; i++) {
+            total += this[i][prop]
+        }
+        return total
+    }
+
+    function ReloadData() {
+        var filter = "?id=0";
+        if ($('.userId').val() != "")
+            filter += "&userId=" + $('.userId').val();
+
+        if ($('.startDate').val() != "")
+            filter += "&startDate=" + $('.startDate').val();
+
+        if ($('.endDate').val() != "")
+            filter += "&endDate=" + $('.endDate').val();
+
+        if ($('.sendType').val() != "")
+            filter += "&sendType=" + $('.sendType').val();
+
+        if ($('.property').val() != "")
+            filter += "&propertyId=" + $('.property').val();
+
+        getTable(filter);
+
+    }
+
+    $(document).ready(function () {
+        var f = $.session.get('FilterInvii');
+        if (f === undefined)
+            f = "";
+        getTable(f);
+        GetUsers();
+    });
+
+    function getTable(filter) {
+        $('.processing').show();
+        var buttonCommon = {
+            exportOptions: {
+                format: {
+                    body: function (data, row, column, node) {
+                        return column === 5 ?
+                            data.replace(/[$,]/g, '') :
+                            data;
+                    }
+                }
+            }
+        };
+        var table = $('.dataTables').DataTable();
+        var data;
+        $.getJSON("/Scripts/api/configuration.json", function (c) {
+            $.get(c.apiurl + "api/Backoffice" + filter,
+                function (f) {
+                    table.destroy();
+                    $('.processing').hide();
+                    $('.total').html("Numero totale Invii : " + f.sum("numberOfNames") + ", Totale spese : " + parseFloat(f.sum("totalPrice")).toFixed(2) + "€");
+                    table = $('.dataTables').DataTable({
+                        "bInfo": false,
+                        "order": [[0, "asc"]],
+                        "pageLength": 100,
+                        data: f,
+                        "columns": [
+                            { "data": "businessName" },
+                            { "data": "numberOfNames" },
+                            { "data": "totalGed" },
+                            { "data": "posteGed" },
+                            { "data": "totalPrice" },
+                        ],
+                        dom: 'Bfrtip',
+                        buttons: [
+                            $.extend(true, {}, buttonCommon, {
+                                extend: 'excelHtml5'
+                            }),
+                            $.extend(true, {}, buttonCommon, {
+                                extend: 'pdfHtml5'
+                            })
+                        ],
+                    });
+
+                });
+        });
+    }
+
+    function GetUsers() {
+        $.getJSON("/Scripts/api/configuration.json", function (c) {
+            $.get(c.apiurl + "api/Backoffice/Users", function (res) {
+                for (var x = 0; x < res.length; x++) {
+                    $('.userId').append('<option value="' + res[x].user.id + '">' + res[x].user.businessName + ' ' + res[x].user.name + ' ' + res[x].user.lastName + '</option>')
+                }
+            });
+        })
+    }
+</script>

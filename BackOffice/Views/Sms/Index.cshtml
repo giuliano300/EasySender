@@ -1,0 +1,179 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    DateTime date = DateTime.Now;
+    var firstDayOfMonth = new DateTime(date.Year, date.Month, 1).ToString("dd/MM/yyyy");
+    var last = new DateTime(date.Year, date.Month, 1).AddMonths(1).AddDays(-1).ToString("dd/MM/yyyy");
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>SMS Inviati</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Dashboard", "Home")">Home</a>
+            </li>
+            <li class="active">
+                <strong>SMS Inviati</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <select name="users" class="userId">
+                        <option value="">Seleziona un utente</option>
+                    </select>
+                    <input type="text" name="startDate" class="startDate date" value="@firstDayOfMonth" placeholder="@firstDayOfMonth" />
+                    <input type="text" name="endDate" class="endDate date" value="@last" placeholder="@last" />
+                    <input type="button" onclick="ReloadData()" value="filtra" />
+                    <input type="button" onclick="FiltersRemove()" value="rimuovi filtri" />
+                </div>
+                <div class="ibox-content relative">
+                    <div class="processing"><p>caricamento in corso...</p></div>
+                    <table class="table table-striped table-bordered table-hover dataTables">
+                        <thead>
+                            <tr>
+                                <th>Utente</th>
+                                <th>Numero di invii</th>
+                                <th>Totale invii</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="~/Scripts/jquery.session.js"></script>
+
+@section Styles {
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+}
+
+<style>
+    .btn-group {
+        position: absolute !important;
+    }
+</style>
+
+@section Scripts {
+    @Scripts.Render("~/plugins/dataTables")
+
+<script type="text/javascript">
+
+        function GetUsers() {
+            $.getJSON("/Scripts/api/configuration.json", function (c) {
+                $.get(c.apiurl + "api/Backoffice/Users", function (res) {
+                    for (var x = 0; x < res.length; x++) {
+                        $('.userId').append('<option value="' + res[x].user.id + '">' + res[x].user.businessName + ' ' + res[x].user.name + ' ' + res[x].user.lastName + '</option>')
+                    }
+                });
+            })
+        }
+
+        function FiltersRemove() {
+            $('.startDate').val("@firstDayOfMonth");
+            $('.endDate').val("@last");
+            $.session.set('FilterInvii', '');
+            getTable('');
+        }
+
+        function ReloadData() {
+            var filter = "?id=0";
+            if ($('.userId').val() != "")
+                filter += "&userId=" + $('.userId').val();
+
+            if ($('.startDate').val() != "")
+                filter += "&startDate=" + $('.startDate').val();
+
+            if ($('.endDate').val() != "")
+                filter += "&endDate=" + $('.endDate').val();
+
+            $.session.set('FilterInvii', filter);
+
+            getTable(filter);
+        }
+
+
+        $(document).ready(function () {
+            ReloadData()
+            GetUsers();
+
+            $('.date').on('focus', function () {
+                $(this).attr("type", "date");
+            })
+            $('.date').on('blur', function () {
+                $(this).attr("type", "text");
+                if ($(this).val() == "")
+                    $(this).val($(this).attr("placeholder"));
+                else {
+                    var s = $(this).val().split("-");
+                    $(this).val(s[2] + "/" + s[1] + "/" + s[0]);
+                }
+            })
+        });
+
+        function getTable(filter) {
+            $('.processing').show();
+            var buttonCommon = {
+                exportOptions: {
+                    format: {
+                        body: function (data, row, column, node) {
+                            return column === 5 ?
+                                data.replace(/[$,]/g, '') :
+                                data;
+                        }
+                    }
+                }
+            };
+            var table = $('.dataTables').DataTable();
+            var data;
+            $.getJSON("/Scripts/api/configuration.json", function (c) {
+                $.get(c.apiurl + "api/SmsSent/GroupByUsers" + filter,
+                    function (f) {
+                        table.destroy();
+                        $('.processing').hide();
+                        table = $('.dataTables').DataTable({
+                            "order": [[0, "desc"]],
+                            "pageLength": 50,
+                            data: f,
+                            "columns": [
+                                {
+                                    "data": function (data) {
+                                        return data.user.name + ' ' + data.user.lastName + ' ' + data.user.businessName
+                                    }
+                                },
+                                { "data": "count" },
+                                {
+                                    "data": function (data) {
+                                        return data.total + " €"
+                                    }
+                                },
+                            ],
+                            dom: 'Bfrtip',
+                            buttons: [
+                                $.extend(true, {}, buttonCommon, {
+                                    extend: 'excelHtml5'
+                                }),
+                                $.extend(true, {}, buttonCommon, {
+                                    extend: 'pdfHtml5'
+                                })
+                            ]
+                        });
+
+                    });
+            });
+        }
+</script>
+}

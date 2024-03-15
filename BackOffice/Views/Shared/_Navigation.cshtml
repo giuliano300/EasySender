@@ -1,0 +1,63 @@
+﻿@using BackOffice.Models
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                    <span>
+                        <img alt="image" src="~/Images/logo.png" width="180" />
+                        <span class="block m-t-xs username">
+                            <strong class="font-bold">Benvenuto</strong>
+                        </span>
+                    </span>
+                </div>
+                <div class="logo-element">
+                    H2H
+                </div>
+            </li>
+            <li class="section">Amministrazione generale</li>
+            <li class="@Html.IsSelected(controller: " Home")">
+                <a href="/home"><i class="fa fa-dashboard"></i> <span class="nav-label" data-i18n="nav.tables">Dashboard</span></a>
+            </li>
+            <li class="@Html.IsSelected(controller: " Users")">
+                <a href="#"><i class="fas fa-users"></i> <span class="nav-label" data-i18n="nav.tables">Utenti</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: " Users", cssClass: "in" )">
+                    <li class="@Html.IsSelected(action: " Users")"><a href="/Users/New">Aggiungi Utente</a></li>
+                    <li class="@Html.IsSelected(action: " Users")"><a href="/Users">Vedi Utenti</a></li>
+                </ul>
+            </li>
+            <li class="@Html.IsSelected(controller: " Counter")">
+                <a href="#"><i class="fas fa-send"></i> <span class="nav-label" data-i18n="nav.tables">Invii</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: " Counter", cssClass: "in" )">
+                    <li class="@Html.IsSelected(action: " Counter")"><a href="/Counter/Invii">Invii</a></li>
+                    <li class="@Html.IsSelected(action: " Counter")"><a href="/Counter">Report Invii</a></li>
+                </ul>
+            </li>
+            @*<li class="@Html.IsSelected(controller: " Sms")">
+                <a href="#"><i class="fas fa-sms"></i> <span class="nav-label" data-i18n="nav.tables">Sms</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: " Sms", cssClass: "in" )">
+                    <li class="@Html.IsSelected(action: " Sms")"><a href="/Sms">Vedi Sms Inviati</a></li>
+                </ul>
+            </li>*@
+            @*<li class="@Html.IsSelected(controller: " Dm")">
+            <a href="#"><i class="fas fa-envelope-open-text"></i> <span class="nav-label" data-i18n="nav.tables">Dm</span><span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level collapse @Html.IsSelected(controller: " Dm", cssClass: "in" )">
+                <li class="@Html.IsSelected(action: " Dm")"><a href="/Dm">Vedi Campagne Dm</a></li>
+            </ul>
+        </li>*@
+            <li class="@Html.IsSelected(controller: "Notifications")">
+                <a href="#"><i class="fas fa-envelope-open-text"></i> <span class="nav-label" data-i18n="nav.tables">Notifiche</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Notifications", cssClass: "in")">
+                    <li class="@Html.IsSelected(action: " New")"><a href="/Notifications/New">Aggiungi Notifica</a></li>
+                    <li class="@Html.IsSelected(action: "Index")"><a href="/Notifications">Vedi Notifiche</a></li>
+                </ul>
+            </li>
+            <li class="@Html.IsSelected(controller: "Sync")">
+                <a href="#"><i class="fas fa-sync"></i> <span class="nav-label" data-i18n="nav.tables">Sincronizzazioni</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Sync", cssClass: "in")">
+                    <li class="@Html.IsSelected(action: "Index")"><a href="/Sync">Sincronizza</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>

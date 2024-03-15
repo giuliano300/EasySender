@@ -1,0 +1,123 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper mb-0">
+    <div class="content-header row">
+        <div class="content-header-left col-md-6 col-12 mb-2">
+            <h3 class="content-header-title mb-0">Log <span class="utn"></span></h3>
+            <div class="row breadcrumbs-top">
+                <div class="breadcrumb-wrapper col-12">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="/Home">Home</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="/Users">Utenti</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            Log <span class="utn"></span>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content-wrapper pt-0">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card mb-1 filter">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content relative">
+                        <div class="processing"><p>caricamento in corso...</p></div>
+                        <table class="table table-striped table-bordered table-hover dataTables">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Data</th>
+                                    <th>Tipo Log</th>
+                                    <th>Descrizione</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<style>
+    .btn-group {
+        position: absolute !important;
+    }
+</style>
+<script src="/app-assets/vendors/js/tables/datatable/datatables.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        getTable();
+    });
+
+    function getTable() {
+        $('.processing').show();
+        var buttonCommon = {
+            exportOptions: {
+                format: {
+                    body: function (data, row, column, node) {
+                        return column === 5 ?
+                            data.replace(/[$,]/g, '') :
+                            data;
+                    }
+                }
+            }
+        };
+        var table = $('.dataTables').DataTable();
+        var data;
+        $.getJSON("/Scripts/api/configuration.json", function (c) {
+            $.get(c.apiurl + "api/Logs?userId=@ViewBag.id",
+                function (f) {
+                    table.destroy();
+                    if (f.length > 0)
+                        $('.utn').html(f[0].user.businessName);
+
+                    $('.processing').hide();
+                    table = $('.dataTables').DataTable({
+                        "bInfo": false,
+                        "order": [[0, "desc"]],
+                        "pageLength": 50,
+                        data: f,
+                        "columns": [
+                            { "data": "log.id" },
+                            {
+                                "data": function (data) {
+                                    return new Date(data.log.date).toLocaleDateString() + " " + new Date(data.log.date).toLocaleTimeString()
+                                }
+                            },
+                            { "data": "logType" },
+                            { "data": "log.description" },
+                        ],
+                        dom: 'Bfrtip',
+                        buttons: [
+                            $.extend(true, {}, buttonCommon, {
+                                extend: 'excelHtml5'
+                            }),
+                            $.extend(true, {}, buttonCommon, {
+                                extend: 'pdfHtml5'
+                            })
+                        ],
+                        "initComplete": function (settings, json) {
+                            $('.dataTables_paginate').addClass('pagination-flat pagination-separate pagination-curved');
+                        }
+                    });
+
+                });
+        });
+    }
+
+</script>

@@ -1,0 +1,151 @@
+input, select{
+    outline:none!important;
+}
+
+.filter{
+    padding:10px 20px;
+}
+
+    .filter h3, .filter .add {
+        margin: 10px 0 0 0 !important;
+        color: #1e9ff2 !important;
+        font-size: 16px !important;
+    }
+    .filter input, .filter select {
+        border: 1px solid #e8e8e8;
+        padding: 6px;
+        color: #808080;
+    }
+        .filter input[type=button], .filtra, .sync {
+            border: 0 !important;
+            padding: 7px 25px;
+            background: #1e9ff2 !important;
+            color: #ffffff !important;
+        }
+
+.rimuovi {
+    background: #ff0000;
+    color:#e8e8e8!important;
+}
+
+.error{
+    cursor:pointer!important;
+}
+
+a.total {
+    float: right;
+    color: #1e9ff2 !important;
+}
+
+.dataTables_filter label {
+    float: right !important;
+    margin: 0 17px 10px;
+}
+
+.dataTables_filter label input {
+    margin: 0 0 0 5px;
+}
+
+.btn-group > .btn, .btn-group-vertical > .btn{
+    padding:5px 20px!important;
+}
+
+.processing {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 100%;
+    background: rgba(255,255,255,0.5);
+    z-index: 300;
+    height: 100%;
+}
+
+    .processing p {
+        position: absolute;
+        top: 22%;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        width: 300px;
+        background: rgba(255,255,255,0.9);
+        border: solid 1px #ddd;
+        border-radius: 5px;
+        padding: 20px;
+        z-index: 300;
+    }
+
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.box-sync{
+    padding:15px 20px 0;
+}
+
+.fl .add {
+    background: #1e9ff2 !important;
+    color: #fff !important;
+    padding: 5px 20px;
+    margin: 0 0 10px 0;
+}
+
+.fl{
+    margin-top:5px;
+}
+
+.fl .add {
+    background: #1e9ff2 !important;
+    color: #fff !important;
+    padding: 5px 20px;
+    margin: 0 0 10px 0;
+}
+
+.fl .back {
+    float: right;
+    background: #1e9ff2 !important;
+    color: #fff !important;
+    padding: 5px 20px;
+    margin: 0 0 20px 0;
+}
+
+.form-horizontal {
+    padding:25px 20px;
+}
+
+.form-group label{
+    font-weight:600;
+}
+
+textarea{
+    min-height:300px;
+}
+
+.hr-line-dashed{
+    padding:5px 0 10px;
+    height:1px;
+    border-top:dashed 1px #e8e8e8;
+}
+
+.text-navy{
+    line-height:12px!important;
+}
+
+.table th {
+    padding: 0.70rem !important;
+    font-size: 14px !important;
+    font-weight:500!important;
+}
+.table td {
+    padding: 0.70rem !important;
+    font-size: 13px !important;
+}

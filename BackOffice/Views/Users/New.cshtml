@@ -1,0 +1,594 @@
+﻿@model BackOffice.Models.Users
+
+@using Microsoft.Ajax.Utilities
+
+@{
+    
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .switchery{
+        margin:20px 0 0 40px;
+    }
+</style>
+
+<div class="content-wrapper mb-0">
+    <div class="content-header row">
+        <div class="content-header-left col-md-6 col-12 mb-2">
+            <h3 class="content-header-title mb-0">Utente principale</h3>
+            <div class="row breadcrumbs-top">
+                <div class="breadcrumb-wrapper col-12">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="/Home">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            @ViewBag.HeaderPage utente principale
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content-wrapper pt-0">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card mb-1 filter">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        @using (Html.BeginForm("SaveParent", "Users", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
+                        {
+                            <h4 class="form-section"><i class="ft-user"></i> Sezione Login</h4>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        @Html.TextBoxFor(m => Model.email, new { @class = "form-control required", @type = "email" })
+                                        @Html.ValidationMessageFor(m => Model.email)
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Password</label>
+                                        @Html.TextBoxFor(m => Model.pwd, new { @class = "form-control required" })
+                                        @Html.ValidationMessageFor(m => Model.pwd)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label>Utente Test</label><br />
+                                        <small class="text-navy">Seleziona se vuoi che<br />l'utente sia un utente TEST</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="form-group">
+                                        <input type="checkbox" class="switchery float-right" data-switchery="true" name="areaTestUser" @if (Model.areaTestUser) { <text> checked </text> } /><i></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label>Abilitato</label><br />
+                                        <small class="text-navy">Seleziona se vuoi che<br />l'utente sia abilitato al login</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="form-group">
+                                        <input type="checkbox" class="switchery float-right" data-switchery="true" name="abilitato" @if (Model.abilitato) { <text> checked </text> } /><i></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label>Download File</label><br />
+                                        <small class="text-navy">Seleziona se vuoi che<br />l'utente possa scaricare i file</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="form-group">
+                                        <input type="checkbox" class="switchery float-right" data-switchery="true" name="downloadFile" @if (Model.downloadFile) { <text> checked </text> } /><i></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label>Conciliazione Bollettini</label><br />
+                                        <small class="text-navy">Seleziona se vuoi che <br />l'utente possa controllare i pagamenti dei bollettini</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="form-group">
+                                        <input type="checkbox" class="switchery float-right" data-switchery="true" name="conciliazioneBollettini" @if ((bool)Model.conciliazioneBollettini) { <text> checked </text> } /><i></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label>Fatturazione Poste</label><br />
+                                        <small class="text-navy">Seleziona se vuoi che <br />l'utente possa controllare le fatture di poste</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="form-group">
+                                        <input type="checkbox" class="switchery float-right" data-switchery="true" name="rendicontazioneFatture" @if ((bool)Model.rendicontazioneFatture) { <text> checked </text> } /><i></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label>Accesso Sso</label><br />
+                                        <small class="text-navy">Seleziona se vuoi che <br />l'utente possa accedere tramite Sso</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="form-group">
+                                        <input type="checkbox" class="switchery float-right" data-switchery="true" name="sso" @if ((bool)Model.sso) { <text> checked </text> } /><i></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <h4 class="form-section"><i class="ft-user"></i> Dati per invio</h4>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Priorità</label>
+                                        @Html.EnumDropDownListFor(x => x.userPriority, new { @class = "form-control required" })
+                                        @Html.ValidationMessageFor(m => Model.userPriority)
+                                    </div>
+                                </div>
+
+                                @if (ViewBag.HeaderPage == "Modifica")
+                                {
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Data Inizio Contratto</label>
+                                            <input class="form-control insertDate" type="text" name="insertDate" value="@Convert.ToDateTime(Model.insertDate).ToString("dd/MM/yyyy")" disabled />
+                                        </div>
+                                        @Html.HiddenFor(m => Model.insertDate)
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Data Inizio Contratto</label>
+                                            <input class="form-control startdate" type="text" name="insertDate" value="@Convert.ToDateTime(Model.insertDate).ToString("dd/MM/yyyy")" required />
+                                        </div>
+                                    </div>
+                                }
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Data Fine Contratto</label>
+                                        <input class="form-control expireDate" type="text" name="expireDate" value="@Convert.ToDateTime(Model.expireDate).ToString("dd/MM/yyyy")" required />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>UserName Poste (necessario per l'invio)</label>
+                                        @Html.TextBoxFor(m => Model.usernamePoste, new { @class = "form-control usernamePoste" })
+                                        @Html.ValidationMessageFor(m => Model.usernamePoste)
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Pwd Poste (necessario per l'invio)</label>
+                                        @Html.TextBoxFor(m => Model.pwdPoste, new { @class = "form-control pwdPoste" })
+                                        @Html.ValidationMessageFor(m => Model.pwdPoste)
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label>Utente COL</label><br />
+                                        <small class="text-navy">Seleziona se vuoi che<br />l'utente sia un utente COL</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="form-group">
+                                        <input type="checkbox" class="switchery float-right" data-switchery="true" name="col" @if (Model.col) { <text> checked </text> } /><i></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label>Utente MOL</label><br />
+                                        <small class="text-navy">Seleziona se vuoi che<br />l'utente sia un utente MOL</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="form-group">
+                                        <input type="checkbox" class="switchery float-right" data-switchery="true" name="mol" @if (Model.mol) { <text> checked </text> } /><i></i>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Codice contratto COL</label>
+                                        @Html.TextBoxFor(m => Model.CodiceContrattoCOL, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Codice contratto MOL</label>
+                                        @Html.TextBoxFor(m => Model.CodiceContrattoMOL, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <h4 class="form-section"><i class="ft-user"></i> Dati Agol</h4>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Codice contratto AgolB</label>
+                                        @Html.TextBoxFor(m => Model.CodiceContrattoAGOLB, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Codice contratto AgolM</label>
+                                        @Html.TextBoxFor(m => Model.CodiceContrattoAGOLM, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="hr-line-dashed"></div>
+                            <h4 class="form-section"><i class="ft-user"></i> Dati personali</h4>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Partner</label>
+                                        @Html.EnumDropDownListFor(x => x.porpertyId, new { @class = "form-control required" })
+                                        @Html.ValidationMessageFor(m => Model.porpertyId)
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Partita Iva</label>
+                                        <input type="text" name="piva" value="@Model.piva" class="form-control piva" />
+                                        <span class="response-piva"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Codice Fiscale</label>
+                                        <input type="text" name="fiscalCode" value="@Model.fiscalCode" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Pec</label>
+                                        <input type="email" name="emailPec" value="@Model.emailPec" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Ragione Sociale</label>
+                                        @Html.TextBoxFor(m => Model.businessName, new { @class = "form-control businessName" })
+                                        @Html.ValidationMessageFor(m => Model.businessName)
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Nome</label>
+                                        @Html.TextBoxFor(m => Model.name, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => Model.name)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Cognome</label>
+                                        @Html.TextBoxFor(m => Model.lastName, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => Model.lastName)
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Indirizzo</label>
+                                        @Html.TextBoxFor(m => Model.address, new { @class = "form-control address" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Cap</label>
+                                        @Html.TextBoxFor(m => Model.cap, new { @class = "form-control cap" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Città</label>
+                                        @Html.TextBoxFor(m => Model.city, new { @class = "form-control city" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Provincia</label>
+                                        @Html.TextBoxFor(m => Model.province, new { @class = "form-control province" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Cellulare</label>
+                                        @Html.TextBoxFor(m => Model.mobile, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <h4 class="form-section"><i class="ft-user"></i> Sezione GED</h4>
+
+
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label>Utente GED</label><br />
+                                        <small class="text-navy">Seleziona se vuoi che <br />l'utente sia un utente GED</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="form-group">
+                                        <input type="checkbox" class="switchery float-right" data-switchery="true" name="GED" @if (Model.GED) { <text> checked </text> } /><i></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Username GED</label>
+                                        @Html.TextBoxFor(m => Model.usernameGED, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Password GED</label>
+                                        @Html.TextBoxFor(m => Model.passwordGED, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+
+                            <h4 class="form-section"><i class="ft-package"></i> Sezione PACCHI</h4>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label>Utente Pacchi </label><br />
+                                        <small class="text-navy">Seleziona se vuoi che <br />l'utente sia un utente PACCHI</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="form-group">
+                                        <input type="checkbox" class="switchery float-right" data-switchery="true" name="Pacchi" @if (Model.Pacchi) { <text> checked </text> } /><i></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Sender(SDA, TWS)</label>
+                                        @Html.EnumDropDownListFor(x => x.senderPkgId, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Centro di costo PACCHI</label>
+                                        @Html.TextBoxFor(m => Model.centerCostPacchi, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Username PACCHI</label>
+                                        @Html.TextBoxFor(m => Model.usernamePacchi, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Password PACCHI</label>
+                                        @Html.TextBoxFor(m => Model.passwordPacchi, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="hr-line-dashed"></div>
+
+                            <h4 class="form-section"><i class="ft-users"></i> Sezione Gestione Multiutenze</h4>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Id Utente Master a cui collegare</label><br />
+                                        @Html.TextBoxFor(m => Model.collegatoMasterId, new { @class = "form-control" })
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <h4 class="form-section"><i class="ft-navigation"></i> Sezione Sms</h4>
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <div class="form-group">
+                                                <label>Utente Sms</label><br />
+                                                <small class="text-navy">Seleziona se vuoi che<br />l'utente sia un utente SMS</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <div class="form-group">
+                                                <input type="checkbox" class="switchery float-right" data-switchery="true" name="sms" @if (Model.sms) { <text> checked </text> } /><i></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <h4 class="form-section"><i class="ft-eye-off"></i> Nascondi i prezzi</h4>
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <div class="form-group">
+                                                <label>Nascondi i prezzi</label><br />
+                                                <small class="text-navy">Seleziona se vuoi che <br />l'utente non veda i prezzi</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <div class="form-group">
+                                                <input type="checkbox" class="switchery float-right" data-switchery="true" name="hidePrice" @if (Model.hidePrice) { <text> checked </text> } /><i></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <button class="btn btn-black" type="button" onclick="javascript: location.href = '/Users'">Cancella</button>
+                                        <button class="btn btn-primary" type="submit">Salva Utente</button>
+                                    </div>
+                                </div>
+                            </div>
+                            @Html.HiddenFor(m => Model.id)
+                            @Html.HiddenFor(m => Model.guidUser)
+                        }
+                    </div>
+                        </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('.expireDate').click(function () {
+            $(this).attr('type', 'date');
+        });
+
+        $('.insertDate').click(function () {
+            $(this).attr('type', 'date');
+        });        
+
+        GetUserParent();
+
+        $('.parentId').on('change', function () {
+            SetDefaultValue($(this).val());
+        });
+
+        $('.piva').on('change', function () {
+            $.get("https://apinew.easysender.it/api/Vies?vatNumber=" + $('.piva').val(),
+                function (f) {
+                    if (f.Body.valid === true) {
+
+                        var address = f.Body.address.split('\n');
+                        var capcityprovince = address[1].split(" ");
+                        $('.address').val(address[0]);
+                        $('.cap').val(capcityprovince[0]);
+                        $('.city').val(capcityprovince[1]);
+                        $('.province').val(capcityprovince[2]);
+
+                        $('.response-piva').removeClass('error');
+                        $('.response-piva').addClass('valid');
+                        $('.response-piva').html('partita iva valida');
+                        $('.businessName').val(f.Body.name.split('!!')[0]);
+                    }
+                    else {
+                        $('.response-piva').removeClass('valid');
+                        $('.response-piva').addClass('error');
+                        $('.response-piva').html('partita iva non valida');
+                        $('.businessName').val('');
+                        $('.address').val('');
+                        $('.cap').val('');
+                        $('.city').val('');
+                        $('.province').val('');
+                    }
+                })
+        })
+    });
+
+    function GetUserParent() {
+        $.getJSON("/Scripts/api/configuration.json", function (c) {
+            $.get(c.apiurl + "api/Users",
+                function (f) {
+                    for (var x = 0; x < f.length; x++) {
+                        $('.parentId').append('<option value=' + f.id + '>' + f[x].name + ' ' + f[x].lastName + ' - ' + f[x].businessName + '</option>');
+                    }
+                })
+        })
+    }
+
+    function SetDefaultValue() {
+        $('.userPriority').empty();
+        $.getJSON("/Scripts/api/configuration.json", function (c) {
+            $.get(c.apiurl + "api/Users",
+                function (f) {
+                    for (var x = 0; x < f.length; x++) {
+                        $('.parentId').append('<option value=' + f.id + '>' + f[x].name + ' ' + f[x].lastName + ' - ' + f[x].businessName + '</option>');
+                    }
+                })
+        })
+    }
+</script>
+

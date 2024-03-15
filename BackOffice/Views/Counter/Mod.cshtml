@@ -1,0 +1,313 @@
+﻿@model BackOffice.ViewModel.GetNamesComplete
+
+@using Microsoft.Ajax.Utilities
+@using BackOffice.Models
+
+@{
+    ViewBag.Title = "Modifica";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .switchery {
+        margin: 20px 0 0 40px;
+    }
+</style>
+
+
+<div class="content-wrapper mb-0">
+    <div class="content-header row">
+        <div class="content-header-left col-md-6 col-12 mb-2">
+            <h3 class="content-header-title mb-0">Modifica spedizione</h3>
+            <div class="row breadcrumbs-top">
+                <div class="breadcrumb-wrapper col-12">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="/Home">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            Modifica spedizione
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content-wrapper pt-0">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card filter">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        @using (Html.BeginForm("SaveSend", "Counter", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
+                        {
+                            <h4 class="form-section"><i class="ft-user"></i> Destinatario</h4>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Nominativo</label>
+                                        <input type="text" value="@Model.name.businessName @Model.name.name @Model.name.surname" class="form-control" required name="businessName" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Completamento Nominativo</label>
+                                        <input type="text" value="@Model.name.complementNames" class="form-control" name="complementName" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Indirizzo</label>
+                                        <input type="text" value="@Model.name.address" class="form-control" required name="address" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Completamento Indirizzo</label>
+                                        <input type="text" value="@Model.name.complementAddress" class="form-control" name="complementAddress" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Cap</label>
+                                        <input type="text" value="@Model.name.cap" class="form-control" required name="cap" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Città</label>
+                                        <input type="text" value="@Model.name.city" class="form-control" required name="city" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Provincia</label>
+                                        <input type="text" value="@Model.name.province" class="form-control" name="province" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Nazione</label>
+                                        <input type="text" value="@Model.name.state" class="form-control" required name="state" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Stato</label>
+                                        <input type="text" value="@Model.name.stato" class="form-control" readonly />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+
+                            <h4 class="form-section"><i class="ft-user"></i> Mittente</h4>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Nominativo</label>
+                                        <input type="text" value="@Model.sender.businessName @Model.sender.name @Model.sender.surname" class="form-control" required name="senderBusinessName" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Indirizzo</label>
+                                        <input type="text" value="@Model.sender.address" class="form-control" required name="senderAddress" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Cap</label>
+                                        <input type="text" value="@Model.sender.cap" class="form-control" required name="senderCap" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Città</label>
+                                        <input type="text" value="@Model.sender.city" class="form-control" required name="senderCity" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Nazione</label>
+                                        <input type="text" value="@Model.sender.state" class="form-control" required name="senderState" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            if (Model.name.ricevutaRitorno == true)
+                            {
+                                <input type="hidden" name="senderARId" value="@(Model.senderAR == null ? 0 : Model.senderAR.id)" />
+
+                                <h4 class="form-section"><i class="ft-user"></i> Destinatario AR</h4>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Nominativo</label>
+                                            <input type="text" value="@Model.senderAR.businessName @Model.senderAR.name @Model.senderAR.surname" class="form-control" required name="senderARBusinessName" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Indirizzo</label>
+                                            <input type="text" value="@Model.senderAR.address" class="form-control" required name="senderARAddress" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="hr-line-dashed"></div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Cap</label>
+                                            <input type="text" value="@Model.senderAR.cap" class="form-control" required name="senderARCap" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Città</label>
+                                            <input type="text" value="@Model.senderAR.city" class="form-control" required name="senderARCity" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="hr-line-dashed"></div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Nazione</label>
+                                            <input type="text" value="@Model.senderAR.state" class="form-control" required name="senderARState" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+                            <h4 class="form-section"><i class="ft-settings"></i> Operazione</h4>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Tipo Operazione</label>
+                                        <input type="text" value="@Enum.GetName(typeof(EnumClass.operationType), Model.operation.operationType)" class="form-control" name="tipoOperazione" readonly />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>
+                                            Tipo Lettera (Posta1 / Posta4) - <small class="text-navy">Se vuoto è Posta4 (solo in caso di lettera)</small>
+                                        </label>
+                                        <input type="text" value="@Model.name.tipoLettera" class="form-control" name="tipoLettera" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label>Fronte / retro</label> <br />
+                                        <small class="text-navy">Se selezioni SI (FRONTE)<br />NO (FRONTE/RETRO)</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="form-group">
+                                        <input type="checkbox" checked="@Model.name.tipoStampa" class="switchery float-right" name="ts" />
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label>Colori / Bianco e nero </label><br />
+                                        <small class="text-navy">Se selezioni SI (COLORI)<br />NO (BIANCO-NERO)</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="form-group">
+                                        <input type="checkbox" checked="@Model.name.tipoStampa" class="switchery float-right" name="ts" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label>Ricevuta ritorno</label><br />
+                                        <small class="text-navy">Se selezioni SI (RR) <br />NO (SENZA RR)</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="form-group">
+                                        <input type="checkbox" checked="@Model.name.ricevutaRitorno" class="switchery float-right" name="rr" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <button class="btn btn-black" type="button" onclick="javascript: location.href = '/Counter/Invii'">Annulla</button>
+                                        @if (Model.name.currentState != 1 && Model.name.currentState != 2)
+                                        {
+                                            <button class="btn btn-primary" type="submit">Salva e spedisci</button>
+                                        }
+                                        else
+                                        {
+                                            <button class="btn btn-primary" type="submit" disabled>Invio effettuato</button>
+                                        }
+                                        @if (Model.name.valid == false && (Model.name.currentState > 2 || Model.name.currentState == 0) && Model.name.codice != null && Model.name.codice != "")
+                                        {
+                                            <button class="btn btn-primary" type="submit">Segna come spedito</button>
+                                            <input type="hidden" name="segnaSpedito" value="1" />
+                                        }
+                                        else
+                                        {
+                                            <input type="hidden" name="segnaSpedito" value="0" />
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" name="id" value="@Model.name.id" />
+                            <input type="hidden" name="senderId" value="@Model.sender.id" />
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
