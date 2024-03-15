@@ -1,0 +1,168 @@
+﻿@model WasySender_2_0.Models.GetOperationsNew
+@using WasySender_2_0.Models
+@using WasySender_2_0.Models;
+@using Newtonsoft.Json;
+
+@{
+    ViewBag.Title = "Dettaglio Lotto";
+
+    Users u = new Users();
+    u = JsonConvert.DeserializeObject<Users>(Request.Cookies["login"].Value);
+
+}
+
+<div class="col-lg-12">
+    <div class="content-breadcrumb">DASHBOARD / STATO RICHIESTA / @(Model.recipients[0].recipient.tipoDocumento == 0 ? "CERTIFICATO" : "VISURA") / LOTTO</div>
+</div>
+
+
+<div class="default-page">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-lg-8 col-md-8">
+                <section>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1>DETTAGLIO LOTTO</h1>
+                        </div>
+                        <div @if (Model.type == (int)operationType.MOL || Model.type == (int)operationType.COL) { <text> class="col-lg-9" </text>  } else { <text> class="col-lg-6" </text> }>
+                            <div class="report-lotto">
+                                <ul>
+                                    <li>CODICE SPEDIZIONE</li>
+                                    <li><span>COD.@Model.operationId</span></li>
+                                </ul>
+                                <ul>
+                                    <li>PRODOTTO POSTALE</li>
+                                    <li><span>@(Model.recipients[0].recipient.tipoDocumento == 0 ? "CERTIFICATO" : "VISURA")</span></li>
+                                </ul>
+                                <ul>
+                                    <li>NUMERO DI DESTINATARI</li>
+                                    <li><span>@Model.recipients.Where(a => a.recipient.valid == true).Count()</span></li>
+                                </ul>
+                                <ul>
+                                    <li>DATA DI CREAZIONE</li>
+                                    <li><span>@Model.operationDate.ToString("dd/MM/yyyy HH:mm:ss")</span></li>
+                                </ul>
+                                <ul>
+                                    <li>DISTINTA DI SPEDIZIONE</li>
+                                    <li><img src="~/Images/IcnDownload.png" /> <a href="/Corrispondenza/ExportPDF/@Model.operationId">Scarica la distinta</a> </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 @if (Model.type == (int)operationType.MOL || Model.type == (int)operationType.COL) { <text> hidden </text> }">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h1>PREZZO LOTTO</h1>
+                                </div>
+                            </div>
+                            <div class="costi-lotto">
+                                <ul>
+                                    <li>PREZZO NETTO</li>
+                                    <li><span>€ @Model.price</span></li>
+                                </ul>
+                                <ul>
+                                    <li>IVA 22%</li>
+                                    <li><span>€ @Model.vatPrice</span></li>
+                                </ul>
+                                <ul>
+                                    <li>COSTO TOTALE</li>
+                                    <li><label>€ @Model.totalPrice</label></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <section>
+                    <div class="cerca-lotto">
+                        <h1>RICERCA RICHIESTA</h1>
+                        <ul>
+                            <li>
+                                <input type="text" name="destinatario" placeholder="Destinatario" class="username" />
+                            </li>
+                            <li>
+                                <input type="text" name="codice" placeholder="Codice" class="code" />
+                            </li>
+                            <li>
+                                <select name="esito" class="esito">
+                                    <option value="">Esito</option>
+                                    <option value="true">OK</option>
+                                    <option value="false">ERRORE</option>
+                                </select>
+                            </li>
+                            <li>
+                                <input type="submit" name="search" value="CERCA" onclick="ApplyFilter()" />
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <section>
+                    <div class="wait"><img src="/Images/preload.gif">attendere creazione file zip</div>
+                    <div class="download-doc-zip"><i class="fas fa-file-archive"></i> &nbsp;scarica tutti i documenti</div>
+                    <div class="content-table-responsive">
+                        <div class="stato-sped-grid-lotto">
+                            <ul>
+                                <li class="top-grid">NOMINATIVO</li>
+                                <li class="top-grid">CCIAA</li>
+                                <li class="top-grid">PIVA/CODICE FISCALE</li>
+                                <li class="top-grid">NREA</li>
+                                <li class="top-grid">ESITO TRASFERIMENTO</li>
+                                <li class="top-grid">DATA ACCETTAZIONE</li>
+                                <li class="top-grid">
+                                    CODICE
+                                </li>
+                                <li class="top-grid">DOWNLOAD DOC.</li>
+                            </ul>
+                            <span class="names">
+                                @foreach (var r in Model.recipients)
+                                {
+                                <ul>
+                                    <li>@r.recipient.businessName @r.recipient.name @r.recipient.surname</li>
+                                    <li>@r.recipient.province</li>
+                                    <li>@r.recipient.fiscalCode</li>
+                                    <li>@r.recipient.NREA</li>
+                                    <li>@(r.recipient.valid == true ? EnumHelper<CurrentState>.GetDisplayValue((CurrentState)r.recipient.currentState) : "RIFIUTATO")</li>
+                                    <li>@r.recipient.insertDate.ToString("dd/MM/yyyy HH:mm:ss")</li>
+                                    <li>@r.recipient.codice</li>
+                                    @if (u.downloadFile)
+                                    {
+                                        if (r.recipient.codice == null || r.recipient.codice == "")
+                                        {
+                                            <text>
+                                                <li>Non disponibile</li>
+                                            </text>
+                                        }
+                                        else
+                                        {
+                                            <text>
+                                                <li><a onclick="GetPdf(@r.recipient.id)"><img src="/Images/IcnDownload.png" /></a></li>
+                                            </text>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <li>Non disponibile</li>
+                                    }
+                                </ul>
+                                }
+                            </span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var guiduser = '@ViewBag.guiduser';
+    var operationId = '@Model.operationId';
+    var areaTestUser = '@u.areaTestUser';
+    var type = '@Model.type';
+    var downloadFile = @Model.type != 3 ? '@u.downloadFile' : 'False';
+</script>
+@Scripts.Render("~/bundles/visure/dettaglioLotto")

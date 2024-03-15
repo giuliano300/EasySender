@@ -1,0 +1,131 @@
+﻿@model IEnumerable<WasySender_2_0.Models.GetOperations>
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+
+    .stato-sped-grid{
+        margin-bottom:60px;
+    }
+
+    .tbl-responsive {
+        width: 100%;
+    }
+
+        .tbl-responsive th {
+            background: #476bab;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            height: 40px !important;
+            padding: 0 10px;
+            border-right: 1px solid #fff;
+            min-width: 80px;
+        }
+
+        .tbl-responsive td {
+            height: 80px;
+            padding: 5px 10px;
+            border-right: 1px solid #e1e1e1;
+            border-bottom: 1px solid #e1e1e1;
+            text-align: left;
+            font-weight: 600;
+            min-width: 80px;
+        }
+
+            .tbl-responsive td:first-child {
+                border-left: 1px solid #e1e1e1;
+            }
+
+        .tbl-responsive tr:nth-child(2n+1) {
+            background: #fafafa;
+        }
+
+    .empty-td {
+        width: 100%;
+        text-align: center !important;
+        padding: 30px 0;
+    }
+
+</style>
+
+<div class="col-lg-12">
+    <div class="content-breadcrumb">DASHBOARD / STATO SPEDIZIONI / CORRISPONDENZA</div>
+</div>
+
+<div class="default-page">
+    <div class="col-lg-12">
+        <section>
+            <div class="row">
+                <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 text-center">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1>STATO INVII @ViewBag.productType</h1>
+                            <article>
+                                In quest’area puoi controllare lo stato della spedizione di un documento.<br />
+                                Cliccando sul dettaglio puoi visionare lo stato della spedizione per ogni destinatario.
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="content-table-responsive">
+                        <div class="stato-sped-grid">
+                            <table class="tbl-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            DATA E ORA CREAZIONE LOTTO
+                                        </th>
+                                        <th style="width:50%">
+                                            % LOTTO TRASFERITO A POSTE ITALIANE
+                                        </th>
+                                        <th>
+                                            NUMERO DESTINATARI
+                                        </th>
+                                        <th>
+                                            DETTAGLIO
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.Count() > 0) { 
+                                        foreach (var o in Model)
+                                        {
+                                            <tr>
+                                                <td>@o.operationDate.ToString("dd/MM/yyyy HH:mm:ss")</td>
+                                                <td>
+                                                    <h7><span class="percentageText" id="t-@o.operationId"></span></h7>
+                                                    <div class="content-progress-sped">
+                                                        <div class="progress-bar-sped b-@o.operationId" style="width:0%"></div>
+                                                    </div>
+                                                </td>
+                                                <td>@o.recipients.Where(a => a.valid == true).Count()</td>
+                                                <td><a href="/Corrispondenza/DettaglioLotto/@o.operationId"><img src="~/Images/IcnDettaglio.png" title="Vai al dettaglio" style="width:25px;" /></a></td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="4" style="text-align:center!important">Nessuna spedizione in corso</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<script>
+    var guiduser = '@ViewBag.guiduser';
+</script>
+
+@Scripts.Render("~/bundles/corrispondenza/index")
+

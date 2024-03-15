@@ -1,0 +1,95 @@
+﻿@model  WasySender_2_0.DataModel.TotalNamesPrice
+
+@{
+    ViewBag.Title = "RiepilogoPreventivo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .riepilogo-pacchi {
+        float: left;
+        width: 100%;
+        text-align: center;
+        margin: 50px 0 0;
+    }
+        .riepilogo-pacchi li {
+            float: left;
+            width: 100%;
+            text-align: center;
+            margin: 10px 0 0;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+            .riepilogo-pacchi li:last-child {
+                font-size: 50px;
+                color: #46a289;
+            }
+
+    .box-message article {
+        width: 100%;
+        float: left;
+        padding: 0 0 2vh 0;
+        margin: 0;
+    }
+</style>
+
+<script src="~/Scripts/jquery.countdown.js"></script>
+<div class="col-lg-12">
+    <div class="content-breadcrumb">DASHBOARD / PACCHI / RIEPILOGO </div>
+</div>
+
+<div class="default-page">
+    <div class="col-lg-12">
+        <section>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h1>RIEPILOGO INVIO</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="raccomandata">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-6 col-lg-offset-3">
+                                <div class="box-message text-center">
+                                    <h6>SEI PRONTO AD EFFETTUARE L'INVIO.</h6>
+                                    <article>
+                                        Clicca su <strong>"COMPLETA"</strong> e la tua richiesta sarà presa in carico
+                                        dai nostri sistemi.
+                                        <ul class="riepilogo-pacchi">
+                                            <li>INVII TOTALI</li>
+                                            <li class="numberOfNames">@Model.numberOfNames</li>
+                                        </ul>
+                                    </article>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2">
+                    <div class="row">
+                        <div class="nav-step">
+                            <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <a href="/">
+                                            <img src="~/Images/IcnAnuullaSped.png" style="width:30px" />&nbsp;&nbsp;ANNULLA
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <a href="StepEnd?id=@Model.operationId">
+                                            COMPLETA&nbsp;&nbsp;<img src="~/Images/IcnSpedisci.png" style="width:30px" />
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

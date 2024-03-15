@@ -1,0 +1,87 @@
+﻿
+@{
+    Layout = null;
+
+    if (Request.Cookies["login"] != null)
+    {
+        Response.Redirect("/Home/Dashboard");
+    }
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Easy Sender</title>
+    @Styles.Render("~/Content/css")
+    @*<link rel="stylesheet" type="text/css" href="~/Less/Style.less">*@
+    <link rel="stylesheet" type="text/css" href="~/Less/Style.css?ver=2.7">
+    <title>Index</title>
+</head>
+
+
+<body class="body-home">
+    <div class="container-fluid no-padding">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="content-home">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-8 col-lg-offset-3 col-md-offset-2">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-10 col-sm-8 col-lg-offset-2 col-md-offset-1 col-sm-offset-2">
+                                    <section>
+                                        <div class="box">
+                                            <div class="logo-home">
+                                                <img src="/Images/Logo-o.png" />
+                                            </div>
+                                            <h3>Inserisci le tue credenziali ed effettua l’accesso al servizio.</h3>
+                                            <form id="frm" name="login" action="/Home/Login" method="post">
+                                                <ul>
+                                                    <li>
+                                                        <input type="text" name="username" placeholder="username" required />
+                                                    </li>
+                                                    <li class="li-pwd">
+                                                        <input type="password" name="pwd" placeholder="password" required class="pwd" />
+                                                        <span class="show-pwd">
+                                                            <i class="fas fa-eye hidden"></i>
+                                                            <i class="fas fa-eye-slash"></i>
+                                                        </span>
+                                                    </li>
+                                                    <li>
+                                                        <input type="submit" name="login" value="ACCEDI" />
+                                                    </li>
+                                                    <li>
+                                                        <span>
+                                                            Password dimenticata? <a href="/Home/PwdRecovery">clicca qui</a> per recuperarla
+                                                        </span>
+                                                    </li>
+                                                    <li>
+                                                        <span class="errorMsg">
+                                                            @Html.Raw(ViewBag.error)
+                                                        </span>
+                                                    </li>
+                                                </ul>
+                                            </form>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-login">
+                        <h6>SOFTWARE DISTRIBUITO DA</h6>
+                        <img src="~/Images/Logo-login.png" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/scrollbar")
+    @Scripts.Render("~/bundles/site")
+</body>
+</html>

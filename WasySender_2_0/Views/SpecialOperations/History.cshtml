@@ -1,0 +1,97 @@
+﻿@model IEnumerable<WasySender_2_0.Models.SpecialOperations>
+
+@{
+    ViewBag.Title = "History";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="col-lg-12">
+    <div class="content-breadcrumb">DASHBOARD / INVII SPECIALI / STORICO</div>
+</div>
+
+<div class="default-page">
+    <div class="col-lg-12">
+        <section>
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-6 col-md-offset-3 text-center">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1>ARCHIVIO SPEDIZIONI SPECIALI</h1>
+                            <article>
+                                In quest’area puoi controllare tutte le spedizioni speciali effettuate in ordine cronologico.<br />
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="content-table-responsive">
+                        <div class="stato-sped-grid">
+                            <ul>
+                                <li class="top-grid" style="width:20%!important;">DATA E ORA CREAZIONE </li>
+                                <li class="top-grid" style="width:25%!important;">NOME</li>
+                                <li class="top-grid" style="width:25%!important;">TIPO</li>
+                                <li class="top-grid" style="width:20%!important;">INVIATO AL CENTRO STAMPA</li>
+                                <li class="top-grid" style="width:10%!important;">IMPORTATO</li>
+                            </ul>
+                            @foreach (var o in Model)
+                            {
+                                <ul>
+                                    <li style="width:20%!important;">@o.insertDate.ToString("dd/MM/yyyy HH:mm:ss")</li>
+                                    <li style="width:25%!important;">@o.name</li>
+                                    <li style="width:25%!important;">@o.operationText</li>
+                                    <li style="width:20%!important;">@(o.send ? "SI" : "NO")</li>
+                                    <li style="width:10%!important;">@(o.imported ? "SI" : "NO")</li>
+                                </ul>
+                            }
+                        </div>
+                    </div>
+                    @if (ViewBag.pageNumber > 0)
+                    {
+                        int defaultLimit = 5;
+                        int limit = ViewBag.pageNumber > defaultLimit ? defaultLimit : ViewBag.pageNumber;
+                        int startPage = 1;
+                        if (Convert.ToInt32(ViewBag.selectedPage) > limit - 1)
+                        {
+                            startPage = Convert.ToInt32(ViewBag.selectedPage) - limit + 1;
+                        }
+                        int endPage = startPage + limit;
+                        int lastPage = startPage == 1 ? limit + 1 : startPage - 1;
+                        var f = "";
+                        if (Request.QueryString["dataDa"] != null)
+                        {
+                            f += "&dataDa=" + Request.QueryString["dataDa"];
+                        }
+                        if (Request.QueryString["dataA"] != null)
+                        {
+                            f += "&dataA=" + Request.QueryString["dataA"];
+                        }
+                        <text>
+                            <div class="pagination">
+                                <ul>
+                                    @if (startPage > 1)
+                                    {
+                                        <li><a href="/SpecialOperations/History?page=@(startPage - 1)@(f)"><<</a></li>
+                                    }
+                                    @for (var x = startPage; x < endPage; x++)
+                                    {
+                                        <li @if (Convert.ToInt32(ViewBag.selectedPage) == (Convert.ToInt32(x))) { <text> class="selezionato" </text> }><a href="/SpecialOperations/History?page=@x@f">@x</a></li>
+                                    }
+                                    @if (Convert.ToInt32(ViewBag.pageNumber) >= defaultLimit && Convert.ToInt32(ViewBag.pageNumber) > Convert.ToInt32(ViewBag.selectedPage))
+                                    {
+                                        <text>
+                                            <li><a href="/SpecialOperations/History?page=@endPage@f">>></a></li>
+                                        </text>
+                                    }
+                                </ul>
+                            </div>
+                        </text>
+                    }
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+

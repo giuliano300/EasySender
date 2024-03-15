@@ -1,0 +1,325 @@
+﻿@model WasySender_2_0.DataModel.LoghiSenders
+@using WasySender_2_0.Models;
+@using Newtonsoft.Json;
+
+@{
+    ViewBag.Title = "Lettera";
+
+    Users u = new Users();
+    u = JsonConvert.DeserializeObject<Users>(Request.Cookies["login"].Value);
+
+}
+
+<div class="col-lg-12">
+    <div class="content-breadcrumb">DASHBOARD / CORRISPONDENZA / LETTERA @ViewBag.ProductTypeName.ToUpper()</div>
+</div>
+
+<div class="default-page">
+    <div class="col-lg-12">
+        <section>
+            @using (Ajax.BeginForm("ImportMassiveLettere", "Home", new AjaxOptions { HttpMethod = "POST", OnSuccess = "Success", OnFailure = "Fail", OnBegin = "StartEvent" }))
+            {
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h1>LETTERA @ViewBag.ProductTypeName.ToUpper()</h1>
+                        <h2>Prima di compilare i campi, ricorda di inserire nell' ftp ricevuto i due file csv e zip contanenti i dati che si vogliono inviare.</h2>
+                    </div>
+                </div>
+                <div class="raccomandata" style="padding-bottom:0!important;">
+                    <div class="row">
+                        @if (Convert.ToInt32(Request.QueryString["id"]) == (int)ProductType.semplice || Convert.ToInt32(Request.QueryString["id"]) == (int)ProductType.bollettini)
+                        {
+                            <div class="col-lg-4 col-md-6 col-lg-offset-2 col-md-offset-3">
+                                <label>SELEZIONA IL MITTENTE</label>
+                                <select name="Sender" class="senderId" required>
+                                    <option value="" selected>Seleziona--</option>
+                                    @foreach (var s in Model.senders)
+                                    {
+                                        <option value="@s.id">@s.businessName  @s.name  @s.surname</option>
+                                    }
+                                </select>
+                            </div>
+                        }
+                        @if (Model.loghi.Count > 0)
+                        {
+                            <div class="col-lg-4 col-md-3">
+                                <label>SELEZIONA IL LOGO(se vuoi....)</label>
+                                <select name="logo">
+                                    <option value="" selected>Seleziona--</option>
+                                    @foreach (var s in Model.loghi)
+                                    {
+                                        <option value="@s.logo">@s.name</option>
+                                    }
+                                </select>
+                            </div>
+                        }
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-lg-offset-2 col-md-offset-2 col-sm-offset-2 col-xs-offset-0">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 col-sm-4">
+                                    <div class="box-option">
+                                        <h6>
+                                            <img src="~/Images/IcnFormato.png" />
+                                            <span>FORMATO</span>
+                                        </h6>
+                                        <ul>
+                                            <li>
+                                                <label><input type="radio" name="Formato" value="0" required class="Formato a4" checked />&nbsp;&nbsp;A4</label>
+                                            </li>
+                                            <li>
+                                                <label><input type="radio" name="Formato" value="1" class="Formato special" required />&nbsp;&nbsp;FORMATO SPECIALE</label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-4">
+                                    <div class="box-option">
+                                        <h6>
+                                            <img src="~/Images/IcnRicevutaRitorno.png" />
+                                            <span>TIPO LETTERA</span>
+                                        </h6>
+                                        <ul>
+                                            <li>
+                                                <label><input type="radio" name="TipoLettera" value="Posta1" class="TipoLettera" required />&nbsp;&nbsp;P1</label>
+                                            </li>
+                                            <li>
+                                                <label><input type="radio" name="TipoLettera" value="Posta4" class="TipoLettera" required />&nbsp;&nbsp;P4</label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-4">
+                                    <div class="box-option">
+                                        <h6>
+                                            <img src="~/Images/IcnTipoStampa.png" />
+                                            <span>TIPO DI STAMPA</span>
+                                        </h6>
+                                        <ul>
+                                            <li>
+                                                <label><input type="radio" name="TipoStampa" class="TipoStampa" value="@Convert.ToInt32(TipoStampa.BiancoNero)" required />&nbsp;&nbsp;BIANCO E NERO</label>
+                                            </li>
+                                            <li>
+                                                <label><input type="radio" name="TipoStampa" class="TipoStampa" value="@Convert.ToInt32(TipoStampa.Colori)" required />&nbsp;&nbsp;COLORI</label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-4">
+                                    <div class="box-option">
+                                        <h6>
+                                            <img src="~/Images/IcnFronteRetro.png" />
+                                            <span>STAMPA FRONTE / RETRO</span>
+                                        </h6>
+                                        <ul>
+                                            <li>
+                                                <label><input type="radio" name="FronteRetro" class="FronteRetro" value="@Convert.ToInt32(FronteRetro.Si)" required />&nbsp;&nbsp;SI</label>
+                                            </li>
+                                            <li>
+                                                <label><input type="radio" name="FronteRetro" class="FronteRetro" value="@Convert.ToInt32(FronteRetro.No)" required />&nbsp;&nbsp;NO</label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8 col-lg-offset-2">
+                            <input type="text" name="fileNameCSV" placeholder="nome del file csv" class="form-control" required />
+                            <a onclick="CreateErrorFileMassive()" target="_blank" class="downLoad">Scarica Errori</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8 col-lg-offset-2">
+                            <span class="progress">
+                                <span class="progress-bar">1%</span>
+                            </span>
+                        </div>
+                        <div class="col-lg-8 col-lg-offset-2 text-center msgs">
+                            <h4>Attendere.</h4><br /> file in lavorazione, la procedura può richiedere molto tempo.
+                        </div>
+                        <div class="col-lg-8 col-lg-offset-2 text-center eeroorr">
+                            <h4>Attenzione.</h4><br /> Errore nella creazione.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="nav-step">
+                        <div class="col-lg-4 col-lg-offset-5 col-md-4 col-md-offset-5">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <button type="submit" class="avvia">AVVIA OPERAZIONE</button>
+                                    <button type="button" class="importMassiveButton" onclick="Import()">IMPORTA</button>
+                                    <span class="count"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="id" value="@ViewBag.ProductTypeId" />
+                <input type="hidden" name="sessionId" value="@Session.SessionID" class="sessionId" />
+            }
+        </section>
+    </div>
+</div>
+
+<style>
+    button[disabled], html input[disabled] {
+        cursor: default!important;
+    }
+
+    .msgs, .eeroorr, .downLoad {
+        display: none;
+    }
+
+    .msgs h4{
+       margin:10px 0 0;
+    }
+
+    .eeroorr {
+        color:#ff0000!important;
+    }
+
+    .importMassiveButton{
+        display:none;
+    }
+
+    .downLoad {
+        float: left;
+        width: 100%;
+        text-align: right;
+        color: #ff0000 !important;
+        font-size: 12px;
+        margin: -5px 0 0 0;
+    }
+
+    .count {
+        text-align: center;
+        width: 100%;
+        float: left;
+        font-weight: 600;
+        padding: 10px 0;
+        color: green;
+    }
+</style>
+
+<script>
+    var userId = "@ViewBag.userId";
+    var sessionId = $('.sessionId').val();
+    var areaTestUser = "@ViewBag.areaTestUser";
+    let res;
+
+    function TimeControl() {
+        setInterval(function () {
+
+            $.getJSON("/Scripts/api/configuration.json", function (c) {
+                var url = c.apiurl;
+                if (areaTestUser != "True")
+                    url = c.apiurlTest;
+
+                $.get(url + "/TemporaryValidateTable/GetPercentage?userId=" + userId + "&sessionId=" + sessionId, function (w) {
+                    if (w !== null) {
+                        $('.progress-bar').html(w + "%");
+                        $('.progress-bar').css({ "width": w + "%" }, 800);
+                    }
+                });
+            });
+        }, 2000);
+    }
+
+    function Import() {
+        $('.importMassiveButton').addClass('disabled-btn');
+        $('.importMassiveButton').attr('disabled', 'disabled');
+        $('.importMassiveButton').html('IMPORT IN CORSO...');
+
+        $.get("/Home/CreateOperation?id=" + $('.senderId').val(), function (response) {
+            let w = JSON.parse(response);
+            if (w == null || w == "null")
+                $('.eeroorr').show();
+            else
+            {
+                let id = w[0];
+                if (parseInt(id) > 0) {
+                    var r = JSON.parse(res);
+                    var n = r.NamesLists.filter(function (name) {
+                        return name.valid === true;
+                    });
+                    var count = n.length;
+                    let x = 1;
+                    for (var i = 0; i < n.length; i++) {
+                        $('.count').html('Importati: ' + x);
+                        x++
+                        let data = {
+                            d: n[i],
+                            operationId: id,
+                            senderId: w[1],
+                            frm: $(".Formato:checked").val(),
+                            tsc: $(".TipoStampa:checked").val(),
+                            frc: $(".FronteRetro:checked").val(),
+                            TipoLettera: $(".TipoLettera:checked").val(),
+                        }
+                        $.ajax({
+                            type: "POST",
+                            data: data,
+                            url: "/Home/CreateNames",
+                            dataType: "json",
+                            async: false
+                        });
+                        $('.importMassiveButton').html('IMPORTAZIONE TERMINATA');
+                    }
+                }
+            }
+        })
+    }
+
+    function CreateErrorFileMassive() {
+        var r = JSON.parse(res);
+        var l = {
+            data: res
+        };
+        $.post("/Home/CreateErrorFileMassive", l, function (w) {
+            window.location.href = w;
+        });
+    }
+
+    function Success(s) {
+        //RIEPILOGO
+        res = s;
+        var c = JSON.parse(res);
+        $('.avvia').hide();
+        $('.importMassiveButton').show();
+        $('.msgs').hide();
+
+        if (c.errors > 0) {
+            $('.downLoad').html("Scarica " + c.errors + " errori su un totale di " + c.numberOfNames + " nominativi");
+            $('.downLoad').show();
+      }
+
+        $.getJSON("/Scripts/api/configuration.json", function (c) {
+            var url = c.apiurl;
+            if (areaTestUser != "True")
+                url = c.apiurlTest;
+
+            $.get(url + "/TemporaryValidateTable/GetPercentage?userId=" + userId + "&sessionId=" + sessionId, function (w) {
+                if (w !== null) {
+                    $('.progress-bar').html(w + "%");
+                    $('.progress-bar').css({ "width": w + "%" }, 800);
+                }
+            });
+        });
+ }
+
+    function Fail() {
+        //Errore
+    }
+
+    function StartEvent() {
+        //AVVIO LETTURA
+        TimeControl();
+        $('.avvia').attr('disabled', 'disabled');
+        $('.avvia').html('VERIFICA IN CORSO...');
+        $('.msgs').show();
+    }
+</script>

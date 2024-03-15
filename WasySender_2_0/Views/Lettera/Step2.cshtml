@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "Step2";
+}
+
+<div class="col-lg-12">
+    <div class="content-breadcrumb">DASHBOARD / CORRISPONDENZA / LETTERA / SELEZIONA DESTINATARI</div>
+</div>
+
+<div class="default-page">
+    <div class="col-lg-12">
+        <section>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h1>SCEGLI I DESTINATARI PER LA SPEDIZIONE</h1>
+                    <h2>Seleziona i destinatari direttamente dalla tua rubrica oppure carica una nuova lista.</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2">
+                    <div class="seleziona-destinatari">
+                        <div class="col-lg-6 col-md-6">
+                            <a href="/Lettera/DestinatariList?Bollettini=@Request.QueryString["Bollettini"]&Sender=@Request.QueryString["Sender"]&TipoStampa=@Request.QueryString["TipoStampa"]&FronteRetro=@Request.QueryString["FronteRetro"]&TipoLettera=@Request.QueryString["TipoLettera"]&Formato=@Request.QueryString["Formato"]&logo=@Request.QueryString["logo"]">
+                                <img src="~/Images/IcnDestinatariList.png" width="88" /><br /><br />
+                                Seleziona destinatari<br />
+                                da rubrica
+                            </a>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <a href="/Lettera/DestinatariNew?Bollettini=@Request.QueryString["Bollettini"]&Sender=@Request.QueryString["Sender"]&TipoStampa=@Request.QueryString["TipoStampa"]&FronteRetro=@Request.QueryString["FronteRetro"]&TipoLettera=@Request.QueryString["TipoLettera"]&Formato=@Request.QueryString["Formato"]&logo=@Request.QueryString["logo"]">
+                                <img src="~/Images/IcnDestinatariNew.png" width="88" /><br /><br />
+                                Carica una nuova<br />
+                                lista di destinatari
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+

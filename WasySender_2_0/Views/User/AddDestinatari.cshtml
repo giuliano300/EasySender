@@ -1,0 +1,194 @@
+﻿
+@{
+    ViewBag.Title = "AddDestinatari";
+}
+
+<div class="col-lg-12">
+    <div class="content-breadcrumb"><a href="/Home/Dashboard/">DASHBOARD</a> / DESTINATARI</div>
+</div>
+
+
+<div class="default-page">
+    <div class="col-lg-12">
+        <section>
+            @using (Html.BeginForm("SalvaLista", "User", FormMethod.Post, new { @class = "request-form" }))
+            {
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h1>NUOVA LISTA DESTINATARI</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="destinatari-new">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <label><span>1</span>NOME LISTA&nbsp;&nbsp;<em>(Inserisci il nome della lista)</em></label>
+                                    <input type="text" name="nomeLista" required />
+                                </div>
+                                <div class="col-lg-12">
+                                    <br /><label><span>2</span>CARICA NUOVA LISTA &nbsp;&nbsp;<em>(in formato .zip) <input type="text" name="destinatari" value="" required class="reqDestinatari" /></em></label>
+                                    <div class="dropZoneForm relative">
+                                        <div id="myId" class="fallback dropzone"></div>
+                                        <span class="preload-file">
+                                            <img src="~/Images/preload.gif" /><br />
+                                            Caricamento file in corso
+                                        </span>
+                                    </div>
+                                    <span class="progress">
+                                        <span class="progress-bar">0%</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <a href="/ExampleFiles/DestinatariSenzaBollettini.csv" target="_blank"><img src="~/Images/IcnInfo.png" style="width:16px;" />&nbsp;&nbsp;&nbsp;Scarica il file esempio in formato .CSV</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <label><span>3</span>RISULTATO CARICAMENTO</label>
+                            <div class="content-result-list">
+                                <div class="result-load-list">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4">
+                                            <article class="std">Nominativi caricati: <strong class="totali">-</strong></article>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4">
+                                            <article class="ok">Validi: <strong class="validi">-</strong></article>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4">
+                                            <article class="error">Errori: <strong class="errori">-</strong></article>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="top-result">
+                                    <li>NOMINATIVO</li>
+                                    <li>VALIDO</li>
+                                    <li>TIPO DI ERRORE</li>
+                                </ul>
+                                <span class="responseList">
+                                    <span class="preload-nominativi">
+                                        <img src="~/Images/preload.gif" /><br />
+                                        Attendere validazione nominativi in corso!
+                                        <span class="progress">
+                                            <span class="progress-bar-nominativi">0%</span>
+                                        </span>
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="error-msg"></div>
+                            <div class="msg">
+                                <strong>Il processo di caricamento della lista è terminato.</strong><br />
+                                <p>
+                                    Clicca su inserisci lista per salvare i nominativi validi oppure correggi gli
+                                    errori evidenziati e ricarica la lista.
+                                </p>
+                            </div>
+                            <span class="download-errors"><a href="/Corrispondenza/CreateErrorFile" class="d" target="_blank">scarica gli errori</a></span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="nav-step">
+                        <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <button type="submit">INSERISCI LISTA <img src="~/Images/IcnNext.png" /></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </section>
+    </div>
+</div>
+
+<div class="bg-pop-up popup-std">
+    <div class="col-lg-12">
+        <div class="close-popup wowload delay-02 fadeIn">
+            <a onclick="ClosePopup()" title="Chiudi Dettaglio"><img src="~/Images/IcnClose.png" /></a>
+        </div>
+    </div>
+    <div class="pop-up">
+        <div class="row">
+            <div class="col-lg-12 text-center"><h1>MODIFICA IL NOMINATIVO</h1></div>
+        </div>
+        <div class="row">
+            <div class="user-form">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-6">
+                            <label>RAGIONE SOCIALE <em>(Lunghezza massima 40 char)</em></label>
+                            <input type="text" name="ragsoc" value="" class="ragsoc" maxlength="44" />
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6">
+                            <label>NOME <em>(OBBLIGATORIO SE LA RAGIONE SOCIALE È VUOTA)</em></label>
+                            <input type="text" name="nome" value="" class="nome" maxlength="44" />
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6">
+                            <label>COGNOME <em>(OBBLIGATORIO SE LA RAGIONE SOCIALE È VUOTA)</em></label>
+                            <input type="text" name="cognome" value="" class="cognome" maxlength="44" />
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <label>COMPLETAMENTO NOMINATIVO <em>(se il nominativo supera i 44 caratteri)</em></label>
+                            <input type="text" name="completamentoNominativo" value="" class="completamentoNominativo" maxlength="44" />
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <label>CODICE FISCALE <em>(obbligatorio per il ritiro digitale)</em></label>
+                            <input type="text" name="cf" value="" class="cf" maxlength="16" />
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <label>INDIRIZZO <em>(ES.Toledo, Dante, ect.)</em></label>
+                            <input type="text" name="indirizzo" value="" class="indirizzo" />
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <label> COMPLETAMENTO INDIRIZZO <em>(es. presso mario rossi)</em></label>
+                            <input type="text" name="completamentoIndirizzo" value="" class="completamentoIndirizzo" />
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6">
+                            <label>CAP</label>
+                            <input type="text" name="cap" value="" onkeypress="return onlyNumbers(event);" size="10" maxlength="10" class="cap" onchange="ReadAndWriteCap()" />
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6">
+                            <label>CITT&Agrave;</label>
+                            <input type="text" name="citta" value="" class="citta readonly" readonly />
+                            <select name="citta" value="" class="selCitta" style="display:none" onchange="GetProvincia()">
+                                <option value="">Seleziona un comune</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6">
+                            <label>PROVINCIA <em>(SOLO 2 LETTERE)</em></label>
+                            <input type="text" name="provincia" maxlength="2" minlength="2" style="text-transform:uppercase;" value="" class="provincia readonly" readonly
+                                   onkeypress="return onlyLetters(event);" />
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6">
+                            <label>STATO  <em>(SECONDO I CODICI UPU)</em></label>
+                            <input type="text" name="stato" value="" class="stato" />
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <input type="submit" name="save" value="INSERISCI" onclick="validateForm()" />
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="error-msg error-popup"></div>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="index" class="index" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var userId = @ViewBag.userId;
+    var sessionId = "@ViewBag.sessionId";
+    var areaTestUser = "@ViewBag.areaTestUser";
+</script>
+
+@Styles.Render("~/Content/dropZoneStyles")
+@Scripts.Render("~/bundles/dropZone")
+
+@Scripts.Render("~/bundles/user/AddDestinatari")

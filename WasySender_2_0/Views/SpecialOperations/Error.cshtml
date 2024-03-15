@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "Error";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="default-page error-500" style="min-height:80vh!important;">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 style="margin-top:-80px; font-size:40px">ERRORE NELLA SPEDIZIONE</h1>
+            <p style="font-size:20px">@Session["Error"]</p>
+        </div>
+    </div>
+</div>

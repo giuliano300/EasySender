@@ -1,0 +1,195 @@
+﻿@using WasySender_2_0.Models;
+@using Newtonsoft.Json;
+
+@{
+    ViewBag.Title = "Errori notificati";
+
+    Users u = new Users();
+    u = JsonConvert.DeserializeObject<Users>(Request.Cookies["login"].Value);
+
+}
+<style>
+    .container-report .report-filters label input, .container-report .report-filters label select {
+        min-width: 160px !important;
+        max-width: 180px !important;
+    }
+
+    input[type=submit], input[type=button] {
+        float: right !important;
+        border: solid 1px #e1e1e1;
+        padding: 8px 10px;
+        font-size: 13px;
+        min-width: 140px;
+        margin: 8px 10px 0 0;
+        background: #46a289;
+        border: none;
+        color: #fff;
+        font-weight: 600;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        border-radius: 5px;
+        box-shadow: 1px 2px 10px #ddd;
+    }
+
+    .bulletin-show {
+        display: none;
+    }
+
+    .bulletinTotal {
+        font-size: 16px;
+        font-weight: 600;
+        color: #1f9047;
+        float: right;
+    }
+
+    .names li {
+        height: 85px !important;
+    }
+
+    .tbl-responsive {
+        width: 100%;
+    }
+
+        .tbl-responsive th {
+            background: #476bab;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            height: 40px !important;
+            padding: 0 10px;
+            border-right: 1px solid #fff;
+            min-width: 80px;
+        }
+
+        .tbl-responsive td {
+            height: 80px;
+            padding: 5px 10px;
+            border-right: 1px solid #e1e1e1;
+            border-bottom: 1px solid #e1e1e1;
+            text-align: left;
+            font-weight: 600;
+            min-width: 80px;
+        }
+
+            .tbl-responsive td:first-child {
+                border-left: 1px solid #e1e1e1;
+            }
+
+        .tbl-responsive tr:nth-child(2n+1) {
+            background: #fafafa;
+        }
+
+    .empty-td {
+        width: 100%;
+        text-align: center !important;
+        padding: 30px 0;
+    }
+
+    .status {
+        width: 140px !important;
+    }
+    .stato-sped-grid-report {
+        height: 60vh !important;
+    }
+</style>
+
+<div class="col-lg-12">
+    <div class="content-breadcrumb">DASHBOARD / ERRORI NOTIFICATI</div>
+</div>
+
+<div class="default-page">
+    <div class="col-lg-12">
+        <section>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1>ERRORI NOTIFICATI</h1>
+                            <article class="nb">N.b. Qui trovi la lista degli invii non riusciti per problemi con la validazione di poste.<br />Ricordati di segnalarci il problema per poter apportare eventuali modifiche alla spedizione.</article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="stato-sped-grid-lotto stato-sped-grid-report">
+                        <table class="tbl-responsive">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        ACCETTAZIONE
+                                    </th>
+                                    <th>
+                                        NOMINATIVO
+                                    </th>
+                                    <th>
+                                        INDIRIZZO
+                                    </th>
+                                    <th>
+                                        CAP
+                                    </th>
+                                    <th>
+                                        CITTA'
+                                    </th>
+                                    <th>
+                                        NAZIONE
+                                    </th>
+                                    <th>
+                                        ERRORE
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="names">
+                                <tr>
+                                    <td class="empty-td" colspan="7">Attendere...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <span class="preload-operation">
+        <img src="~/Images/preload.gif" /><br />
+        Attendere ricerca dei nominativi nel database.
+    </span>
+</div>
+    @Scripts.Render("~/bundles/jqueryredir")
+
+
+    <script>
+    var myUserId = '@u.id';
+
+    $.get("https://apinewtest.easysender.it/api/Names/LeggiNotificheNonLette?userId=" + myUserId);
+
+    $.get("https://apinewtest.easysender.it/api/Names/ErroriNotificati?userId=" + myUserId, function (r) {
+        $('.names').empty();
+        $('.preload-operation').hide();
+        var i = 0;
+        if (r.length > 0) {
+            $('.export').removeAttr("disabled");
+            var ids = "";
+            var granTotal = 0;
+            $.each(r, function (k, o) {
+                i++;
+                var ul = "<tr>" +
+                    "<td>" + new Date(o.presaInCaricoDate).toLocaleDateString() + " " + new Date(o.presaInCaricoDate).toLocaleTimeString() + "</td>" +
+                    "<td>" + o.businessName + "</td>" +
+                    "<td>" + o.address + "</td>" +
+                    "<td>" + o.cap + "</td>" +
+                    "<td>" + o.city + " (" + o.province + ")</td>" +
+                    "<td>" + o.state + "</td>" +
+                    "<td>" + o.stato + "</td>" +
+                "</tr>";
+                $('.names').append(ul);
+            });
+        }
+        else {
+            var ul = "<tr><td class='empty-li'>Nessun errore notificato</td></tr>";
+        };
+    });
+
+    </script>
+

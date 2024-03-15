@@ -1,0 +1,101 @@
+﻿@model WasySender_2_0.Models.Users
+@{
+    ViewBag.Title = "Account";
+
+    if (Request.Cookies["login"] == null)
+    {
+        Response.Redirect("/Home/Index");
+    }
+}
+
+<div class="col-lg-7">
+    <div class="content-breadcrumb"><a href="/Home/Dashboard/">DASHBOARD</a> / GESTIONE ACCOUNT</div>
+</div>
+
+<div class="default-page">
+    <div class="col-lg-7">
+        <div class="row">
+            <div class="account">
+                <div class="col-lg-12">
+                    <section>
+                        @using (Ajax.BeginForm("EditPersonalPwd", "Home", new { @class = "form" },
+                           new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "UpdatePwd", OnBegin = "return controlPwd", OnSuccess = "clearFormPwd", OnFailure = "nothingPwd" }))
+                        {
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h1>PER EFFETTUARE IL PRIMO ACCESSO MODIFICA LA PASSWORD</h1>
+                                    <h4>
+                                        Prima di accedere è necessario modificare la password ricevuta in precedenza.
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <label>VECCHIA PASSWORD</label>
+                                    <input type="password" name="oldpassword" onchange="controlOldPwd()" class="oldPwd" required />
+                                </div>
+                                <div class="col-lg-12">
+                                    <label>NUOVA PASSWORD</label>
+                                    <input type="password" name="newpassword" required class="newpwd" onchange="controlPwd()" />
+                                </div>
+                                <div class="col-lg-12">
+                                    <label>CONFERMA PASSWORD</label>
+                                    <input type="password" name="confirmpassword" required class="confirmpwd" onchange="controlPwd()" />
+                                </div>
+                                <div class="col-lg-12">
+                                    <label></label>
+                                    <input type="submit" name="salvapwd" value="CAMBIA PASSWORD" class="salvaPwd" onclick="return controlPwd" />
+                                </div>
+                                <div class="col-lg-12">
+                                    <div id="UpdatePwd" class="UpdatePwd"></div>
+                                </div>
+                            </div>
+                        }
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function clearFormPwd() {
+        document.location.href = "/Home/Dashboard";
+    }
+    function nothingPwd() {
+        $('.UpdatePwd').html("Errore interno nella richiesta");
+        $('.UpdatePwd').addClass('errore');
+    }
+
+    function controlPwd() {
+        if ($('.newpwd').val() != $('.confirmpwd').val() && $('.newpwd').val() != "" && $('.confirmpwd').val() !="") {
+            $('.UpdatePwd').html("le due password inserite non conicidono");
+            $('.UpdatePwd').addClass('errore');
+            $('.salvaPwd').attr("disabled", "disabled");
+        }
+        else {
+            $('.UpdatePwd').html("");
+            $('.UpdatePwd').removeClass('errore');
+            $('.salvaPwd').removeAttr("disabled");
+        }
+    }
+
+    function controlOldPwd() {
+        $.getJSON("/Scripts/api/configuration.json", function (c) {
+            $.get(c.apiurl + "/Users/ControlPwd?pwd=" + $('.oldPwd').val() + "&userId=@Model.id",
+                function (f) {
+                    if (f === false) {
+                        $('.salvaPwd').attr("disabled", "disabled");
+                        $('.UpdatePwd').html("Vecchia password non corretta");
+                        $('.UpdatePwd').addClass('errore');
+                    }
+                    else {
+                        $('.salvaPwd').removeAttr("disabled");
+                        $('.UpdatePwd').html("");
+                        $('.UpdatePwd').removeClass('errore');
+                    }
+                });
+            });
+    };
+</script>
+

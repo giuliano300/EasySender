@@ -1,0 +1,201 @@
+﻿@model WasySender_2_0.DataModel.LoghiSenders
+@using WasySender_2_0.Models
+@using Newtonsoft.Json;
+
+@{
+    ViewBag.Title = "Index";
+
+    Users u = new Users();
+    u = JsonConvert.DeserializeObject<Users>(Request.Cookies["login"].Value);
+
+}
+
+<div class="col-lg-12">
+    <div class="content-breadcrumb">DASHBOARD / CORRISPONDENZA / RACCOMANDATA @ViewBag.ProductTypeName.ToUpper()</div>
+</div>
+
+<div class="default-page">
+    <div class="col-lg-12">
+        <section>
+            @using (Html.BeginForm("GotoStep2", "Raccomandata", FormMethod.Post, new { @class = "request-form" }))
+            {
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h1>RACCOMANDATA</h1>
+                        <h2>Selezionare il mittente e le opzioni.</h2>
+                    </div>
+                </div>
+                <div class="raccomandata">
+                    @if (Convert.ToInt32(Request.QueryString["id"]) == (int)ProductType.semplice || Convert.ToInt32(Request.QueryString["id"]) == (int)ProductType.bollettini)
+                    {
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-lg-offset-3 col-md-offset-3">
+                                <label>SELEZIONA IL MITTENTE</label>
+                                <select name="Sender" required class="Sender">
+                                    <option value="" selected>Seleziona--</option>
+                                    @foreach (var s in Model.senders)
+                                    {
+                                        <option value="@s.id">@s.businessName  @s.name  @s.surname</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    }
+                    @if (Model.loghi.Count > 0)
+                    {
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-lg-offset-3 col-md-offset-3">
+                                <label>SELEZIONA IL LOGO(se vuoi....)</label>
+                                <select name="logo">
+                                    <option value="" selected>Seleziona--</option>
+                                    @foreach (var s in Model.loghi)
+                                    {
+                                        <option value="@s.logo">@s.name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    }
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-lg-offset-2 col-md-offset-2 col-sm-offset-2 col-xs-offset-0">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 col-sm-4">
+                                    <div class="box-option">
+                                        <h6>
+                                            <img src="~/Images/IcnFormato.png" />
+                                            <span>FORMATO</span>
+                                        </h6>
+                                        <ul>
+                                            <li>
+                                                <label><input type="radio" name="Formato" value="0" required class="Formato a4" checked />&nbsp;&nbsp;A4</label>
+                                            </li>
+                                            <li>
+                                                <label><input type="radio" name="Formato" value="1" class="Formato special" required />&nbsp;&nbsp;FORMATO SPECIALE</label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-4">
+                                    <div class="box-option">
+                                        <h6>
+                                            <img src="~/Images/IcnTipoStampa.png" />
+                                            <span>TIPO DI STAMPA</span>
+                                        </h6>
+                                        <ul>
+                                            <li>
+                                                <label><input type="radio" name="TipoStampa" value="@Convert.ToInt32(TipoStampa.BiancoNero)" required class="TipoStampa" />&nbsp;&nbsp;BIANCO E NERO</label>
+                                            </li>
+                                            <li>
+                                                <label><input type="radio" name="TipoStampa" value="@Convert.ToInt32(TipoStampa.Colori)" required class="TipoStampa" />&nbsp;&nbsp;COLORI</label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-4">
+                                    <div class="box-option">
+                                        <h6>
+                                            <img src="~/Images/IcnFronteRetro.png" />
+                                            <span>STAMPA FRONTE / RETRO</span>
+                                        </h6>
+                                        <ul>
+                                            <li>
+                                                <label><input type="radio" name="FronteRetro" value="@Convert.ToInt32(FronteRetro.Si)" required class="FronteRetro" />&nbsp;&nbsp;SI</label>
+                                            </li>
+                                            <li>
+                                                <label><input type="radio" name="FronteRetro" value="@Convert.ToInt32(FronteRetro.No)" required class="FronteRetro" />&nbsp;&nbsp;NO</label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-4">
+                                    <div class="box-option">
+                                        <h6>
+                                            <img src="~/Images/IcnRicevutaRitorno.png" />
+                                            <span>RICEVUTA DI RITORNO</span>
+                                        </h6>
+                                        <ul>
+                                            <li>
+                                                <label><input type="radio" name="RicevutaRitorno" value="@Convert.ToInt32(RicevutaDiRitorno.Si)" required class="RicevutaRitorno" />&nbsp;&nbsp;SI</label>
+                                            </li>
+                                            <li>
+                                                <label><input type="radio" name="RicevutaRitorno" value="@Convert.ToInt32(RicevutaDiRitorno.No)" required class="RicevutaRitorno" />&nbsp;&nbsp;NO</label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @if (Convert.ToInt32(Request.QueryString["id"]) == (int)ProductType.semplice || Convert.ToInt32(Request.QueryString["id"]) == (int)ProductType.bollettini)
+                    {
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-8 col-lg-offset-3 col-md-offset-3 col-sm-offset-2 col-xs-offset-0 box-AR-multiple">
+                                <div class="col-lg-12">
+                                    <h1>
+                                        <span style="padding-top:12px; float:left;"> DESTINATARIO AR</span>
+                                        <select name="senders" class="senders" onchange="GetMittenteAR($(this).val())">
+                                            <option value="">seleziona un mittente dalla rubrica</option>
+                                        </select>
+                                    </h1>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <label>NOMINATIVO <em>(Lunghezza massima 44 char)</em></label>
+                                    <input type="text" name="nominativoSenderAR" value="" class="nominativoSenderAR" maxlength="44" required />
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <label>COMPLETAMENTO NOMINATIVO <em>(Es. Presso sig.Rossi)</em></label>
+                                    <input type="text" name="complementoNominativoSenderAR" value="" class="complementoNominativoSenderAR" maxlength="44" />
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <label>INDIRIZZO <em>(ES.via Toledo, 50)</em></label>
+                                    <input type="text" name="indirizzoSenderAR" value="" class="indirizzoSenderAR" required />
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <label>COMPLETAMENTO INDIRIZZO <em>(Es. vicino alla stazione)</em></label>
+                                    <input type="text" name="completamentoIndirizzoSenderAR" value="" maxlength="44" class="completamentoIndirizzoSenderAR" />
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <label>CAP</label>
+                                    <input type="text" name="capSenderAR" value="" required onkeypress="return onlyNumbers(event);" size="5" maxlength="5"
+                                           class="capSenderAR" onchange="ReadAndWriteCapSenderAR()" />
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <label>CITT&Agrave;</label>
+                                    <input type="text" name="cittaSenderAR" value="" required class="cittaSenderAR readonly" readonly />
+                                    <select name="citta" value="" class="selCittaSenderAR" style="display:none" onchange="GetProvinciaSenderAR()">
+                                        <option value="">Seleziona un comune</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <label>PROVINCIA <em>(SOLO 2 LETTERE)</em></label>
+                                    <input type="text" name="provinciaSenderAR" maxlength="2" minlength="2" style="text-transform:uppercase;" value="" class="provinciaSenderAR readonly" readonly required
+                                           onkeypress="return onlyLetters(event);" />
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <label>STATO  <em>(SECONDO I CODICI UPU)</em></label>
+                                    <input type="text" name="statoSenderAR" value="ITALIA" class="statoSender readonly" readonly required />
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                </div>
+                <div class="row">
+                    <div class="nav-step">
+                        <div class="col-lg-4 col-lg-offset-5 col-md-4 col-md-offset-5">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <button type="submit" class="prosegui">PROSEGUI <img src="~/Images/IcnNext.png" /></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="id" value="@ViewBag.ProductTypeId" />
+            }
+        </section>
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/raccomandata/index")
+

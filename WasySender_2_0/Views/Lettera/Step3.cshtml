@@ -1,0 +1,135 @@
+﻿@model  WasySender_2_0.DataModel.GetLists
+@{
+    ViewBag.Title = "Step3";
+}
+<script src="~/Scripts/jquery.countdown.js"></script>
+<div class="col-lg-12">
+    <div class="content-breadcrumb">DASHBOARD / CORRISPONDENZA / LETTERA / SELEZIONA DESTINATARI / RIEPILOGO E SPEDIZIONE</div>
+</div>
+
+<div class="default-page">
+    <div class="col-lg-12">
+        <section>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h1>CARICA FILE E SPEDISCI!</h1>
+                    <h2>
+                        Carica il file dal form a sinistra e spedisci.
+                    </h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="destinatari-new">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <label><span>1</span>CARICA FILE <em>(in formato .zip)</em></label>
+                                <div class="dropZoneForm relative">
+                                    <div id="myId" class="fallback dropzone"></div>
+                                    <span class="preload-file">
+                                        <img src="~/Images/preload.gif" /><br />
+                                        Caricamento file in corso
+                                    </span>
+                                </div>
+                                <span class="progress">
+                                    <span class="progress-bar">0%</span>
+                                </span>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <label><span>2</span>RISULTATO CARICAMENTO</label>
+                                <div class="content-result-list">
+                                    <div class="result-load-list">
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-4">
+                                                <article class="std">Nominativi caricati: <strong class="totali">@Model.recipients.Count()</strong></article>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4">
+                                                <article class="ok">Validi: <strong class="validi">@Model.recipients.Count()</strong></article>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4">
+                                                <article class="error">Errori: <strong class="errori">-</strong></article>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="error-msg"></div>
+                                    <div class="msg-static">
+                                        Dopo aver caricato il file .zip contenente i pdf, in quest' area sarà visualizzata la lista dei nominativi con gli eventuali errori relativi.
+                                    </div>
+                                    <div class="msg">
+                                        <strong>Il processo di caricamento della lista è terminato.</strong><br />
+                                        Clicca su inserisci lista per salvare i nominativi validi oppure correggi gli errori evidenziati e ricarica la lista.
+                                    </div>
+                                    <ul class="top-result" style="display:none;">
+                                        <li>NOMINATIVO</li>
+                                        <li>VALIDO</li>
+                                        <li>TIPO DI ERRORE</li>
+                                    </ul>
+                                    <span class="responseList">
+                                        <span class="preload-nominativi">
+                                            <img src="~/Images/preload.gif" /><br />
+                                            Attendere validazione pdf/nominativi in corso!
+                                            <span class="progress">
+                                                <span class="progress-bar-nominativi">0%</span>
+                                            </span>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="nav-step">
+                    <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <a href="/lettera/Index?id=@Request.QueryString["Bollettini"]"><img src="~/Images/IcnPrev.png" /> INDIETRO</a>
+                            </div>
+                            <div class="col-lg-4">
+                                <a onclick="javascript: document.location.reload();">ANNULLA</a>
+                            </div>
+                            <div class="col-lg-4">
+                                @if (!ViewBag.Col)
+                                {
+                                    <a class="nav-ship" onclick="GetPreventivo(false)">CALCOLA PREVENTIVO <img src="~/Images/IcnNext.png" /></a>
+                                }
+                                else
+                                {
+                                    <a class="nav-ship" onclick="GetPreventivo(true)">SPEDISCI <img src="~/Images/IcnSpedisci.png" height="20px" /></a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <span class="preload-operation">
+        <img src="~/Images/preload.gif" /><br />
+    </span>
+
+</div>
+<input type="hidden" name="ListId" class="ListId" value="@Request.QueryString["ListId"]" />
+<input type="hidden" name="Bollettini" class="Bollettini" value="@Request.QueryString["Bollettini"]" />
+<input type="hidden" name="Sender" class="Sender" value="@Request.QueryString["Sender"]" />
+<input type="hidden" name="TipoStampa" class="TipoStampa" value="@Request.QueryString["TipoStampa"]" />
+<input type="hidden" name="FronteRetro" class="FronteRetro" value="@Request.QueryString["FronteRetro"]" />
+<input type="hidden" name="TipoLettera" class="TipoLettera" value="@Request.QueryString["TipoLettera"]" />
+<input type="hidden" name="Formato" class="Formato" value="@Request.QueryString["Formato"]" />
+<input type="hidden" name="file" class="file" value="" />
+<input type="hidden" name="operationId" class="operationId" value="" />
+
+
+@Styles.Render("~/Content/dropZoneStyles")
+@Scripts.Render("~/bundles/dropZone")
+<script>
+    var ListId = @Request.QueryString["ListId"];
+    var fronteRetro = @Request.QueryString["FronteRetro"];
+    var guiduser = '@ViewBag.guiduser';
+    var userId = @ViewBag.userId;
+    var areaTestUser = '@ViewBag.areaTestUser';
+    var numberOfNames = @Model.recipients.Count;
+</script>
+
+@Scripts.Render("~/bundles/lettera/Step3")

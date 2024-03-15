@@ -1,0 +1,74 @@
+﻿@model IEnumerable<WasySender_2_0.Models.Users>
+@using WasySender_2_0.Models
+
+@{
+    ViewBag.Title = "Utenti";
+}
+
+<style>
+    .stato-sped-grid{
+        margin-bottom:60px;
+    }
+</style>
+
+<div class="col-lg-12">
+    <div class="content-breadcrumb"><a href="/Home/Dashboard/">DASHBOARD</a> / UTENTI</div>
+</div>
+
+<div class="default-page">
+    <div class="col-lg-12">
+        <section>
+            <div class="row">
+                <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 text-center">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1>UTENTI</h1>
+                            <article>
+                                In quest’area puoi aggiungere e modificare l'elenco degli utenti.
+                            </article>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-lg-offset-4 col-md-offset-4">
+                            <a class="generic-btn" href="/User/AddUtenti">AGGIUNGI NUOVO UTENTE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="content-table-responsive">
+                        <div class="stato-sped-grid">
+                            <table class="tbl-responsive" style="min-width:100%">
+                                <tr>
+                                    <td class="top-grid">TIPOLOGIA</td>
+                                    <td class="top-grid">NOME</td>
+                                    <td class="top-grid">COGNOME</td>
+                                    <td class="top-grid" style="width:402px">EMAIL</td>
+                                    <td class="top-grid">PASSWORD</td>
+                                    <td class="top-grid">TELEFONO</td>
+                                    @*<td class="top-grid">NASCONDI PREZZI</td>*@
+                                    <td class="top-grid" style="width:55px">MOD.</td>
+                                    <td class="top-grid" style="width:55px">ELI.</td>
+                                </tr>
+                                @foreach (var u in Model)
+                                {
+                                    <tr>
+                                        <td>@(Enum.GetName(typeof(userType), u.userType))</td>
+                                        <td>@u.name</td>
+                                        <td>@u.lastName</td>
+                                        <td style="width:402px">@u.email</td>
+                                        <td>@u.pwd</td>
+                                        <td>@u.mobile</td>
+                                        @*<td>@(u.hidePrice ? "SI": "NO")</td>*@
+                                        <td style="width:55px"><a href="/User/ModUtenti/@u.id"><img src="~/Images/IcnModificaRitiro.png" /></a></td>
+                                        <td style="width:55px"><a href="/User/DeleteUser/@u.id"><img src="~/Images/IcnDelete.png" /></a></td>
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+

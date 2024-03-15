@@ -1,0 +1,376 @@
+﻿@using WasySender_2_0.Models;
+@using Newtonsoft.Json;
+
+@{
+    Layout = null;
+
+    if (Request.Cookies["login"] == null)
+    {
+        Response.Redirect("/");
+    }
+
+    Users u = new Users();
+    u = JsonConvert.DeserializeObject<Users>(Request.Cookies["login"].Value);
+
+    UserPermits p = new UserPermits();
+    if (Request.Cookies["permits"].Value != "null")
+    {
+        p = JsonConvert.DeserializeObject<UserPermits>(Request.Cookies["permits"].Value);
+    }
+
+    bool all = false;
+    all = Convert.ToBoolean(Request.Cookies["allPermits"].Value);
+
+    if (!u.abilitato)
+    {
+        Response.Redirect("/");
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Easy Sender</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/unobtrusive")
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Less/Style.css?ver=2.7">
+    @*<link rel="stylesheet/less" type="text/css" href="/Less/Style.less">*@
+
+</head>
+        <body>
+
+            <div class="container hidden-lg hidden-md">
+                <div class="version-mobile">
+                    <div class="row">
+                        <div class="col-xs-2"></div>
+                        <div class="col-xs-8">
+                            <img src="/Images/Logo-o.png" />
+                            <h1>
+                                Software non disponibile per questa risoluzione.
+                            </h1>
+                        </div>
+                        <div class="col-xs-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid no-padding hidden-sm hidden-xs">
+                @if (u.demoUser || u.areaTestUser)
+                {
+                    <div class="label-demo"><img src="~/Images/LabelDemo.png" /></div>
+                }
+
+                <div class="master">
+                    <div class="row">
+                        <!--SIDE MENU-->
+                        <div class="col-lg-2 col-md-2 no-padding fixed z-index-800">
+                            <aside>
+                                <div class="logo">
+                                    <a href="/Home/Dashboard">
+                                        <img src="~/Images/Logo-o.png" />
+                                    </a>
+                                </div>
+
+                                <div class="col-lg-12" style="max-height:78vh; overflow-y:auto">
+                                    <ul class="ul-std ul-grey">
+                                        <li>
+                                            <span onclick="location.href='/Home/Dashboard'">
+                                                <i class="float-left icon-aside"><img src="~/Images/Icn-Dashboard.png" class="img" /></i>
+                                                <label>Dashboard</label>
+                                                <i class="float-right padding-top-10"><img src="~/Images/Arrow.png" /></i>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                    <ul class="ul-std">
+                                        <li>
+                                            <span>
+                                                <i class="float-left icon-aside"><img src="~/Images/IcnRaccomandataMenu.png" class="img" /></i>
+                                                <label>Raccomandata</label>
+                                                <i class="float-right padding-top-10"><img src="~/Images/ArrowDown.png" /></i>
+                                                <div class="sub-menu">
+                                                    @if (u.userType != (int)userType.Visualizzatore)
+                                                    {
+                                                        <strong>NUOVA SPEDIZIONE&nbsp;&nbsp;<i class="fas fa-caret-down"></i></strong><br />
+                                                        <a href="/Raccomandata/Index?id=2"><i class="fas fa-circle"></i>&nbsp;&nbsp;Singolo invio</a><br />
+                                                        <a href="/Raccomandata/Index?id=3"><i class="fas fa-circle"></i>&nbsp;&nbsp;Singolo invio con bollettino</a><br />
+                                                        <a href="/Raccomandata/Index?id=0"><i class="fas fa-circle"></i>&nbsp;&nbsp;Invio multiplo</a><br />
+                                                        <a href="/Raccomandata/Index?id=1"><i class="fas fa-circle"></i>&nbsp;&nbsp;Invio multiplo con bollettino</a><br />
+                                                    }
+                                                    <article onclick="location.href='/Corrispondenza/Index?id=@Convert.ToInt32(operationType.ROL)'">STATO INVII&nbsp;&nbsp;<i class="fas fa-caret-right"></i></article>
+                                                </div>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                    <ul class="ul-std">
+                                        <li>
+                                            <span>
+                                                <i class="float-left icon-aside"><img src="~/Images/IcnLetteraMenu.png" class="img" /></i>
+                                                <label>Lettera</label>
+                                                <i class="float-right padding-top-10"><img src="~/Images/ArrowDown.png" /></i>
+
+                                                <div class="sub-menu">
+                                                    @if (u.userType != (int)userType.Visualizzatore)
+                                                    {
+                                                        <strong>NUOVA SPEDIZIONE&nbsp;&nbsp;<i class="fas fa-caret-down"></i></strong><br />
+                                                        <a href="/Lettera/Index?id=2"><i class="fas fa-circle"></i>&nbsp;&nbsp;Singolo invio</a><br />
+                                                        <a href="/Lettera/Index?id=3"><i class="fas fa-circle"></i>&nbsp;&nbsp;Singolo invio con bollettino</a><br />
+                                                        <a href="/Lettera/Index?id=0"><i class="fas fa-circle"></i>&nbsp;&nbsp;Invio multiplo</a><br />
+                                                        <a href="/Lettera/Index?id=1"><i class="fas fa-circle"></i>&nbsp;&nbsp;Invio multiplo con bollettino</a><br />
+                                                    }
+                                                    <article onclick="location.href='/Corrispondenza/Index?id=@Convert.ToInt32(operationType.LOL)'">STATO INVII&nbsp;&nbsp;<i class="fas fa-caret-right"></i></article>
+                                                </div>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                    <ul class="ul-std">
+                                        <li>
+                                            <span>
+                                                <i class="float-left icon-aside"><img src="~/Images/IcnTelegrammaMenu.png" class="img" /></i>
+                                                <label>Telegramma</label>
+                                                <i class="float-right padding-top-10"><img src="~/Images/ArrowDown.png" /></i>
+
+                                                <div class="sub-menu">
+                                                    @if (u.userType != (int)userType.Visualizzatore)
+                                                    {
+                                                        <strong>NUOVA SPEDIZIONE&nbsp;&nbsp;<i class="fas fa-caret-down"></i></strong><br />
+                                                        <a href="/Telegramma/Index?id=2"><i class="fas fa-circle"></i>&nbsp;&nbsp;Invia telegramma</a><br />
+                                                    }
+                                                    <article onclick="location.href='/Corrispondenza/Index?id=@Convert.ToInt32(operationType.TELEGRAMMA)'">STATO INVII&nbsp;&nbsp;<i class="fas fa-caret-right"></i></article>
+                                                </div>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                    <ul class="ul-std">
+                                        <li>
+                                            <span>
+                                                <i class="float-left icon-aside"><img src="~/Images/IcnVisure.png" class="img" /></i>
+                                                <label>Visura/Certificato</label>
+                                                <i class="float-right padding-top-10"><img src="~/Images/ArrowDown.png" /></i>
+
+                                                <div class="sub-menu">
+                                                    @if (u.userType != (int)userType.Visualizzatore)
+                                                    {
+                                                        <strong>NUOVA RICHIESTA&nbsp;&nbsp;<i class="fas fa-caret-down"></i></strong><br />
+                                                        <a href="/Visure/Index?id=2"><i class="fas fa-circle"></i>&nbsp;&nbsp;Singola richiesta</a><br />
+                                                        <a href="/Visure/Index?id=0"><i class="fas fa-circle"></i>&nbsp;&nbsp;Richiesta multipla</a><br />
+                                                    }
+                                                    <article onclick="location.href='/Visure/Richieste'">STATO RICHIESTE&nbsp;&nbsp;<i class="fas fa-caret-right"></i></article>
+                                                </div>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                    @if (u.Pacchi)
+                                    {
+
+                                        <ul class="ul-std">
+                                            <li>
+                                                <span>
+                                                    <i class="float-left icon-aside"><img src="~/Images/IcnPacchiMenu.png" class="img" /></i>
+                                                    <label>Pacchi</label>
+                                                    <i class="float-right padding-top-10"><img src="~/Images/ArrowDown.png" /></i>
+
+                                                    <div class="sub-menu">
+                                                        <a href="/Pacchi"><i class="fas fa-circle"></i>&nbsp;&nbsp;Nuova spedizione</a><br />
+                                                        <article onclick="location.href='/Pacchi/Invii'">STATO INVII&nbsp;&nbsp;<i class="fas fa-caret-right"></i></article>
+                                                    </div>
+                                                </span>
+                                            </li>
+                                        </ul>
+                                     }
+                                        <ul class="ul-std ul-green hidden">
+                                            <li>
+                                                <span>
+                                                    <i class="float-left padding-top-5 icon-aside"><img src="~/Images/IcnInviiSpeciali.png" class="img" /></i>
+                                                    <label>INVII SPECIALI</label>
+                                                    <i class="float-right padding-top-10"><img src="~/Images/ArrowDown.png" /></i>
+                                                    <div class="sub-menu">
+                                                        <a href="/SpecialOperations"><i class="fas fa-circle"></i>&nbsp;&nbsp;Nuovo invio</a><br />
+                                                        <a href="/SpecialOperations/History"><i class="fas fa-circle"></i>&nbsp;&nbsp;Storico invii</a><br />
+                                                    </div>
+                                                </span>
+                                            </li>
+
+                                        </ul>
+
+                                        <ul class="ul-std ul-dark-blue">
+                                            <li>
+                                                <span>
+                                                    <i class="float-left icon-aside"><img src="~/Images/Icn-StoricoSpedizioni.png" class="img" /></i>
+                                                    <label>Archivio</label>
+                                                    <i class="float-right padding-top-10"><img src="~/Images/ArrowDown.png" /></i>
+
+                                                    <div class="sub-menu">
+                                                        <a href="/Visure/ArchivioRichieste"><i class="fas fa-circle"></i>&nbsp;&nbsp;Archivio Visure/Certificati</a><br />
+                                                        <a href="/Corrispondenza/ArchivioSpedizioni"><i class="fas fa-circle"></i>&nbsp;&nbsp;Archivio Spedizioni</a><br />
+                                                        <a href="/Pacchi/ArchivioSpedizioni"><i class="fas fa-circle"></i>&nbsp;&nbsp;Archivio Spedizioni Pacchi</a><br />
+                                                    </div>
+                                                </span>
+                                            </li>
+                                        </ul>
+                                        <ul class="ul-std ul-dark-blue">
+                                            <li>
+                                                <span>
+                                                    <i class="float-left icon-aside"><img src="~/Images/graphic.png" class="img" /></i>
+                                                    <label>Report</label>
+                                                    <i class="float-right padding-top-10"><img src="~/Images/ArrowDown.png" /></i>
+
+                                                    <div class="sub-menu">
+                                                        <a href="/Corrispondenza/Report"><i class="fas fa-circle"></i>&nbsp;&nbsp;Report Spedizioni</a><br />
+                                                        <a href="/Corrispondenza/ConciliazionePagamenti"><i class="fas fa-circle"></i>&nbsp;&nbsp;Rep. Sped. Con Bollettini</a><br />
+                                                    </div>
+                                                </span>
+                                            </li>
+                                        </ul>
+
+                                        <ul class="ul-std ul-green">
+                                            <li>
+                                                <span>
+                                                    <i class="float-left icon-aside"><img src="~/Images/IcnUtility.png" class="img" /></i>
+                                                    <label>Utility</label>
+                                                    <i class="float-right padding-top-10"><img src="~/Images/ArrowDown.png" /></i>
+                                                    <div class="sub-menu">
+                                                        @if (u.conciliazioneBollettini == true)
+                                                        {
+                                                            <a href="/Utility/SincronizzaBollettiniPagamenti"><i class="fas fa-circle"></i>&nbsp;&nbsp;Sincronizzazione Bipiol</a>
+                                                            <br />
+                                                        }
+                                                        <a href="/Utility/Files"><i class="fas fa-circle"></i>&nbsp;&nbsp;File di Esempio</a>
+                                                        <br />
+                                                    </div>
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                <div class="footer-side">
+                                    <div class="col-lg-6 col-md-6 col-sm-4">
+                                        <span style="float:left; margin:14px 0 0 20px;">
+                                            <a href="https://easyway.technology" target="_blank"><img src="~/Images/LogoFooter.png" /></a>
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </aside>
+                        </div>
+                        <!--end SIDE MENU-->
+
+                        <div class="col-lg-12 no-padding">
+
+                            <div class="col-lg-2 col-md-2 hidden-sm hidden-xs no-padding"></div>
+                            <div class="col-lg-10 col-md-10 no-padding" style="margin-left:-4px;">
+                                <!--Navigation TOP-->
+                                <nav>
+                                    <div class="menu-mobile hidden-lg hidden-md">
+                                        <div class="col-xs-6">
+                                            <section>
+                                                <a href="/home/Dashboard"><img src="~/Images/Logo-o.png" /></a>
+                                            </section>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <span>
+                                                <i onclick="OpenMenuMobile()" class="fas fa-ellipsis-h"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-10 col-md-10 hidden-sm hidden-xs">
+                                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                                            @if (u.userType != 3)
+                                            {
+                                                <ul>
+                                                    <li><a href="/User/Utenti"><img src="~/Images/IcnUserAdmin.png" />Utenti</a></li>
+                                                    <li><a href="/User/Mittenti"><img src="~/Images/IcnMittentiAdmin.png" />Rubrica Mittenti</a></li>
+                                                </ul>
+                                            }
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">
+                                            <section>
+                                                <ul>
+                                                    <li data-balloon="Account" data-balloon-pos="left"><a href="/Home/Account"><img src="~/Images/IcnGestioneAccount.png" /></a></li>
+                                                    <li class="hidden-sm hidden-xs" data-balloon="Schermo intero" data-balloon-pos="left"><img src="~/Images/IcnFullScreen.png" class="open-fullscreen" /></li>
+                                                    <li data-balloon="Logout" data-balloon-pos="left"><a href="/Home/Logout"><img src="~/Images/IcnLogout.png" /></a></li>
+                                                    @if (u.demoUser || u.areaTestUser)
+                                                    {
+                                                        <li class="demoTestVersion"></li>
+                                                    }
+                                                </ul>
+                                            </section>
+                                        </div>
+                                    </div>
+                                </nav>
+                                <!--end Navigation TOP-->
+                                <!--DEFAULT PAGE-->
+                                <div class="col-lg-12">
+                                    @RenderBody()
+                                </div>
+                                <!--end DEFAULT PAGE-->
+                                <!--Footer-->
+                                <footer>
+                                    <div class="col-lg-10">
+                                        <div class="col-lg-6 col-md-6 col-sm-4">
+                                            <span style="margin:24px 0 0 10px; float:left; font-size:13px;">© 2018-2023 / All Rights Reserved</span>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-8">
+                                            <div id="WAButton"></div>
+                                        </div>
+                                    </div>
+                                </footer>
+                                <!--end Footer-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/bundles/scrollbar")
+        @Scripts.Render("~/bundles/site")
+        @RenderSection("scripts", required: false)
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+
+    </body>
+</html>
+<!--Div where the WhatsApp will be rendered-->
+
+<link rel="stylesheet" type="text/css" href="~/Content/floating-wpp.min.css?ver=1.0">
+@Scripts.Render("~/bundles/floating-wpp-js")
+
+<script type="text/javascript">
+
+    $(function () {
+        $('#WAButton').floatingWhatsApp({
+            phone: '+393775473207', //WhatsApp Business phone number
+            headerTitle: 'Chatta con noi!', //Popup Title
+            popupMessage: 'Ciao, come possiamo aiutarti?', //Popup Message
+            showPopup: true, //Enables popup display
+            buttonImage: '<img src="/images/wa-logo.png" />', //Button Image
+            //headerColor: 'crimson', //Custom header color
+            //backgroundColor: 'crimson', //Custom background button color
+            position: "right" //Position: left | right
+
+        });
+    });
+
+    function OpenChat() {
+        $('.floating-wpp-popup').addClass('active');
+    }
+</script>  
+
+<style>
+    .new {
+        background: url("/Images/new.gif") no-repeat top left;
+        width: 58px !important;
+        height: 20px !important;
+        margin: 0 0 0 10px!important;
+        float: right !important;
+    }
+</style>

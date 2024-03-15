@@ -1,0 +1,66 @@
+﻿@model WasySender_2_0.Models.GetOperations
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Distinta</title>
+</head>
+<body style="font-family:Arial; font-size:18px; color:#52555e;">
+    <table style="float:left; width:100%;">
+        <tr><td colspan="2"><img src="~/Images/Logo-v.png" width="250" /></td></tr>
+        <tr>
+            <td colspan="2" style="text-align:center; padding:15px 0 25px;">
+                <h1 style="font-size:18px; color:#486bab; font-weight:600; padding:5px 0">SERVIZIO PostaOnline HostToHost<br />DISTINTA ANALITICA</h1>
+            </td>
+        </tr>
+        <tr>
+            <td style="border:solid 1px #ccc; padding:15px;">
+                <h1 style="font-size:18px; color:#486bab; font-weight:600; padding:5px 0">DETTAGLIO LOTTO n.@Model.operationId</h1>
+                <p style="font-size:16px; color:#333; padding:1px 0">Spedizione del: <b>@Model.operationDate.ToString("dd/MM/yyyy")</b></p>
+                <p style="font-size:16px; color:#333; padding:1px 0">Mittente: <b>@Model.sender.businessName @Model.sender.name @Model.sender.surname</b></p>
+                <p style="font-size:16px; color:#333; padding:1px 0">Numero destinatari: <b>@Model.recipients.Count()</b></p>
+                <p style="font-size:16px; color:#333; padding:1px 0">Costo totale: <b>@Model.totalPrice €</b></p>
+            </td>
+        </tr>
+        <tr><td colspan="2">&nbsp;</td></tr>
+        <tr><td colspan="2">&nbsp;</td></tr>
+    </table>
+    <table style="width:100%;">
+        <tr>
+            <th style="font-size:16px; background:#486bab; font-weight:600; padding:10px 5px; color:#fff; width:50%">Destinario</th>
+            <th style="font-size:16px; background:#486bab; font-weight:600; padding:10px 5px; color:#fff; width:25%">Data Accettazione</th>
+            <th style="font-size:16px; background:#486bab; font-weight:600; padding:10px 5px; color:#fff; width:25%">Codice</th>
+            @*<th style="font-size:16px; background:#486bab; font-weight:600; padding:10px 5px; color:#fff; width:20%">Stato</th>*@
+        </tr>
+
+        @foreach (var r in Model.recipients)
+        {
+            <tr>
+                <td style="font-size:14px; background:#eee; padding:10px 5px; color:#333; width:50%">
+                    @r.businessName @r.name  @r.surname
+                </td>
+                <td style="font-size:14px; background:#eee; padding:10px 5px; color:#333; width:25%">@r.consegnatoDate</td>
+                <td style="font-size:14px; background:#eee; padding:10px 5px; color:#333; width:25%">@r.codice</td>
+                @*<td style="font-size:14px; background:#eee; padding:10px 5px; color:#333; width:20%">@r.stato</td>*@
+            </tr>
+        }
+
+    </table>
+    <table style="float:left; width:100%; padding:30px 0 0">
+        <tr><td>&nbsp;</td></tr>
+        <tr>
+            <td colspan="2" style="text-align:right; padding:70px 0 0 0">
+                <img src="~/Images/LogoPoste.png" width="150" />
+            </td>
+        </tr>
+        </tr>
+    </table>
+
+</body>
+</html>

@@ -1,0 +1,181 @@
+﻿@model WasySender_2_0.ViewModel.DashboardViewModel
+@using WasySender_2_0.Models;
+@using Newtonsoft.Json;
+
+@{
+    ViewBag.Title = "Dashboard";
+
+    Users u = new Users();
+    u = JsonConvert.DeserializeObject<Users>(Request.Cookies["login"].Value);
+
+}
+
+<div class="col-lg-12">
+    <div class="content-breadcrumb">
+        <h3>@Model.user.name  @Model.user.lastName</h3>
+        <h4>@(EnumHelper<userType>.GetDisplayValue((userType)Enum.ToObject(typeof(userType), Model.user.userType)))</h4>
+    </div>
+</div>
+
+<div class="default-page">
+    <div class="col-lg-12 col-md-12">
+        <section class="section-home" style="min-height:30px; padding-top:5px">
+            <div class="intro">
+                <article>
+                    Benvenuto in Easy Sender, siamo felici di darvi il benvenuto alla vostra dashboard,
+                    il punto centrale per la gestione del vostro account e delle aree amministrative. <br />
+                    Da qui, avrete accesso a tutti gli strumenti necessari per gestire il vostro account in modo efficiente e semplice.
+                    Potrete controllare e gestire le aree amministrative, mantenere il vostro profilo sempre aggiornato e monitorare le comunicazioni in entrata.
+                    Inoltre, avrete a disposizione tutte le risorse di cui avete bisogno per ottimizzare la vostra esperienza con Easy Sender.
+                </article>
+            </div>
+        </section>
+    </div>
+    @if (Model.user.userType != 3)
+    {
+
+        <div class="col-lg-3 col-md-3">
+            <div class="box-profile">
+                <a class="green-dash" href="/Loghi" title="Personalizzazione Cover">
+                    <img src="~/Images/IcnLougo.png" />
+                    PERSONALIZZAZIONE COVER
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3">
+            <div class="box-profile">
+                <a class="blue-dash" href="/User/Mittenti" title="Lista Mittenti">
+                    <img src="~/Images/IcnBoxMittenti.png" />
+                    RUBRICA MITTENTI
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3">
+            <div class="box-profile">
+                <a class="dark-blue-dash" href="/Home/Account">
+                    <img src="~/Images/IcnDashPers.png" />&nbsp;&nbsp;MODIFICA DATI PERSONALI
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3">
+            <div class="box-profile">
+                <a class="red-dash" href="/Corrispondenza/ErroriNotificati">
+                    <img src="~/Images/IcnDashTicket.png" />&nbsp;&nbsp;ERRORI NOTIFICATI <span class="errors"></span>
+                </a>
+            </div>
+        </div>
+    }
+    @if (Model.user.userType != 3)
+    {
+        <div class="col-lg-6 col-md-6">
+            <section class="big-section section-home">
+                <h1>Aggiornamenti da EasySender</h1>
+                <div class="comunicazioni">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            @if (Model.Notifications != null)
+                            {
+                                foreach (var n in Model.Notifications)
+                                {
+                                    <article>
+                                        <div class="row">
+                                            <div class="col-lg-1 col-md-1">
+                                                <img src="~/Images/IcnNotifica.png" />
+                                            </div>
+                                            <div class="col-lg-11 col-md-11">
+                                                <b>@n.title</b><br />@Html.Raw(n.description)
+                                            </div>
+                                        </div>
+                                    </article>
+                                }
+
+                            }
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="col-lg-6 col-md-6">
+            <section class="big-section section-home">
+                <h1>Comunicazioni da Poste Italiane</h1>
+                <div class="comunicazioni-poste">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            @if (Model.Communication != null)
+                            {
+                                foreach (var x in Model.Communication)
+                                {
+                                    <article>
+                                        <div class="row">
+                                            <div class="col-lg-1 col-md-1">
+                                                <img src="~/Images/IcnComunicazione.png" />
+                                            </div>
+                                            <div class="col-lg-11 col-md-11">
+                                                <b>@x.title</b><br />@Html.Raw(x.description)
+                                            </div>
+                                        </div>
+                                    </article>
+                                }
+
+                            }
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    }
+</div>
+
+<style>
+    .pulse {
+      border-radius: 50%;
+      background: #cca92c;
+      cursor: pointer;
+      box-shadow: 0 0 0 rgba(204,169,44, 0.4);
+      animation: pulse 1.5s infinite;
+      padding:5px 12px 7px;
+      position:absolute;
+      top:5px;
+      right:10px;
+    }
+
+    @@-webkit-keyframes pulse {
+      0% {
+        -webkit-box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
+      }
+      70% {
+          -webkit-box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+      }
+      100% {
+          -webkit-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+      }
+    }
+
+    @@keyframes pulse {
+      0% {
+        -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
+        box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
+      }
+      70% {
+          -moz-box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+          box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+      }
+      100% {
+          -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+          box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+      }
+    }
+</style>
+
+<script>
+    var myUserId = '@u.id';
+
+    $.get("/Default/NotificheNonLette?userId=" + myUserId, function (r) {
+        if (r > 0) {
+            $('.errors').html(r);
+            $('.errors').addClass("pulse");
+        }
+
+    })
+
+</script>

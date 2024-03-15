@@ -1,0 +1,204 @@
+﻿@using WasySender_2_0.Models;
+@using Newtonsoft.Json;
+
+@model WasySender_2_0.DataModel.TotalOperations
+@{
+    ViewBag.Title = "ArchivioSpedizioni";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var u = new WasySender_2_0.Models.Users();
+    u = JsonConvert.DeserializeObject<Users>(Request.Cookies["login"].Value);
+
+}
+
+<div class="col-lg-12">
+    <div class="content-breadcrumb">DASHBOARD / ARCHIVIO SPEDIZIONI / CORRISPONDENZA</div>
+</div>
+
+<div class="default-page">
+    <div class="col-lg-12">
+        <section>
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-6 col-md-offset-3 text-center">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1>ARCHIVIO SPEDIZIONI</h1>
+                            <article>
+                                In quest’area puoi controllare tutte le spedizioni effettuate in ordine cronologico.<br />
+                            </article>
+                            <form action="" method="get">
+                                <div class="container-report">
+                                    <article class="report-filters">
+                                        <label>
+                                            DATA INIZIO<br />
+                                            <input type="text" name="dataDa" value="@Request.QueryString["dataDa"]" class="data" />
+                                        </label>
+                                        <label>
+                                            DATA FINE<br />
+                                            <input type="text" name="dataA" value="@Request.QueryString["dataA"]" class="data" />
+                                        </label>
+                                        <label>
+                                            NOMINATIVO<br />
+                                            <input type="text" name="nominativo" value="@Request.QueryString["nominativo"]" />
+                                        </label>
+                                    </article>
+                                </div>
+                                <a href="ArchivioSpedizioni" class="remove">RIMUOVI FILTRI</a>
+                                <input type="submit" value="FILTRA" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="content-table-responsive">
+                        <div class="stato-sped-grid">
+                            <table class="tbl-responsive" style="min-width:100%">
+                                <thead>
+                                    <tr>
+                                        <td class="top-grid">DATA E ORA CREAZIONE </td>
+                                        <td class="top-grid">PRODOTTO POSTALE - FORMATO</td>
+                                        <td class="top-grid">NUMERO DESTINATARI</td>
+                                        @if (!u.hidePrice)
+                                        {
+                                            <td class="top-grid">PREZZO(€)</td>
+                                        }
+                                        <td class="top-grid">DETTAGLIO</td>
+                                    </tr>
+                                </thead>
+                                    @if (Model.getOperations != null)
+                                    {
+                                        foreach (var o in Model.getOperations)
+                                        {
+                                            <tr>
+                                                <td>@o.operationDate.ToString("dd/MM/yyyy HH:mm:ss")</td>
+                                                <td>@o.operationType (@o.formato)</td>
+                                                <td>@o.recipients.Where(a => a.valid == true).Count()</td>
+                                                @if (!u.hidePrice)
+                                                {
+                                                    <td>@o.totalPrice</td>
+                                                }
+                                                <td><a href="/Corrispondenza/DettaglioLotto/@o.operationId"><img src="~/Images/IcnDettaglio.png" title="Vai al dettaglio" style="width:25px;" /></a></td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td style="width:100%; text-align:center" colspan="6">Nessuna spedizione effettuata</td>
+                                        </tr>
+                                    }
+                            </table>
+                        </div>
+                    </div>
+                    @if (ViewBag.pageNumber > 0)
+                    {
+                        int defaultLimit = 5;
+                        int limit = ViewBag.pageNumber > defaultLimit ? defaultLimit : ViewBag.pageNumber;
+                        int startPage = 1;
+                        if (Convert.ToInt32(ViewBag.selectedPage) > limit - 1)
+                        {
+                            startPage = Convert.ToInt32(ViewBag.selectedPage) - limit + 1;
+                        }
+                        int endPage = startPage + limit;
+                        int lastPage = startPage == 1 ? limit + 1 : startPage - 1;
+                        var f = "";
+                        if (Request.QueryString["dataDa"] != null)
+                        {
+                            f += "&dataDa=" + Request.QueryString["dataDa"];
+                        }
+                        if (Request.QueryString["dataA"] != null)
+                        {
+                            f += "&dataA=" + Request.QueryString["dataA"];
+                        }
+                        <text>
+                            <div class="pagination">
+                                <ul>
+                                    @if (startPage > 1)
+                                    {
+                                        <li><a href="/Corrispondenza/ArchivioSpedizioni?page=@(startPage - 1)@(f)"><<</a></li>
+                                    }
+                                    @for (var x = startPage; x < endPage; x++)
+                                    {
+                                        <li @if (Convert.ToInt32(ViewBag.selectedPage) == (Convert.ToInt32(x))) { <text> class="selezionato" </text> }><a href="/Corrispondenza/ArchivioSpedizioni?page=@x@f">@x</a></li>
+                                    }
+                                    @if (Convert.ToInt32(ViewBag.pageNumber) >= defaultLimit && Convert.ToInt32(ViewBag.pageNumber) > Convert.ToInt32(ViewBag.selectedPage))
+                                    {
+                                        <text>
+                                            <li><a href="/Corrispondenza/ArchivioSpedizioni?page=@endPage@f">>></a></li>
+                                        </text>
+                                    }
+                                </ul>
+                            </div>
+                        </text>
+                    }
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<style>
+
+    .pagination {
+        margin-bottom: 80px;
+    }
+
+    input[type=submit], a.remove {
+        float: right !important;
+        border: solid 1px #e1e1e1;
+        padding: 8px 30px;
+        font-size: 14px;
+        margin: 8px 10px 0 0;
+        background: #46a289;
+        border: none;
+        color: #fff !important;
+        font-weight: 600;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        border-radius: 5px;
+        box-shadow: 1px 2px 10px #ddd;
+    }
+
+    input[type=text], input[type=date] {
+        width: 250px;
+    }
+
+    .pagination {
+        float: right;
+    }
+
+        .pagination ul {
+        }
+
+            .pagination ul li a {
+                float: left;
+                padding: 5px 10px;
+                margin: 3px;
+                border: solid 1px #476bab;
+                font-size: 12px !important;
+            }
+
+                .pagination ul li a:hover {
+                    background: #476bab;
+                    color: #fff !important;
+                }
+
+        .pagination a {
+            color: #476bab !important;
+        }
+
+        .pagination .selezionato a {
+            color: #fff !important;
+            background: #476bab;
+        }
+</style>
+<script>
+    $('.data').on('focus', function () {
+        $(this).attr('type', 'date');
+    })
+    $('.data').on('blur', function () {
+        $(this).attr('type', 'text');
+    })
+</script>

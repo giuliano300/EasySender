@@ -1,0 +1,82 @@
+﻿@model IEnumerable<WasySender_2_0.DataModel.GetLists>
+
+@{
+    ViewBag.Title = "DestinatariList";
+}
+
+<div class="col-lg-12">
+    <div class="content-breadcrumb">DASHBOARD / CORRISPONDENZA / SELEZIONA DESTINATARI / RUBRICA</div>
+</div>
+
+<div class="default-page">
+    <div class="col-lg-12">
+        <section>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h1>SCEGLI I DESTINATARI PER LA SPEDIZIONE</h1>
+                    <h2>Seleziona i destinatari direttamente dalla tua rubrica oppure carica una nuova lista.</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="telegramma" style="padding:0px!important">
+                    <div class="col-lg-4 col-md-4 col-sm-6">
+                        <label>SELEZIONA LISTA</label>
+                        <select name="destinatari" class="destinatari">
+                            <option value="">Selezionare una lista</option>
+                            @foreach (var l in Model)
+                            {
+                                <option value="@l.id">@l.name - @l.date</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row result">
+                <div class="col-lg-12">
+                    <div class="content-table-responsive">
+                        <div class="raccomdandatabollettino-list-grid">
+                            <ul>
+                                <li class="top-grid" style="width:80px"><input type='checkbox' value='' name='selectItemTop' class="selectItemTop" onclick="SelectAll()" /></li>
+                                <li class="top-grid">RAGIONE SOCIALE</li>
+                                <li class="top-grid">NOME E COGNOME</li>
+                                <li class="top-grid" style="width:262px">INDIRIZZO</li>
+                                <li class="top-grid" style="width:140px">CAP</li>
+                                <li class="top-grid">CITT&Agrave;</li>
+                                <li class="top-grid" style="width:175px">PROVINCIA</li>
+                                <li class="top-grid" style="padding:12px 0 0 0;">MOD.NOMEFILE</li>
+                            </ul>
+                            <span class="parent"></span>
+                            <div class="nothing">
+                                nessun destinatario selezionato
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="nav-step">
+                    <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <a href="/Lettera/Step2?Bollettini=@Request.QueryString["Bollettini"]&Sender=@Request.QueryString["Sender"]&SenderAR=@Request.QueryString["SenderAR"]&TipoStampa=@Request.QueryString["TipoStampa"]&FronteRetro=@Request.QueryString["FronteRetro"]&Formato=@Request.QueryString["Formato"]"><img src="~/Images/IcnPrev.png" /> INDIETRO</a>
+                            </div>
+                            <div class="col-lg-6">
+                                <a onclick="ValidateList()">PROSEGUI <img src="~/Images/IcnNext.png" /></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<input type="hidden" name="Bollettini" value="@Request.QueryString["Bollettini"]" class="Bollettini" />
+<input type="hidden" name="Sender" value="@Request.QueryString["Sender"]" class="Sender" />
+<input type="hidden" name="TipoStampa" value="@Request.QueryString["TipoStampa"]" class="TipoStampa" />
+<input type="hidden" name="FronteRetro" value="@Request.QueryString["FronteRetro"]" class="FronteRetro" />
+<input type="hidden" name="RicevutaRitorno" value="@Request.QueryString["RicevutaRitorno"]" class="RicevutaRitorno" />
+<input type="hidden" name="TipoLettera" value="@Request.QueryString["TipoLettera"]" class="TipoLettera" />
+<input type="hidden" name="Formato" value="@Request.QueryString["Formato"]" class="Formato" />
+<input type="hidden" name="SenderAR" value="@Request.QueryString["SenderAR"]" class="SenderAR" />
+
+@Scripts.Render("~/bundles/lettera/DestinatariList")

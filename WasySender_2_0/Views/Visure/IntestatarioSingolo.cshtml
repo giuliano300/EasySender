@@ -1,0 +1,665 @@
+﻿
+@{
+    ViewBag.Title = "Richiesta intestatario singolo";
+}
+
+    <div class="col-lg-12">
+        <div class="content-breadcrumb">DASHBOARD / CORRISPONDENZA /  @(Request.QueryString["TipoDocumento"]=="0" ? "CERTIFICATO" : "VISURA") / INSERISCI RICHIEDENTE E INTESTATARIO</div>
+    </div>
+
+<div class="default-page">
+    <div class="col-lg-12">
+        <section>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h1>RICHIEDI @(Request.QueryString["TipoDocumento"]=="0" ? "CERTIFICATO" : "VISURA") PER UN SINGOLO NOMINATIVO.</h1>
+                    <i><h4>INSERISCI TUTTI I CAMPI OBBLIGATORI</h4></i>
+                </div>
+            </div>
+            @using (Ajax.BeginForm("ValidazioneRichiedenteIntestatario", "Visure", new { @class = "form" },
+              new AjaxOptions { HttpMethod = "POST", OnSuccess = "Submit", OnFailure = "Error" }))
+            {
+                <div class="user-form">
+                    <div class="row">
+                        <div class="col-lg-6 box-mittente" style="padding: 30px 30px 0!important">
+                            <div class="row">
+                                <div class="col-lg-12 text-center">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <h1>
+                                                AGGIUNGI RICHIEDENTE
+                                                <select name="senders" class="senders" onchange="GetMittente($(this).val())">
+                                                    <option value="">seleziona richiedente dalla rubrica mittenti</option>
+                                                </select>
+                                            </h1>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            <label>
+                                                NOME
+                                                <span data-toggle="popover" title="NOME" data-content="Lunghezza massima 44 caratteri" class="question-mark"><i class="fas fa-question-circle"></i></span>
+                                            </label>
+                                            <input type="text" name="nameSender" value="" class="nameSender" maxlength="44" required />
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            <label>
+                                                COGNOME
+                                                <span data-toggle="popover" title="COGNOME" data-content="Lunghezza massima 44 caratteri" class="question-mark"><i class="fas fa-question-circle"></i></span>
+                                            </label>
+                                            <input type="text" name="surnameSender" value="" class="surnameSender" maxlength="44" required />
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            <label>
+                                                INDIRIZZO
+                                                <span data-toggle="popover" title="INDIRIZZO" data-content="Esempio Via toledo 30" class="question-mark"><i class="fas fa-question-circle"></i></span>
+                                            </label>
+                                            <input type="text" name="indirizzoSender" value="" class="indirizzoSender" required />
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            <label>CAP</label>
+                                            <input type="text" name="capSender" value="" required onkeypress="return onlyNumbers(event);" size="5" maxlength="5"
+                                                   class="capSender" onchange="ReadAndWriteCapSender()" />
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            <label>CITT&Agrave;</label>
+                                            <input type="text" name="cittaSender" value="" required class="cittaSender readonly" readonly />
+                                            <select name="citta" value="" class="selCittaSender" style="display:none" onchange="GetProvinciaSender()">
+                                                <option value="">Seleziona un comune</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            <label>
+                                                PROVINCIA
+                                                <span data-toggle="popover" title="PROVINCIA" data-content="Solo 2 lettere(sigla).<br>Ad es. NA,MI" class="question-mark"><i class="fas fa-question-circle"></i></span>
+                                            </label>
+                                            <input type="text" name="provinciaSender" maxlength="2" minlength="2" style="text-transform:uppercase;" value="" class="provinciaSender readonly" readonly required
+                                                   onkeypress="return onlyLetters(event);" />
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            <label>TELEFONO</label>
+                                            <input type="text" name="telefonoSender" value="" class="telefonoSender" required />
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            <label>EMAIL</label>
+                                            <input type="text" name="emailSender" value="" class="emailSender" required />
+                                        </div>
+                                        <div class="col-lg-12 col-md-6 col-sm-6">
+                                            <label>STATO  <em>(SECONDO I CODICI UPU)</em></label>
+                                            <input type="text" name="statoSender" value="ITALIA" class="statoSender readonly" readonly required />
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 checkbox-add addR" style="width:48%; margin-right:2%">
+                                            <input type="checkbox" name="addRubrica" id="addRubrica" onchange="coloraRiga()" /><label for="addRubrica">Aggiungi alla rubrica</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 checkbox-add" style="width:48%;">
+                                            <input type="checkbox" name="addMittenteAR" id="addMittenteAR" onchange="AddMittenteAR()"
+                                                   @if (Request.QueryString["RicevutaRitorno"] != "1") { <text> checked</text>
+                                                        } />
+                                            <label for="addMittenteAR">Destinatario uguale al richiedente</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 box-destinatario" style="padding: 30px 30px 0!important">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col-lg-12 text-center">
+                                            <h1>
+                                                AGGIUNGI INTESTATARIO
+                                                <span data-toggle="popover" title="AGGIUNGI INTESTATARIO" data-content="Aggiungi la società per la quale <br />si vuole richiedere la visura/certificato" class="question-mark">
+                                                    <i class="fas fa-question-circle" style="font-size:18px!important;"></i>
+                                                </span>
+                                                @*<select name="names" class="names" onchange="GetIntestatario($(this).val())">
+                                    <option value="">seleziona un intestatario dalla rubrica</option>
+                                </select>*@
+                                            </h1>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-6 col-sm-6">
+                                                    <label>
+                                                        CODICE FISCALE / PARTITA IVA
+                                                        <span data-toggle="popover" title="CODICE FISCALE / PARTITA IVA" data-content="Sono obbligatori il codice fiscale o la partita iva.<br>Partita iva deve necessariamente inizare con IT. Se non viene inserito IT il valore viene considerato come codice fiscale" class="question-mark"><i class="fas fa-question-circle"></i></span>
+                                                    </label>
+                                                    <input type="text" name="fiscalCodeNames" maxlength="18" minlength="13" style="text-transform:uppercase;" value="" class="fiscalCodeNames" required />
+                                                </div>
+                                                <div class="col-lg-12 col-md-6 col-sm-6">
+                                                    <label>
+                                                        NOMINATIVO
+                                                        <span data-toggle="popover" title="NOMINATIVO" data-content="Lunghezza massima 44 caratteri" class="question-mark"><i class="fas fa-question-circle"></i></span>
+                                                    </label>
+                                                    <input type="text" name="nominativoNames" value=""
+                                                           class="nominativoNames" maxlength="44" required />
+                                                </div>
+                                                <div class="col-lg-12 col-md-6 col-sm-6">
+                                                    <label>
+                                                        CCIAA
+                                                        <span data-toggle="popover" title="CCIAA" data-content="Solo 2 lettere(sigla della provincia).<br>Ad es. NA,MI" class="question-mark"><i class="fas fa-question-circle"></i></span>
+                                                    </label>
+                                                    <input type="text" name="provinciaNames" maxlength="2" minlength="2" style="text-transform:uppercase;" value="" class="provinciaNames" required
+                                                           onkeypress="return onlyLetters(event);" />
+                                                </div>
+                                                <div class="col-lg-12 col-md-6 col-sm-6">
+                                                    <label>NUMERO REA</label>
+                                                    <input type="text" name="NREANames" style="text-transform:uppercase;" value="" class="NREANames" @if (Request.QueryString["CodiceDocumento"] == "5" || Request.QueryString["CodiceDocumento"] == "6" || Request.QueryString["CodiceDocumento"] == "9") { <text> required </text> } onkeypress="return onlyNumbers(event);" />
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-6 hidden">
+                                                    <label>INDIRIZZO <em>(ES.Via Toledo, 30)</em></label>
+                                                    <input type="text" name="indirizzoNames" value="-" class="indirizzoNames" required />
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-6 hidden">
+                                                    <label>CAP</label>
+                                                    <input type="text" name="capNames" required value="0" onkeypress="return onlyNumbers(event);" size="5" maxlength="5" class="capNames"
+                                                           onchange="ReadAndWriteCapNames()" />
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-6 hidden">
+                                                    <label>CITT&Agrave;</label>
+                                                    <input type="text" name="cittaNames" value="-" required class="cittaNames readonly" readonly />
+                                                    <select name="citta" value="" class="selCittaNames" style="display:none" onchange="GetProvinciaNames()">
+                                                        <option value="">Seleziona un comune</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-6 hidden">
+                                                    <label>STATO  <em>(SECONDO I CODICI UPU)</em></label>
+                                                    <input type="text" name="statoNames" value="ITALIA" class="statoNames readonly" readonly />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 box-AR">
+                            <div class="col-lg-12">
+                                <h1>
+                                    DESTINATARIO DIVERSO
+                                    <select name="senders" class="senders" onchange="GetMittenteAR($(this).val())">
+                                        <option value="">seleziona un mittente dalla rubrica</option>
+                                    </select>
+                                </h1>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-6">
+                                <label>NOME <em>(Lunghezza massima 44 char)</em></label>
+                                <input type="text" name="nameSenderAR" value="" class="nameSenderAR" maxlength="44" required />
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-6">
+                                <label>COGNOME <em>(Es. Presso sig.Rossi)</em></label>
+                                <input type="text" name="surnameSenderAR" value="" class="surnameSenderAR" maxlength="44" />
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-6">
+                                <label>INDIRIZZO <em>(ES.via Toledo, 50)</em></label>
+                                <input type="text" name="indirizzoSenderAR" value="" class="indirizzoSenderAR" required />
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-6">
+                                <label>CAP</label>
+                                <input type="text" name="capSenderAR" value="" required onkeypress="return onlyNumbers(event);" size="5" maxlength="5"
+                                       class="capSenderAR" onchange="ReadAndWriteCapSenderAR()" />
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-6">
+                                <label>CITT&Agrave;</label>
+                                <input type="text" name="cittaSenderAR" value="" required class="cittaSenderAR readonly" readonly />
+                                <select name="citta" value="" class="selCittaSenderAR" style="display:none" onchange="GetProvinciaSenderAR()">
+                                    <option value="">Seleziona un comune</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-6">
+                                <label>PROVINCIA <em>(SOLO 2 LETTERE)</em></label>
+                                <input type="text" name="provinciaSenderAR" maxlength="2" minlength="2" style="text-transform:uppercase;" value="" class="provinciaSenderAR readonly" readonly required
+                                       onkeypress="return onlyLetters(event);" />
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-6">
+                                <label>TELEFONO</label>
+                                <input type="text" name="telefonoSenderAR" value="" class="telefonoSenderAR" required />
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-6">
+                                <label>EMAIL</label>
+                                <input type="text" name="emailSenderAR" value="" class="emailSenderAR" required />
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-6">
+                                <label>STATO  <em>(SECONDO I CODICI UPU)</em></label>
+                                <input type="text" name="statoSenderAR" value="ITALIA" class="statoSender readonly" readonly required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-lg-offset-3">
+                            <input type="submit" name="save" value="INSERISCI" class="inputInsert" style="margin:10px 0" />
+                        </div>
+                        <div class="col-lg-6 col-lg-offset-3">
+                            <div class="error-msg"></div>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="namesId" class="namesId" value="0" />
+                <input type="hidden" name="selectedNamesListId" class="selectedNamesListId" value="0" />
+                <input type="hidden" name="TipoDocumento" value="@Request.QueryString["TipoDocumento"]" />
+                <input type="hidden" name="CodiceDocumento" value="@Request.QueryString["CodiceDocumento"]" />
+                <input type="hidden" name="RicevutaRitorno" value="@Request.QueryString["RicevutaRitorno"]" />
+            }
+        </section>
+    </div>
+</div>
+
+@Styles.Render("~/Content/dropZoneStyles")
+@Scripts.Render("~/bundles/dropZone")
+
+<style>
+    .question-mark i {
+        font-size: 14px !important;
+        cursor: pointer;
+        color: #476bab;
+    }
+
+    .popover-title {
+        font-size: 14px !important;
+        padding:7px 12px 5px!important;
+        font-weight:300!important;
+    }
+
+    .popover-content {
+        width: 100%;
+        font-size: 13px !important;
+        padding:10px 12px 15px!important;
+        font-weight: 300 !important;
+        float: left;
+    }
+</style>
+
+<script>
+
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover({
+                trigger: "hover",
+                html: true,
+                content: function () {
+                    return $('#popover_content_wrapper').html();
+                }
+            });
+
+        $('.fiscalCodeNames').on('change', function () {
+            if ($(this).val().includes("IT")) {
+                $.get("Vies?vatNumber=" + $('.fiscalCodeNames').val().replace("IT",""),
+                    function (f) {
+                        if (f.Body.valid === true) {
+                            var address = f.Body.address.split('\n');
+                            var capcityprovince = address[1].split(" ");
+                            $('.provinciaNames').val(capcityprovince[2]);
+                            $('.nominativoNames').val(f.Body.name.split('!!')[0]);
+                        }
+                    })
+            }
+        })
+
+
+
+    });
+
+    $(function () {
+
+        GetMittenti();
+        //GetDestinatari();
+        disabledAR();
+         @if (Request.QueryString["RicevutaRitorno"] == "1")
+         {
+             <text>AddMittenteAR();</text>
+         }
+    });
+
+    function disabledAR() {
+        $('.nameSenderAR').attr("disabled", true);
+        $('.surnameSenderAR').attr("disabled", true);
+        $('.indirizzoSenderAR').attr("disabled", true);
+        $('.capSenderAR').attr("disabled", true);
+        $('.cittaSenderAR').attr("disabled", true);
+        $('.selCittaSenderAR').attr("disabled", true);
+        $('.provinciaSenderAR').attr("disabled", true);
+        $('.statoSenderAR').attr("disabled", true);
+        $('.telefonoSenderAR').attr("disabled", true);
+        $('.emailSenderAR').attr("disabled", true);
+    }
+
+    function AddMittenteAR() {
+        var val = $('#addMittenteAR').prop("checked");
+        if (val === false) {
+            $('.nameSenderAR').attr("disabled", false);
+            $('.surnameSenderAR').attr("disabled", false);
+            $('.indirizzoSenderAR').attr("disabled", false);
+            $('.capSenderAR').attr("disabled", false);
+            $('.cittaSenderAR').attr("disabled", false);
+            $('.selCittaSenderAR').attr("disabled", false);
+            $('.provinciaSenderAR').attr("disabled", false);
+            $('.statoSenderAR').attr("disabled", false);
+            $('.telefonoSenderAR').attr("disabled", false);
+            $('.emailSenderAR').attr("disabled", false);
+            $('.box-AR').show();
+        }
+        else {
+            disabledAR();
+           $('.box-AR').hide();
+        }
+    }
+
+    function Submit(data) {
+        var json = $.parseJSON(data);
+        if (!json.Valido) {
+            $('.error-msg').html(json.Errore);
+            $('.error-msg').show();
+        }
+        else
+            location.href = "/Visure/GeneraPreventivoSingoloIntestatario?ListId=" + json.ListId + "&Sender=" + json.Sender + "&SenderAR=" + json.SenderAR + "&CodiceDocumento=" + json.CodiceDocumento + "&TipoDocumento=" + json.TipoDocumento + "&RicevutaRitorno=" + json.RicevutaRitorno;
+    }
+
+    function onlyNumbers(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+    function onlyLetters(evt) {
+        var keyCode = (evt.which) ? evt.which : evt.keyCode
+        if ((keyCode < 65 || keyCode > 90) && (keyCode < 97 || keyCode > 123) && keyCode != 32)
+            return false;
+
+        return true;
+    }
+
+    function GetProvinciaNames() {
+        var sigla = "";
+        if ($('.selCittaNames').val() !== "")
+            sigla = $('.selCittaNames').val();
+        $('.provinciaNames').val(sigla);
+        var c = $(".selCittaNames option:selected").text();
+        $('.cittaNames').val(c);
+    }
+
+    function GetProvinciaSender() {
+        var sigla = "";
+        if ($('.selCittaSender').val() !== "")
+            sigla = $('.selCittaSender').val();
+        $('.provinciaSender').val(sigla);
+        var c = $(".selCittaSender option:selected").text();
+        $('.cittaSender').val(c);
+    }
+
+    function GetProvinciaSenderAR() {
+        var sigla = "";
+        if ($('.selCittaSenderAR').val() !== "")
+            sigla = $('.selCittaSenderAR').val();
+        $('.provinciaSenderAR').val(sigla);
+        var c = $(".selCittaSenderAR option:selected").text();
+        $('.cittaSenderAR').val(c);
+    }
+
+    function GetDestinatari() {
+        $.get("/User/GetDestinatari", function (result) {
+            if (result !== "null") {
+                var res = jQuery.parseJSON(result);
+                for (var i = 0; i < res.length; i++) {
+                    $('.names').append("<option value=" + res[i].id + ">" + res[i].name + " " + res[i].surname + " " + res[i].businessName + "</option>")
+                }
+            }
+            else {
+                $('.names').hide();
+            }
+        });
+    }
+
+    function GetIntestatario(id) {
+        if (id === "" || id === undefined)
+            removeValuesNames();
+        else {
+            $.get("/User/GetDestinatario?Id=" + id, function (result) {
+                if (result !== "null") {
+                    var res = jQuery.parseJSON(result);
+                    $('.nominativoNames').val(res.businessName + " " + res.name + " " + res.surname);
+                    $('.complementoNominativoNames').val(res.complementNames);
+                    $('.indirizzoNames').val((res.dug !== "" ? res.dug + " " : "") + res.address + (res.houseNumber !== "" ? " " + res.houseNumber : ""));
+                    $('.completamentoIndirizzoNames').val(res.complementAddress);
+                    $('.capNames').val(res.cap);
+                    $('.cittaNames').val(res.city);
+                    $('.provinciaNames').val(res.province);
+                    $('.statoNames').val(res.state);
+                    $('.NREANames').val(res.NREA);
+                    $('.fiscalCodeNames').val(res.fiscalCode);
+                    $('.selectedNamesListId').val(res.listId);
+                    $('.namesId').val(res.id);
+                }
+                else {
+                    removeValuesNames();
+                }
+            });
+        }
+    }
+
+    function GetMittenti() {
+        $.get("/User/GetMittenti", function (result) {
+            if (result !== "null") {
+                var res = jQuery.parseJSON(result);
+                for (var i = 0; i < res.length; i++){
+                    $('.senders').append("<option value=" + res[i].id + ">" + res[i].name + " " + res[i].surname + " " + res[i].businessName +"</option>")
+                }
+            }
+            else {
+                $('.senders').hide();
+            }
+        });
+    }
+
+    function GetMittente(id) {
+        if (id === "" || id === undefined)
+            removeValues();
+        else {
+            $.get("/User/GetMittente?Id=" + id, function (result) {
+                if (result !== "null") {
+                    var res = jQuery.parseJSON(result);
+                    $('.nameSender').val(res.name);
+                    $('.surnameSender').val(res.surname);
+                    $('.complementoNominativoSender').val(res.complementNames);
+                    $('.indirizzoSender').val((res.dug !== "" ? res.dug + " " : "") + res.address + (res.houseNumber !== "" ? " " + res.houseNumber : ""));
+                    $('.completamentoIndirizzoSender').val(res.complementAddress);
+                    $('.capSender').val(res.cap);
+                    $('.cittaSender').val(res.city);
+                    $('.provinciaSender').val(res.province);
+                    $('.statoSender').val(res.state);
+                    $('.telefonoSender').val(res.telefono);
+                    $('.emailSender').val(res.email);
+                }
+                else {
+                    removeValues();
+                }
+            });
+        }
+    }
+
+    function GetMittenteAR(id) {
+        if (id === "" || id === undefined)
+            removeValuesAR();
+        else {
+            $.get("/User/GetMittente?Id=" + id, function (result) {
+                if (result !== "null") {
+                    var res = jQuery.parseJSON(result);
+                    $('.nameSenderAR').val(res.name);
+                    $('.surnameSenderAR').val(res.surname);
+                    $('.complementoNominativoSenderAR').val(res.complementNames);
+                    $('.indirizzoSenderAR').val((res.dug !== "" ? res.dug + " " : "") + res.address + (res.houseNumber !== "" ? " " + res.houseNumber : ""));
+                    $('.completamentoIndirizzoSenderAR').val(res.complementAddress);
+                    $('.capSenderAR').val(res.cap);
+                    $('.cittaSenderAR').val(res.city);
+                    $('.provinciaSenderAR').val(res.province);
+                    $('.statoSenderAR').val(res.state);
+                    $('.telefonoSenderAR').val(res.telefono);
+                    $('.emailSenderAR').val(res.email);
+                }
+                else {
+                    removeValuesAR();
+                }
+            });
+        }
+    }
+
+    function coloraRiga() {
+        if ($('#addRubrica').is(":checked"))
+            $('.addR').addClass("rigaSelect")
+        else
+            $('.addR').removeClass("rigaSelect")
+    }
+
+    function removeValuesNames() {
+        $('.nominativoNames').val('');
+        $('.complementoNominativoNames').val('');
+        $('.indirizzoNames').val('');
+        $('.completamentoIndirizzoNames').val('');
+        $('.capNames').val('');
+        $('.cittaNames').val('');
+        $('.provinciaNames').val('');
+        $('.statoNames').val('ITALIA');
+        $('.selectedNamesListId').val('0');
+        $('.namesId').val('0');
+    };
+
+    function removeValues() {
+        $('.nominativoSender').val('');
+        $('.complementoNominativoSender').val('');
+        $('.indirizzoSender').val('');
+        $('.completamentoIndirizzoSender').val('');
+        $('.capSender').val('');
+        $('.cittaSender').val('');
+        $('.provinciaSender').val('');
+        $('.statoSender').val('ITALIA');
+    };
+
+    function removeValuesAR() {
+        $('.nominativoSenderAR').val('');
+        $('.complementoNominativoSenderAR').val('');
+        $('.indirizzoSenderAR').val('');
+        $('.completamentoIndirizzoSenderAR').val('');
+        $('.capSenderAR').val('');
+        $('.cittaSenderAR').val('');
+        $('.provinciaSenderAR').val('');
+        $('.statoSenderAR').val('ITALIA');
+    };
+
+    function ReadAndWriteCapNames() {
+        $.post("/User/SearchCity", {
+            cap: $('.capNames').val()
+        }, function (result) {
+            if (result !== "null") {
+                var res = jQuery.parseJSON(result);
+                if (res.length > 1) {
+                    $('.cittaNames').hide();
+                    $('.selCittaNames').show();
+                    $('.cittaNames').removeAttr("required");
+                    $('.selCittaNames').attr("required", "required");
+                    $('.selCittaNames').empty();
+                    $('.selCittaNames').append("<option value=''>Seleziona un comune</option>");
+                    for (var i = 0; i < res.length; i++) {
+                        $('.selCittaNames').append("<option value='" + res[i].sigla + "'>" + res[i].comune + "</option>");
+                    };
+                    $('.provinciaNames').val("");
+                } else {
+                    $('.cittaNames').show();
+                    $('.selCittaNames').hide();
+                    $('.cittaNames').attr("required");
+                    $('.selCittaNames').removeAttr("required", "required");
+                    $('.cittaNames').val(res[0].comune);
+                    $('.provinciaNames').val(res[0].sigla);
+                }
+            }
+            else {
+                $('.cittaNames').val("");
+                $('.provinciaNames').val("");
+                $('.error-popup').html("Cap inserito non corrisponde a nessun valore presente nel nostro database.");
+                $('.error-popup').fadeIn(300);
+            }
+        });
+    }
+
+    function ReadAndWriteCapSender() {
+        $.post("/User/SearchCity", {
+            cap: $('.capSender').val()
+        }, function (result) {
+            if (result !== "null") {
+                var res = jQuery.parseJSON(result);
+                if (res.length > 1) {
+                    $('.cittaSender').hide();
+                    $('.selCittaSender').show();
+                    $('.cittaSender').removeAttr("required");
+                    $('.selCittaSender').attr("required", "required");
+                    $('.selCittaSender').empty();
+                    $('.selCittaSender').append("<option value=''>Seleziona un comune</option>");
+                    for (var i = 0; i < res.length; i++) {
+                        $('.selCittaSender').append("<option value='" + res[i].sigla + "'>" + res[i].comune + "</option>");
+                    };
+                    $('.provinciaSender').val("");
+                } else {
+                    $('.cittaSender').show();
+                    $('.selCittaSender').hide();
+                    $('.cittaSender').attr("required");
+                    $('.selCittaSender').removeAttr("required", "required");
+                    $('.cittaSender').val(res[0].comune);
+                    $('.provinciaSender').val(res[0].sigla);
+                }
+            }
+            else {
+                $('.cittaSender').val("");
+                $('.provinciaSender').val("");
+            }
+        });
+    }
+
+    function ReadAndWriteCapSenderAR() {
+        $.post("/User/SearchCity", {
+            cap: $('.capSenderAR').val()
+        }, function (result) {
+            if (result !== "null") {
+                var res = jQuery.parseJSON(result);
+                if (res.length > 1) {
+                    $('.cittaSenderAR').hide();
+                    $('.selCittaSenderAR').show();
+                    $('.cittaSenderAR').removeAttr("required");
+                    $('.selCittaSenderAR').attr("required", "required");
+                    $('.selCittaSenderAR').empty();
+                    $('.selCittaSenderAR').append("<option value=''>Seleziona un comune</option>");
+                    for (var i = 0; i < res.length; i++) {
+                        $('.selCittaSenderAR').append("<option value='" + res[i].sigla + "'>" + res[i].comune + "</option>");
+                    };
+                    $('.provinciaSenderAR').val("");
+                } else {
+                    $('.cittaSenderAR').show();
+                    $('.selCittaSenderAR').hide();
+                    $('.cittaSenderAR').attr("required");
+                    $('.selCittaSenderAR').removeAttr("required", "required");
+                    $('.cittaSenderAR').val(res[0].comune);
+                    $('.provinciaSenderAR').val(res[0].sigla);
+                }
+            }
+            else {
+                $('.cittaSenderAR').val("");
+                $('.provinciaSenderAR').val("");
+            }
+        });
+    }
+
+   function CreateCustomerCode() {
+        if ($('.Anno').val() != "" && $('.EseguitoDaCap').val() != "") {
+            $.post("/User/GetBulletinCustomerCode", {
+                anno: $('.Anno').val(),
+                cap: $('.EseguitoDaCap').val(),
+            }, function (result) {
+                if (result != "null")
+                    $('.CodiceCliente').val(result);
+                else
+                    $('.CodiceCliente').val("");
+            });
+        }
+    }
+
+</script>

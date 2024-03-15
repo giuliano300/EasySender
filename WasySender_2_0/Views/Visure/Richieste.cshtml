@@ -1,0 +1,79 @@
+﻿@model IEnumerable<WasySender_2_0.Models.GetOperations>
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    .stato-sped-grid{
+        margin-bottom:60px;
+    }
+</style>
+
+<div class="col-lg-12">
+    <div class="content-breadcrumb">DASHBOARD / STATO RICHIESTE </div>
+</div>
+
+<div class="default-page">
+    <div class="col-lg-12">
+        <section>
+            <div class="row">
+                <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 text-center">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1>STATO RICHIESTE @ViewBag.productType</h1>
+                            <article>
+                                In quest’area puoi controllare lo stato della richiesta di un documento.<br />
+                                Cliccando sul dettaglio puoi visionare lo stato della richiesta per ogni intestatario.
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="content-table-responsive">
+                        <div class="stato-sped-grid">
+                            <ul>
+                                <li class="top-grid">DATA E ORA CREAZIONE LOTTO</li>
+                                <li class="top-grid" style="width:200px;">TIPO</li>
+                                <li class="top-grid" style="width:540px;">% LOTTO TRASFERITO A POSTE ITALIANE</li>
+                                <li class="top-grid">NUMERO RICHIESTE</li>
+                                <li class="top-grid">DETTAGLIO</li>
+                            </ul>
+                            @if (Model.Count() > 0)
+                            {
+                                foreach (var o in Model)
+                                {
+                                    <ul>
+                                        <li>@o.operationDate.ToString("dd/MM/yyyy HH:mm:ss")</li>
+                                        <li style="width:200px;">@(o.recipients[0].tipoDocumento == 0 ? "CERTIFICATO" : "VISURA")</li>
+                                        <li style="width:540px;">
+                                            <h7><span class="percentageText" id="t-@o.operationId"></span></h7>
+                                            <div class="content-progress-sped">
+                                                <div class="progress-bar-sped b-@o.operationId" style="width:0%"></div>
+                                            </div>
+                                        </li>
+                                        <li>@o.recipients.Where(a => a.valid == true).Count()</li>
+                                        <li><a href="/Visure/DettaglioRichiesta/@o.operationId"><img src="~/Images/IcnDettaglio.png" title="Vai al dettaglio" style="width:25px;" /></a></li>
+                                    </ul>
+                                }
+                            }
+                            else
+                            {
+                                <ul>
+                                    <li style="text-align:center!important; width:100%; padding:20px 0; height:auto!important;">Nessuna spedizione in corso</li>
+                                </ul>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<script>
+    var guiduser = '@ViewBag.guiduser';
+</script>
+
+@Scripts.Render("~/bundles/corrispondenza/index")
+

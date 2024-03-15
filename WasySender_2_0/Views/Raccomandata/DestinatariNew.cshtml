@@ -1,0 +1,274 @@
+﻿@using WasySender_2_0.Models;
+@using Newtonsoft.Json;
+@{
+    ViewBag.Title = "DestinatariNew";
+    var urlEx = "/ExampleFiles/DestinatariSenzaBollettini.csv";
+    var urlExPA = "";
+    if (Convert.ToInt32(Request.QueryString["Bollettini"]) == 1)
+    {
+        urlEx = "/ExampleFiles/DestinatariConBollettini.csv";
+        urlExPA = "/ExampleFiles/DestinatariConBollettiniPA.csv";
+    }
+
+    Users u = new Users();
+    u = JsonConvert.DeserializeObject<Users>(Request.Cookies["login"].Value);
+
+}
+
+
+<div class="col-lg-12">
+    <div class="content-breadcrumb">DASHBOARD / CORRISPONDENZA / RACCOMANDATA / SELEZIONA DESTINATARI / CARICA CSV</div>
+</div>
+
+<div class="default-page">
+    <div class="col-lg-12">
+        <section>
+            @using (Html.BeginForm("GotoStep3", "Raccomandata", FormMethod.Post, new { @class = "request-form", onsubmit = "PreloadOperation()" }))
+            {
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h1>NUOVA LISTA DESTINATARI</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="destinatari-new">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <label><span>1</span>CARICA NUOVA LISTA <em>(in formato .csv come da esempio) <input type="text" name="destinatari" value="" required class="reqDestinatari" /></em></label>
+                                    <div class="dropZoneForm relative">
+                                        <div id="myId" class="fallback dropzone"></div>
+                                        <span class="preload-file">
+                                            <img src="~/Images/preload.gif" /><br />
+                                            Caricamento file in corso
+                                        </span>
+                                    </div>
+                                    <span class="progress">
+                                        <span class="progress-bar">0%</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <a href="@urlEx" target="_blank"><img src="~/Images/IcnInfo.png" />&nbsp;&nbsp;&nbsp;Scarica il file esempio in formato .CSV</a>
+                                </div>
+                                @if (urlExPA != "" && u.attivoPA == true)
+                                {
+                                    <div class="col-lg-6">
+                                        <a href="@urlExPA" target="_blank"><img src="~/Images/IcnInfo.png" />&nbsp;&nbsp;&nbsp;Scarica il file esempio PagoPA in formato .CSV</a>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <label><span>2</span>RISULTATO CARICAMENTO</label>
+                            <div class="content-result-list">
+                                <div class="result-load-list">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4">
+                                            <article class="std">Nominativi caricati: <strong class="totali">-</strong></article>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4">
+                                            <article class="ok">Validi: <strong class="validi">-</strong></article>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4">
+                                            <article class="error">Errori: <strong class="errori">-</strong></article>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="top-result">
+                                    <li>NOMINATIVO</li>
+                                    <li>VALIDO</li>
+                                    <li>TIPO DI ERRORE</li>
+                                </ul>
+                                <span class="responseList">
+                                    <span class="preload-nominativi">
+                                        <img src="~/Images/preload.gif" /><br />
+                                        Attendere validazione nominativi in corso!
+                                        <span class="progress">
+                                            <span class="progress-bar-nominativi">0%</span>
+                                        </span>
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="error-msg"></div>
+                            <div class="msg">
+                                <strong>Il processo di caricamento della lista è terminato.</strong><br />
+                                <p>
+                                    Clicca su inserisci lista per salvare i nominativi validi oppure correggi gli
+                                    errori evidenziati e ricarica la lista.
+                                </p>
+                            </div>
+                            <span class="download-errors"><a href="/Corrispondenza/CreateErrorFile" class="d" target="_blank">scarica gli errori</a></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="nav-step">
+                        <div class="col-lg-6 col-lg-offset-3 col-md-4 col-md-offset-4">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <a href="/Raccomandata/Index?id=@Request.QueryString["Bollettini"]"><img src="~/Images/IcnPrev.png" /> INDIETRO</a>
+                                </div>
+                                <div class="col-lg-4">
+                                    <a href="DestinatariNew?Bollettini=@Request.QueryString["Bollettini"]&Sender=@Request.QueryString["Sender"]&TipoStampa=@Request.QueryString["TipoStampa"]&FronteRetro=@Request.QueryString["FronteRetro"]&RicevutaRitorno=@Request.QueryString["RicevutaRitorno"]&Formato=@Request.QueryString["Formato"]">ANNULLA</a>
+                                </div>
+                                <div class="col-lg-4">
+                                    <button type="submit" class="prosegui">PROSEGUI <img src="~/Images/IcnNext.png" /></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="Bollettini" value="@Request.QueryString["Bollettini"]" />
+                <input type="hidden" name="Sender" value="@Request.QueryString["Sender"]" />
+                <input type="hidden" name="SenderAR" value="@Request.QueryString["SenderAR"]" />
+                <input type="hidden" name="TipoStampa" value="@Request.QueryString["TipoStampa"]" />
+                <input type="hidden" name="FronteRetro" value="@Request.QueryString["FronteRetro"]" />
+                <input type="hidden" name="RicevutaRitorno" value="@Request.QueryString["RicevutaRitorno"]" />
+                <input type="hidden" name="Formato" value="@Request.QueryString["Formato"]" />
+                <input type="hidden" name="Logo" value="@Request.QueryString["logo"]" />
+            }
+        </section>
+    </div>
+    <span class="preload-operation">
+        <img src="~/Images/preload.gif" /><br />
+        Attendere inserimento dei nominativi nel database.
+    </span>
+</div>
+
+<div class="bg-pop-up popup-std">
+    <div class="col-lg-12">
+        <div class="close-popup wowload delay-02 fadeIn">
+            <a onclick="ClosePopup()" title="Chiudi Dettaglio"><img src="~/Images/IcnClose.png" /></a>
+        </div>
+    </div>
+    <div class="pop-up">
+        <div class="row">
+            <div class="col-lg-12 text-center"><h1>MODIFICA IL NOMINATIVO</h1></div>
+        </div>
+        <div class="row">
+            <div class="user-form">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-6">
+                            <label>RAGIONE SOCIALE <em>(Lunghezza massima 40 char)</em></label>
+                            <input type="text" name="ragsoc" value="" class="ragsoc" maxlength="44" />
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6">
+                            <label>NOME <em>(OBBLIGATORIO SE LA RAGIONE SOCIALE È VUOTA)</em></label>
+                            <input type="text" name="nome" value="" class="nome" maxlength="44" />
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6">
+                            <label>COGNOME <em>(OBBLIGATORIO SE LA RAGIONE SOCIALE È VUOTA)</em></label>
+                            <input type="text" name="cognome" value="" class="cognome" maxlength="44" />
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <label>COMPLETAMENTO NOMINATIVO <em>(se il nominativo supera i 44 caratteri)</em></label>
+                            <input type="text" name="completamentoNominativo" value="" class="completamentoNominativo" maxlength="44" />
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <label>CODICE FISCALE <em>(obbligatorio per il ritiro digitale)</em></label>
+                            <input type="text" name="cf" value="" class="cf" maxlength="16" />
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <label>INDIRIZZO <em>(ES.Toledo, Dante, ect.)</em></label>
+                            <input type="text" name="indirizzo" value="" class="indirizzo" />
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <label> COMPLETAMENTO INDIRIZZO <em>(es. presso mario rossi)</em></label>
+                            <input type="text" name="completamentoIndirizzo" value="" class="completamentoIndirizzo" />
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6">
+                            <label>CAP</label>
+                            <input type="text" name="cap" value="" onkeypress="return onlyNumbers(event);" size="10" maxlength="10" class="cap" onchange="ReadAndWriteCap()" />
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6">
+                            <label>CITT&Agrave;</label>
+                            <input type="text" name="citta" value="" class="citta readonly" readonly />
+                            <select name="citta" value="" class="selCitta" style="display:none" onchange="GetProvincia()">
+                                <option value="">Seleziona un comune</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6">
+                            <label>PROVINCIA <em>(SOLO 2 LETTERE)</em></label>
+                            <input type="text" name="provincia" maxlength="2" minlength="2" style="text-transform:uppercase;" value="" class="provincia readonly" readonly
+                                   onkeypress="return onlyLetters(event);" />
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6">
+                            <label>STATO  <em>(SECONDO I CODICI UPU)</em></label>
+                            <input type="text" name="stato" value="" class="stato" />
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-6">
+                            <label>FILE  <em>(Inserire anche l'estensione .pdf)</em></label>
+                            <input type="text" name="file" value="" class="file" />
+                        </div>
+                        <div class="bullettins">
+                            <div class="row">
+                                <div class="col-lg-12 text-center"><h1>MODIFICA IL BOLLETTINO</h1></div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <label>NUMERO CONTO CORRENTE</label>
+                                <input type="text" name="NumeroContoCorrente" value="" class="NumeroContoCorrente" />
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <label>INTESTATO A</label>
+                                <input type="text" name="IntestatoA" value="" class="IntestatoA" />
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <label>CODICE CLIENTE</label>
+                                <input type="text" name="CodiceCliente" value="" class="CodiceCliente" />
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <label>IMPORTO EURO</label>
+                                <input type="text" name="ImportoEuro" value="" class="ImportoEuro" />
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <label>IBAN</label>
+                                <input type="text" name="IBAN" value="" class="IBAN" />
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <label>ESEGUITO DA NOMINATIVO</label>
+                                <input type="text" name="EseguitoDaNominativo" value="" class="EseguitoDaNominativo" />
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <label>ESEGUITO DA INDIRIZZO</label>
+                                <input type="text" name="EseguitoDaIndirizzo" value="" class="EseguitoDaIndirizzo" />
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <label>ESEGUITO DA CAP</label>
+                                <input type="text" name="EseguitoDaCap" value="" class="EseguitoDaCap" />
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <label>ESEGUITO DA LOCALITA'</label>
+                                <input type="text" name="EseguitoDaLocalita" value="" class="EseguitoDaLocalita" />
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <label>CAUSALE</label>
+                                <input type="text" name="Causale" value="" class="Causale" />
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <input type="submit" name="save" value="INSERISCI" onclick="validateForm()" />
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="error-msg error-popup"></div>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="index" class="index" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@Styles.Render("~/Content/dropZoneStyles")
+@Scripts.Render("~/bundles/dropZone")
+<script>
+    var bollettini = @Request.QueryString["Bollettini"];
+    var logo = "@Request.QueryString["logo"]";
+    var userId = @ViewBag.userId;
+    var sessionId = "@ViewBag.sessionId";
+    var areaTestUser = "@ViewBag.areaTestUser";
+</script>
+@Scripts.Render("~/bundles/raccomandata/DestinatariNew")

@@ -1,0 +1,145 @@
+﻿
+@{
+    ViewBag.Title = "Stampa e Unione";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-lg-12">
+    <div class="content-breadcrumb">DASHBOARD / STAMPA E UNIONE</div>
+</div>
+
+<div class="default-page form-stampa-unione">
+    <div class="col-lg-12">
+        <section>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h1>UTILITY DI STAMPA E UNIONE</h1>
+                    <i><h6>INSERISCI UN FILE ZIP CONTENENTE IL CSV DA CUI ESTRARRE I NOMINATIVI <br />E IL DOCUMENTO WORD CON LE VARIABILI DA PERSONALIZZARE</h6></i>
+                </div>
+            </div>
+            <div class="user-form">
+                <div class="row">
+                    <div class="col-lg-6 single-file-upload">
+                        <label>
+                            <b>CARICA UN FILE</b> <em>(in formato .zip)</em>
+                        </label>
+                        <div class="dropZoneForm relative">
+                            <div id="myId" class="fallback dropzone"></div>
+                        </div>
+                        <span class="progress">
+                            <span class="progress-bar">0%</span>
+                        </span>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <input type="text" name="FileName" value="" required readonly class="FileName readonly" />
+                                <div class="msg msg-ok"></div>
+                                <div class="error-msg error-msg-file"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 relative">
+                        <h1>Processo di caricamento file stampa/unione.</h1>
+                        <ul>
+                            <li>1.carica il file zip contenente sia il .csv che il .doc o .docx.</li>
+                            <li>2.attendi la validazione dei documenti.</li>
+                            <li>3.clicca su scarica ora per scaricare i file .pdf (raggruppati in un unico file .zip)</li>
+                        </ul>
+                        <div class="download">
+                            <h4>Operazione completata.</h4>
+                            <h5>Clicca su scarica il file per avviare il download.</h5>
+                            <a href="/" target="_blank" class="ad">Scarica il file</a>
+                        </div>
+                        <div class="spinner">
+                            <img src="~/Images/preload.gif" /><br />
+                            Attendere creazione file pdf in corso...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+@Styles.Render("~/Content/dropZoneStyles")
+@Scripts.Render("~/bundles/dropZone")
+
+<script>
+    $("div#myId").dropzone({
+        url: "/Utility/UploadFile",
+        paramName: "file",
+        maxFilesize: 50,
+        maxFiles: 1,
+        chunking: true,
+        acceptedFiles: ".zip",
+        dictDefaultMessage: "<i class='fas fa-file-upload'></i><br>Trascina un file oppure clicca per effettuare l'upload",
+        init: function () {
+            this.on("maxfilesexceeded", function (data) {
+                var res = eval('(' + data.xhr.responseText + ')');
+            });
+            this.on("addedfile", function (file) {
+                $('.download').hide();
+                $('.error-msg-file').hide();
+            });
+            this.on("processing", function (file) {
+                $('.progress-bar').css('width', '0%');
+                $('.progress-bar').text('0%');
+            });
+            this.on("complete", function (file) {
+                this.removeFile(file);
+            });
+            this.on("uploadprogress", function (file, a) {
+                $('.progress-bar').css('width', parseInt(a) + '%');
+                $('.progress-bar').text(parseInt(a) + '%');
+                if (a === 100) {
+                    $('.preload-file').html('<i class="fas fa-file-upload"></i><br>Trascina un file oppure clicca per effettuare l\'upload');
+                }
+            });
+        },
+        success: function (file, response) {
+            var res = jQuery.parseJSON(response);
+            if (res.success) {
+                $('.spinner').show();
+                $('.FileName').val(res.name);
+                $('.msg').html("file caricato correttamente");
+                $('.msg').fadeIn(300);
+                $('.error-msg-file').hide();
+
+                //GET STAMPA E UNIONE
+                GeneraStampaUnione(res.pathCsv, res.pathDoc, res.filePath)
+            }
+            else {
+                $('.msg').hide();
+                $('.spinner').hide();
+                $('.error-msg-file').html(res.errorMessage);
+                $('.error-msg-file').fadeIn(300);
+                $('.progress-bar').css('width', '0%');
+                $('.progress-bar').text('0%');
+
+            }
+        }
+    });
+
+    function GeneraStampaUnione(pathCsv, pathDoc, filePath) {
+        $.post("/Utility/GeneraStampaUnione", {
+            pathCsv: pathCsv,
+            pathDoc: pathDoc,
+            filePath: filePath
+        }, function (response) {
+                $('.spinner').hide();
+                $('.download').hide();
+                $('.msg').hide();
+                $('.progress-bar').css('width', '0%');
+                $('.progress-bar').text('0%');
+                $('.FileName').val("");
+                var res = jQuery.parseJSON(response);
+                if (res.success) {
+                    $('.download').show();
+                    $('.ad').attr("href", res.pathCompressedFile);
+                }
+                else {
+                    $('.error-msg-file').html(res.errorMessage);
+                    $('.error-msg-file').fadeIn(300);
+
+                }
+        });
+    }
+</script>

@@ -1,0 +1,61 @@
+﻿@model  WasySender_2_0.Models.GetOperations
+@{
+    ViewBag.Title = "StepEnd";
+}
+
+<div class="col-lg-12">
+    <div class="content-breadcrumb">DASHBOARD / CORRISPONDENZA / LETTERA / SELEZIONA DESTINATARI / RIPEPILOGO E SPEDIZIONE / INVIO IN CORSO</div>
+</div>
+
+<div class="default-page">
+    <div class="col-lg-12">
+        <section>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h1>RIEPILOGO SPEDIZIONE</h1>
+                    <h2 class="line-height-24">
+                        Abbiamo preso in carico la tua spedizione.<br />
+                        Controlla nell'area "STATO INVII" l'avanzamento degli invii.
+                    </h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3">
+                    <div class="on-ship">
+                        <ul>
+                            <li>Lotto</li>
+                            <li>@Model.operationId</li>
+                        </ul>
+                        <ul>
+                            <li>Destinatari</li>
+                            <li>@Model.recipients.Count()</li>
+                        </ul>
+                        <ul>
+                            <li>Data di creazione</li>
+                            <li>@Model.operationDate.ToString("dd/MM/yyyy HH:mm:ss")</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2">
+                    <div class="row">
+                        <div class="nav-step">
+                            <div class="col-lg-6 col-lg-offset-4 col-md-4 col-md-offset-4">
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <a href="/Corrispondenza/Index?id=2" style="font-size:13px!important;">
+                                            <img src="/Images/IcnArchivioSped.png"><br>
+                                            STATO<br>INVII
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

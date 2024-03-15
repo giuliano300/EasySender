@@ -1,0 +1,3 @@
+RagioneSociale;Nome;Cognome;CAP;Citta;Provincia;Stato;Indirizzo;CompletamentoIndirizzo;NomeFile;NumeroContoCorrente;IntestatoA;CodiceCliente;ImportoEuro;EseguitoDaNominativo;EseguitoDaIndirizzo;EseguitoDaCAP;EseguitoDaLocalita;Causale;Anno;CodiceFiscale;Telefono;CompletamentoNominativo;IBAN;sms;testoSms
+;mario;rossi;80132;napoli;Na;italia;toledo;;1.pdf;CC103159811112;Azienda 1 srl;CC801839123456789552;50;Mario Rossi;via toledo 30;80132;Napoli;Pagamento canone azienda 1;2018;VLNGLN76D15L259U;;;;si;ciao come va?
+ewt;;;80129;napoli;Na;italia;michelangelo;Presso Antonio Verdi;2.pdf;CC103159811110;Azienda 2 srl;CC801839123456789522;732,22;ewt;viale michelangelo 50;80129;Napoli;Pagamento canone affitto;2018;;3331767543;Srl;;no;

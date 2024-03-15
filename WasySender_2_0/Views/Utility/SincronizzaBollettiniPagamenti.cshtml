@@ -1,0 +1,145 @@
+﻿
+@{
+    ViewBag.Title = "Bipiol Sincronizzazione";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-lg-12">
+    <div class="content-breadcrumb">DASHBOARD / SINCRONIZZA BOLLETTINI-PAGAMENTI</div>
+</div>
+
+<div class="default-page form-stampa-unione">
+    <div class="col-lg-12">
+        <section>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h1>UTILITY DI SINCRONIZZAZIONE BOLLETTINI-PAGAMENTI</h1>
+                    <i><h6>INSERISCI UN FILE TXT DA SINCRONIZZARE</h6></i>
+                </div>
+            </div>
+            <div class="user-form">
+                <div class="row">
+                    <div class="col-lg-6 single-file-upload">
+                        <label>
+                            <b>CARICA UN FILE</b> <em>(in formato .txt)</em>
+                        </label>
+                        <div class="dropZoneForm relative">
+                            <div id="myId" class="fallback dropzone"></div>
+                        </div>
+                        <span class="progress">
+                            <span class="progress-bar">0%</span>
+                        </span>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <input type="text" name="FileName" value="" required readonly class="FileName readonly" />
+                                <div class="msg msg-ok"></div>
+                                <div class="error-msg error-msg-file"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 relative">
+                        <h1>Processo di ottimizzazione.</h1>
+                        <ul>
+                            <li>1.carica il txt.</li>
+                            <li>2.attendi la sincronizzazione del file txt con i bollettini in nostro possesso.</li>
+                            <li>3.scarica i dati dei bollettini pagati.</li>
+                            <li>4.visita l'archivio per controllare i bollettini pagati.</li>
+                        </ul>
+                        <div class="download">
+                            <h4>Operazione completata.</h4>
+                            <h5>Clicca su scarica il file per avviare il download dei bollettini pagati.</h5>
+                            <a href="/" target="_blank" class="ad">Scarica il file</a>
+                        </div>
+                        <div class="spinner">
+                            <img src="~/Images/preload.gif" /><br />
+                            Attendere creazione file in corso...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+@Styles.Render("~/Content/dropZoneStyles")
+@Scripts.Render("~/bundles/dropZone")
+
+<script>
+    $("div#myId").dropzone({
+        url: "/Utility/UploadTxtBipiol",
+        paramName: "file",
+        maxFilesize: 50,
+        maxFiles: 1,
+        chunking: true,
+        acceptedFiles: ".txt",
+        dictDefaultMessage: "<i class='fas fa-file-upload'></i><br>Trascina un file oppure clicca per effettuare l'upload",
+        init: function () {
+            this.on("maxfilesexceeded", function (data) {
+                var res = eval('(' + data.xhr.responseText + ')');
+            });
+            this.on("addedfile", function (file) {
+                $('.download').hide();
+                $('.error-msg-file').hide();
+            });
+            this.on("processing", function (file) {
+                $('.progress-bar').css('width', '0%');
+                $('.progress-bar').text('0%');
+            });
+            this.on("complete", function (file) {
+                this.removeFile(file);
+            });
+            this.on("uploadprogress", function (file, a) {
+                $('.progress-bar').css('width', parseInt(a) + '%');
+                $('.progress-bar').text(parseInt(a) + '%');
+                if (a === 100) {
+                    $('.preload-file').html('<i class="fas fa-file-upload"></i><br>Trascina un file oppure clicca per effettuare l\'upload');
+                }
+            });
+        },
+        success: function (file, response) {
+            var res = jQuery.parseJSON(response);
+            if (res.success) {
+                $('.spinner').show();
+                $('.FileName').val(res.name);
+                $('.msg').html("file caricato correttamente");
+                $('.msg').fadeIn(300);
+                $('.error-msg-file').hide();
+
+                //Avvia Sincro
+                AvviaSincronizzazione(res.pathTxt);
+            }
+            else {
+                $('.msg').hide();
+                $('.spinner').hide();
+                $('.error-msg-file').html(res.errorMessage);
+                $('.error-msg-file').fadeIn(300);
+                $('.progress-bar').css('width', '0%');
+                $('.progress-bar').text('0%');
+
+            }
+        }
+    });
+
+    function AvviaSincronizzazione(pathTxt) {
+        $.post("/Utility/MatchFile", {
+            pathTxt: pathTxt
+        }, function (response) {
+            $('.spinner').hide();
+            $('.download').hide();
+            $('.msg').hide();
+            $('.progress-bar').css('width', '0%');
+            $('.progress-bar').text('0%');
+            $('.FileName').val("");
+            var res = jQuery.parseJSON(response);
+            if (res.success) {
+                $('.download').show();
+                $('.ad').attr("href", res.bulletinsFile);
+            }
+            else {
+                $('.error-msg-file').html(res.errorMessage);
+                $('.error-msg-file').fadeIn(300);
+
+            }
+        });
+    }
+
+</script>

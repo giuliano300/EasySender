@@ -1,0 +1,170 @@
+﻿@model WasySender_2_0.Models.Sender
+
+@{
+    ViewBag.Title = "AddMittenti";
+}
+
+<div class="col-lg-12">
+    <div class="content-breadcrumb"><a href="/Home/Dashboard/">DASHBOARD</a> / <a href="/User/Mittenti">MITTENTI</a> / NUOVO MITTENTE</div>
+</div>
+
+<div class="default-page">
+    <div class="col-lg-12">
+        <section>
+            <div class="row">
+                <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 text-center">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1>
+                                AGGIUNGI MITTENTE
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="user-form">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <label>NOMINATIVO<em>(Lunghezza massima 40 char)</em></label>
+                                <input type="text" name="ragsoc" value="@Model.businessName@(Model.name != "" ? " " + Model.name : "")@(Model.surname != "" ? " " + Model.surname : "")" class="ragsoc" maxlength="44" required />
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <label>COMPLETAMENTO NOMINATIVO <em>(Es. Presso sig.Rossi)</em></label>
+                                <input type="text" name="completamentoNominativo" value="@Model.complementNames" class="complementNames" maxlength="44" />
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <label>INDIRIZZO <em>(ES.via Toledo, 50)</em></label>
+                                <input type="text" name="indirizzo" value="@(Model.dug!="" ? Model.dug + " " : "")@Model.address@(Model.houseNumber != "" ? " " + Model.houseNumber : "")" class="indirizzo" />
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <label>COMPLETAMENTO INDIRIZZO <em>(Es. vicino alla stazione)</em></label>
+                                <input type="text" name="completamentoIndirizzo" value="@Model.complementAddress" maxlength="44" class="completamentoIndirizzo" />
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <label>CAP</label>
+                                <input type="text" name="cap" value="@Model.cap" onkeypress="return onlyNumbers(event);" size="5" maxlength="5" class="cap" />
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <label>CITT&Agrave;</label>
+                                <input type="text" name="citta" value="@Model.city" required class="citta" />
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <label>PROVINCIA <em>(SOLO 2 LETTERE)</em></label>
+                                <input type="text" name="provincia" maxlength="2" minlength="2" style="text-transform:uppercase;" value="@Model.province" class="provincia"
+                                        onkeypress="return onlyLetters(event);" />
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <label>STATO  <em>(SECONDO I CODICI UPU)</em></label>
+                                <input type="text" name="stato" value="@Model.state" class="stato" />
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <label>TELEFONO</em></label>
+                                <input type="text" name="stato" value="@Model.telefono" class="mobile" />
+                            </div>
+                            <div class="col-lg-8 col-md-4 col-sm-6">
+                                <label>EMAIL  </label>
+                                <input type="text" name="stato" value="@Model.email" class="email" />
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <input type="submit" name="save" value="SALVA" onclick="return validateForm()" />
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="error-msg"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<input type="hidden" name="id" class="id" value="@Model.id" />
+<script>
+    function validateForm() {
+        $('.error-msg').hide();
+        $.post("/User/ValidateSender", {
+            ragsoc: $('.ragsoc').val(),
+            complementNames: $('.complementNames').val(),
+            complementAddress: $('.completamentoIndirizzo').val(),
+            indirizzo: $('.indirizzo').val(),
+            cap: $('.cap').val(),
+            citta: $('.citta').val(),
+            provincia: $('.provincia').val(),
+            stato: $('.stato').val()
+        }, function (response) {
+            if (response != "") {
+                var res = jQuery.parseJSON(response);
+                if (res.Valido === false) {
+                    $('.error-msg').html(res.Errore);
+                    $('.error-msg').fadeIn(300);
+                    return false;
+                }
+                else
+                {
+                    $.post("/User/SaveSender", {
+                        ragsoc: $('.ragsoc').val(),
+                        complementNames: $('.complementNames').val(),
+                        complementAddress: $('.completamentoIndirizzo').val(),
+                        indirizzo: $('.indirizzo').val(),
+                        cap: $('.cap').val(),
+                        citta: $('.citta').val(),
+                        provincia: $('.provincia').val(),
+                        stato: $('.stato').val(),
+                        telefono: $('.mobile').val(),
+                        email: $('.email').val(),
+                        id: $('.id').val()
+                    }, function (response) {
+                        var res = jQuery.parseJSON(response);
+                        if (res === 0) {
+                            $('.error-msg').html("Errore nell'inserimento del mittente");
+                            $('.error-msg').fadeIn(300);
+                        } else {
+                            location.href = "/User/Mittenti";
+                        }
+                    });
+                }
+            }
+        })
+    }
+
+    function deleteLogo(id) {
+
+    }
+
+    function onlyNumbers(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+    function onlyLetters(evt) {
+        var keyCode = (evt.which) ? evt.which : evt.keyCode
+        if ((keyCode < 65 || keyCode > 90) && (keyCode < 97 || keyCode > 123) && keyCode != 32)
+            return false;
+
+        return true;
+    }
+
+    function onlyNumbers(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) 
+            return false;
+
+        return true;
+    }
+
+    function onlyLetters(evt) {
+        var keyCode = (evt.which) ? evt.which : evt.keyCode
+        if ((keyCode < 65 || keyCode > 90) && (keyCode < 97 || keyCode > 123) && keyCode != 32)
+            return false;
+
+        return true;
+    }
+
+
+</script>
+

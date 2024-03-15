@@ -1,0 +1,185 @@
+﻿@model WasySender_2_0.Models.GetOperations
+@{
+    ViewBag.Title = "DettaglioSpedizione";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-lg-12">
+    <div class="content-breadcrumb">DASHBOARD / STATO SPEDIZIONI / CORRISPONDENZA / LOTTO</div>
+</div>
+
+
+<div class="default-page">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-lg-8 col-md-8">
+                <section>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1>DETTAGLIO LOTTO</h1>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="report-lotto">
+                                <ul>
+                                    <li>CODICE SPEDIZIONE</li>
+                                    <li><span>COD. 12566</span></li>
+                                </ul>
+                                <ul>
+                                    <li>PRODOTTO POSTALE</li>
+                                    <li><span>ROL</span></li>
+                                </ul>
+                                <ul>
+                                    <li>NUMERO DI DESTINATARI</li>
+                                    <li><span>231</span></li>
+                                </ul>
+                                <ul>
+                                    <li>DATA DI CREAZIONE</li>
+                                    <li><span>26/04/2020 - 11:23:11</span></li>
+                                </ul>
+                                <ul>
+                                    <li>DISTINTA DI SPEDIZIONE</li>
+                                    <li><img src="~/Images/IcnDownload.png" /> <a href="/Corrispondenza/ExportPDF/">Scarica la distinta</a> </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h1>PREZZO LOTTO</h1>
+                                </div>
+                            </div>
+                            <div class="costi-lotto">
+                                <ul>
+                                    <li>PREZZO NETTO</li>
+                                    <li><span>€ 100,00</span></li>
+                                </ul>
+                                <ul>
+                                    <li>IVA 22%</li>
+                                    <li><span>€ 22,00</span></li>
+                                </ul>
+                                <ul>
+                                    <li>COSTO TOTALE</li>
+                                    <li><label>€ 122,00</label></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <section>
+                    <div class="cerca-lotto">
+                        <h1>RICERCA SPEDIZIONE</h1>
+                        <ul>
+                            <li>
+                                <input type="text" name="destinatario" placeholder="Destinatario" class="username" />
+                            </li>
+                            <li>
+                                <input type="text" name="codice" placeholder="Codice" class="code" />
+                            </li>
+                            <li>
+                                <select name="esito" class="esito">
+                                    <option value="">Esito</option>
+                                    <option value="true">OK</option>
+                                    <option value="false">ERRORE</option>
+                                </select>
+                            </li>
+                            <li>
+                                <input type="submit" name="search" value="CERCA" onclick="ApplyFilter()" />
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <section>
+                    <div class="content-table-responsive">
+                        <div class="stato-sped-grid-lotto">
+                            <ul>
+                                <li class="top-grid" style="width:14.2%!important;">RAGIONE SOCIALE</li>
+                                <li class="top-grid" style="width:14.2%!important;">NOME</li>
+                                <li class="top-grid" style="width:14.3%!important;">COGNOME</li>
+                                <li class="top-grid" style="width:14.3%!important;">DATA ACCETTAZIONE</li>
+                                <li class="top-grid" style="width:14.3%!important;">CODICE RACCOMANDATA</li>
+                                <li class="top-grid" style="width:14.3%!important;">ESITO TRASFERIMENTO</li>
+                                <li class="top-grid" style="width:14.4%!important;">DOWNLOAD DOCUMENTO</li>
+                            </ul>
+                            <span class="names">
+                                <ul>
+                                    <li style="width:14.2%!important;">-</li>
+                                    <li style="width:14.2%!important;">Domenico</li>
+                                    <li style="width:14.3%!important;">Carlino</li>
+                                    <li style="width:14.3%!important;">30/04/2020 - 10:13:41</li>
+                                    <li style="width:14.3%!important;"><a onclick="OpenPopup">01234657890</a></li>
+                                    <li style="width:14.3%!important;">RECAPITATA</li>
+                                    <li style="width:14.4%!important;"><a onclick="#"><img src="/Images/IcnDownload.png" /></a></li>
+                                </ul>
+                            </span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="popup-std">
+    <div class="col-lg-12">
+        <div class="close-popup wowload delay-02 fadeIn">
+            <a onclick="ClosePopup()" title="Chiudi Dettaglio"><img src="~/Images/IcnClose.png" /></a>
+        </div>
+    </div>
+    <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4">
+        <div class="content-popup">
+            <div class="row">
+                <div class="col-lg-12">
+                    <section>
+                        <h3>INFORMATIVA SU SPEDIZIONE</h3>
+                        <div class="info-sped-popup">
+                            <ul>
+                                <li>NOME CLIENTE</li>
+                                <li><span>@ViewBag.userName</span></li>
+                            </ul>
+                            <ul>
+                                <li>CODICE SPEDIZIONE</li>
+                                <li><span class="cod"></span></li>
+                            </ul>
+                            <ul>
+                                <li>DESTINATARIO</li>
+                                <li><span class="dest"></span></li>
+                            </ul>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="dettaglio-sped-popup">
+                            <ul>
+                                <li class="top-grid">DATA E ORA</li>
+                                <li class="top-grid">STATO LAVORAZIONE</li>
+                            </ul>
+                            <ul>
+                                <li class="dataCar">-</li>
+                                <li>CARICAMENTO SUL PORTALE</li>
+                            </ul>
+                            <ul>
+                                <li class="dataPre">-</li>
+                                <li>PRESA IN CARICO</li>
+                            </ul>
+                            <ul>
+                                <li class="dataCo">-</li>
+                                <li>CONSEGNA</li>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+                <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 hidden">
+                    <div class="download-det-sped">
+                        <img src="~/Images/IcnDownloadSped.png" /> SCARICA LA DISTINTA DI SPEDIZIONE
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

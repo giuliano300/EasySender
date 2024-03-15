@@ -1,0 +1,203 @@
+﻿@model WasySender_2_0.Models.NamesLists
+
+<div class="col-lg-12">
+    <div class="content-breadcrumb"><a href="/Home/Dashboard/">DASHBOARD</a> / <a href="/User/Destinatari">DESTINATARI</a> / NUOVO DESTINATARIO</div>
+</div>
+
+<div class="default-page">
+    <div class="col-lg-12">
+        <section>
+            <div class="row">
+                <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 text-center">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1>
+                                AGGIUNGI DESTINATARIO
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="user-form">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <label>RAGIONE SOCIALE <em>(Lunghezza massima 40 char)</em></label>
+                                <input type="text" name="ragsoc" value="@Model.businessName" class="ragsoc" maxlength="44" />
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <label>NOME <em>(OBBLIGATORIO SE LA RAGIONE SOCIALE È VUOTA)</em></label>
+                                <input type="text" name="nome" value="@Model.name" class="nome" maxlength="44" />
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <label>COGNOME <em>(OBBLIGATORIO SE LA RAGIONE SOCIALE È VUOTA)</em></label>
+                                <input type="text" name="cognome" value="@Model.surname" class="cognome" maxlength="44" />
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <label>COMPLETAMENTO NOMINATIVO <em>(se il nominativo supera i 44 caratteri)</em></label>
+                                <input type="text" name="completamentoNominativo" value="@Model.complementNames" class="completamentoNominativo" maxlength="44" />
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <label>CODICE FISCALE <em>(obbligatorio per il ritiro digitale)</em></label>
+                                <input type="text" name="cf" value="@Model.fiscalCode" class="cf" maxlength="16" />
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <label>INDIRIZZO <em>(ES.Toledo, Dante, ect.)</em></label>
+                                <input type="text" name="indirizzo" value="@Model.dug @Model.address @Model.houseNumber" class="indirizzo" />
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <label> COMPLETAMENTO INDIRIZZO <em>(es. presso mario rossi)</em></label>
+                                <input type="text" name="completamentoIndirizzo" value="@Model.complementAddress" class="completamentoIndirizzo" />
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <label>CAP</label>
+                                <input type="text" name="cap" value="@Model.cap" onkeypress="return onlyNumbers(event);" size="5" maxlength="5" class="cap" onchange="ReadAndWriteCap()" />
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <label>CITT&Agrave;</label>
+                                <input type="text" name="citta" value="" class="citta readonly" readonly />
+                                <select name="citta" value="" class="selCitta" style="display:none" onchange="GetProvincia()">
+                                    <option value="">Seleziona un comune</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <label>PROVINCIA <em>(SOLO 2 LETTERE)</em></label>
+                                <input type="text" name="provincia" maxlength="2" minlength="2" style="text-transform:uppercase;" value="@Model.province" class="provincia readonly" readonly
+                                       onkeypress="return onlyLetters(event);" />
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <label>STATO  <em>(SECONDO I CODICI UPU)</em></label>
+                                <input type="text" name="stato" value="@Model.state" class="stato" />
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                <input type="submit" name="save" value="INSERISCI" onclick="validateForm()" />
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="error-msg"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<input type="hidden" name="id" class="id" value="@Model.id" />
+<input type="hidden" name="listId" class="listId" value="@ViewBag.listId" />
+<script>
+    function validateForm() {
+        $('.error-msg').hide();
+        $.post("/User/ValidateName", {
+            ragsoc: $('.ragsoc').val(),
+            nome: $('.nome').val(),
+            cognome: $('.cognome').val(),
+            complementNames: $('.completamentoNominativo').val(),
+            indirizzo: $('.indirizzo').val(),
+            complementAddress: $('.completamentoIndirizzo').val(),
+            fiscalCode: $('.cf').val(),
+            cap: $('.cap').val(),
+            citta: $('.citta').val(),
+            provincia: $('.provincia').val(),
+            stato: $('.stato').val()
+        }, function (response) {
+            if (response != "") {
+                var res = jQuery.parseJSON(response);
+                if (res.Valido === false) {
+                    $('.error-msg').html(res.Errore);
+                    $('.error-msg').fadeIn(300);
+                }
+                else {
+                    $.post("/User/SaveName", {
+                        ragsoc: $('.ragsoc').val(),
+                        nome: $('.nome').val(),
+                        cognome: $('.cognome').val(),
+                        complementNames: $('.completamentoNominativo').val(),
+                        indirizzo: $('.indirizzo').val(),
+                        complementAddress: $('.completamentoIndirizzo').val(),
+                        fiscalCode: $('.cf').val(),
+                        cap: $('.cap').val(),
+                        citta: $('.citta').val(),
+                        provincia: $('.provincia').val(),
+                        stato: $('.stato').val(),
+                        id: $('.id').val(),
+                        listId: $('.listId').val()
+                    }, function (response) {
+                        var res = jQuery.parseJSON(response);
+                        if (res === 0) {
+                            $('.error-msg').html("Errore nell'inserimento del destinatario");
+                            $('.error-msg').fadeIn(300);
+                        } else {
+                            location.href = "/User/Details/" + $('.listId').val();
+                        }
+                    });
+                }
+            }
+        })
+    }
+
+    function onlyNumbers(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+    function onlyLetters(evt) {
+        var keyCode = (evt.which) ? evt.which : evt.keyCode
+        if ((keyCode < 65 || keyCode > 90) && (keyCode < 97 || keyCode > 123) && keyCode != 32)
+            return false;
+
+        return true;
+    }
+
+    function GetProvincia() {
+        var sigla = "";
+        if ($('.selCitta').val() !== "")
+            sigla = $('.selCitta').val();
+        $('.provincia').val(sigla);
+        var c = $(".selCitta option:selected").text();
+        $('.citta').val(c);
+    }
+
+    function ReadAndWriteCap() {
+        $.post("/User/SearchCity", {
+            cap: $('.cap').val()
+        }, function (result) {
+            if (result !== "null") {
+                var res = jQuery.parseJSON(result);
+                if (res.length > 1) {
+                    $('.citta').hide();
+                    $('.selCitta').show();
+                    $('.citta').removeAttr("required");
+                    $('.selCitta').attr("required", "required");
+                    $('.selCitta').empty();
+                    $('.selCitta').append("<option value=''>Seleziona un comune</option>");
+                    for (var i = 0; i < res.length; i++) {
+                        $('.selCitta').append("<option value='" + res[i].sigla + "'>" + res[i].comune + "</option>");
+                    };
+                    $('.provincia').val("");
+                    $('.error-popup').html("");
+                    $('.error-popup').fadeOut(300);
+                } else {
+                    $('.citta').show();
+                    $('.selCitta').hide();
+                    $('.citta').attr("required");
+                    $('.selCitta').removeAttr("required", "required");
+                    $('.citta').val(res[0].comune);
+                    $('.provincia').val(res[0].sigla);
+                    $('.error-popup').html("");
+                    $('.error-popup').fadeOut(300);
+                }
+            }
+            else {
+                $('.citta').val("");
+                $('.provincia').val("");
+                $('.error-popup').html("Cap inserito non corrisponde a nessun valore presente nel nostro database.");
+                $('.error-popup').fadeIn(300);
+            }
+        });
+    }
+</script>
+

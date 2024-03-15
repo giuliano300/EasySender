@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "Marketing";
+    if (Request.Cookies["login"] == null)
+    {
+        Response.Redirect("/Home/Index");
+    }
+}
+
+<div class="col-lg-12">
+    <div class="content-breadcrumb"><a href="/Home/Dashboard/">DASHBOARD</a> / SERVIZI MARKETING</div>
+</div>
+
+<div class="default-page">
+    <div class="col-lg-12">
+        <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 text-center">
+            <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-8 col-xs-offset-2">
+                <div class="content-icon">
+                    <img src="~/Images/IcnServiziMarketing.png" />
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <h1>Servizi Marketing</h1>
+                <article class="padding-bottom-60">
+                    Questo tipo di servizio permette l’invio di comunicazioni commerciali o di marketing da parte di aziende che vogliono comunicare direttamente con clienti specifici, senza avvalersi di intermediari.<br />
+                    Dopo aver scelto il template, sarà possibile personalizzarlo solo in determinati campi.
+                </article>
+            </div>
+        </div>
+    </div>
+    <div class="servizi-marketing">
+        <div class="col-lg-6 col-md-6 text-center">
+            <section>
+                <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-8 col-xs-offset-2">
+                    <div class="content-icon">
+                        <img src="~/Images/IcnDirectMarketing.png" />
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <h1>DIRECT MARKETING</h1>
+                    <article>
+                        Questo tipo di servizio permette l’invio di comunicazioni commerciali o di marketing da parte di aziende che vogliono comunicare direttamente con clienti specifici, senza avvalersi di intermediari.<br />
+                        Dopo aver scelto il template, sarà possibile personalizzarlo solo in determinati campi.
+                    </article>
+                    <a href="/DM/">SELEZIONA</a>
+                </div>
+            </section>
+        </div>
+        <div class="col-lg-6 col-md-6 text-center">
+            <section>
+                <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-8 col-xs-offset-2">
+                    <div class="content-icon">
+                        <img src="~/Images/IcnSms.png" />
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <h1>SMS</h1>
+                    <article>
+                        Dalla piattaforma EasySender è possibile inviare sms da  parte di aziende che vogliono comunicare direttamente con clienti specifici, senza avvalersi di intermediari.
+                    </article>
+                    <a href="/Sms/">SELEZIONA</a>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+

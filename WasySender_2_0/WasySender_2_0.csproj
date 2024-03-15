@@ -1,0 +1,749 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B0A3B91A-14A0-4E3E-BD30-2B4D5BC287CF}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WasySender_2_0</RootNamespace>
+    <AssemblyName>WasySender_2_0</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress>false</Use64BitIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=4.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.1.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="BitMiracle.Docotic.Pdf, Version=7.3.11044.0, Culture=neutral, PublicKeyToken=221650e173990c07, processorArchitecture=MSIL">
+      <HintPath>..\packages\BitMiracle.Docotic.Pdf.7.3.11044\lib\net46\BitMiracle.Docotic.Pdf.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=3.1.2.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.3.1.2\lib\net35\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelPackageF, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelPackageF.1.0.5\lib\net40\ExcelPackageF.dll</HintPath>
+    </Reference>
+    <Reference Include="GemBox.Document, Version=31.0.35.1000, Culture=neutral, PublicKeyToken=b1b72c69714d4847, processorArchitecture=MSIL">
+      <HintPath>..\packages\GemBox.Document.31.0.0.1000\lib\net35\GemBox.Document.dll</HintPath>
+    </Reference>
+    <Reference Include="GemBox.Pdf, Version=13.0.35.1000, Culture=neutral, PublicKeyToken=b1b72c69714d4847, processorArchitecture=MSIL">
+      <HintPath>..\packages\GemBox.Pdf.13.0.0.1000\lib\net35\GemBox.Pdf.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.MODI, Version=12.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>bin\Interop.MODI.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ionic.Zip.1.9.1.8\lib\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="IronOcr, Version=4.4.0.21181, Culture=neutral, PublicKeyToken=5f366048dc436899, processorArchitecture=MSIL">
+      <HintPath>..\packages\IronOcr.4.4.0\lib\net40\IronOcr.dll</HintPath>
+    </Reference>
+    <Reference Include="IronOcr.Italian, Version=4.0.0.26600, Culture=neutral, PublicKeyToken=5f366048dc436899, processorArchitecture=MSIL">
+      <HintPath>..\packages\IronOcr.Languages.Italian.4.4.4.11\lib\net40\IronOcr.Italian.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.JsonWebTokens.5.3.0\lib\net461\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.5.3.0\lib\net461\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Protocols, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Protocols.5.3.0\lib\net461\Microsoft.IdentityModel.Protocols.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Protocols.OpenIdConnect.5.3.0\lib\net461\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.5.3.0\lib\net461\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.2.2\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.2.2\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.2.2\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.2.2\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OpenIdConnect, Version=4.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OpenIdConnect.4.2.2\lib\net45\Microsoft.Owin.Security.OpenIdConnect.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="PayPal, Version=1.9.1.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PayPal.1.9.1\lib\net451\PayPal.dll</HintPath>
+    </Reference>
+    <Reference Include="Rotativa, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.1.7.3\lib\net461\Rotativa.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.3.0\lib\net461\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.IO.Compression.ZipFile, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.ZipFile.4.3.0\lib\net46\System.IO.Compression.ZipFile.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.4\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.4\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.4\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.4\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.4\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="tessnet2_32, Version=2.0.4.0, Culture=neutral, PublicKeyToken=1550524b5ba07e29, processorArchitecture=x86">
+      <HintPath>..\packages\NuGet.Tessnet2.1.1.1\lib\net45\tessnet2_32.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Diagnostics.DiagnosticSource">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.TelemetryCorrelation">
+      <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.0\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\MappingProfile.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BasicController.cs" />
+    <Compile Include="Controllers\CorrispondenzaController.cs" />
+    <Compile Include="Controllers\DefaultController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LetteraController.cs" />
+    <Compile Include="Controllers\LoghiController.cs" />
+    <Compile Include="Controllers\Oauth0Controller.cs" />
+    <Compile Include="Controllers\PacchiController.cs" />
+    <Compile Include="Controllers\PayPalController.cs" />
+    <Compile Include="Controllers\RaccomandataController.cs" />
+    <Compile Include="Controllers\SpecialOperationsController.cs" />
+    <Compile Include="Controllers\TelegrammaController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\UtilityController.cs" />
+    <Compile Include="Controllers\VisureController.cs" />
+    <Compile Include="DataModel\Body.cs" />
+    <Compile Include="DataModel\checkVatResponse.cs" />
+    <Compile Include="DataModel\Codice.cs" />
+    <Compile Include="DataModel\CompleteNameBulletin.cs" />
+    <Compile Include="DataModel\GetAllOperations.cs" />
+    <Compile Include="DataModel\GetDm.cs" />
+    <Compile Include="DataModel\GetLists.cs" />
+    <Compile Include="DataModel\GetOperationReport.cs" />
+    <Compile Include="DataModel\GetOperationNamesNew.cs" />
+    <Compile Include="DataModel\GetOperationNames.cs" />
+    <Compile Include="DataModel\GetRecipient.cs" />
+    <Compile Include="DataModel\GetUserAndPermissions.cs" />
+    <Compile Include="DataModel\LoghiSenders.cs" />
+    <Compile Include="DataModel\PricesSms.cs" />
+    <Compile Include="DataModel\SenderRecipientsTelegram.cs" />
+    <Compile Include="DataModel\SenderRecipients.cs" />
+    <Compile Include="DataModel\SubmitRolResponse\GetOperationResponseRolLol.cs" />
+    <Compile Include="DataModel\SubmitRolResponse\GetOperationResponse.cs" />
+    <Compile Include="DataModel\SubmitRolResponse\GetSubmitResponses.cs" />
+    <Compile Include="DataModel\SubmitRolResponse\GetSubmitResponse.cs" />
+    <Compile Include="DataModel\SubmitRolResponse\Prices.cs" />
+    <Compile Include="DataModel\TotalNamesPrice.cs" />
+    <Compile Include="DataModel\TotalOperations.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccessData.cs" />
+    <Compile Include="Models\AddressBookUsers.cs" />
+    <Compile Include="Models\BulletinsDtos.cs" />
+    <Compile Include="Models\Bulletins.cs" />
+    <Compile Include="Models\bulletinType.cs" />
+    <Compile Include="Models\Check.cs" />
+    <Compile Include="Models\CheckBulletin.cs" />
+    <Compile Include="Models\CheckSender.cs" />
+    <Compile Include="Models\CheckRecipient.cs" />
+    <Compile Include="Models\CompleteDocsVisure.cs" />
+    <Compile Include="Models\ConfigurationPecUsers.cs" />
+    <Compile Include="Models\Comune.cs" />
+    <Compile Include="Models\ComuniXLS.cs" />
+    <Compile Include="Models\ComuniItaliani.cs" />
+    <Compile Include="Models\Configuration.cs" />
+    <Compile Include="Models\ControlloBollettino.cs" />
+    <Compile Include="Models\ControlloMittente.cs" />
+    <Compile Include="Models\ControlloDestinatario.cs" />
+    <Compile Include="Models\crt.cs" />
+    <Compile Include="Models\DmConfiguration.cs" />
+    <Compile Include="Models\Dm.cs" />
+    <Compile Include="Models\DmProducts.cs" />
+    <Compile Include="Models\Enum.cs" />
+    <Compile Include="Models\EnumExtensions.cs" />
+    <Compile Include="Models\GetCheckedNames.cs" />
+    <Compile Include="Models\GetNumberOfCheckedNames.cs" />
+    <Compile Include="Models\GetOperationsNew.cs" />
+    <Compile Include="Models\GetOperations.cs" />
+    <Compile Include="Models\GetRecipentNew.cs" />
+    <Compile Include="Models\GetRecipentLists.cs" />
+    <Compile Include="Models\globals.cs" />
+    <Compile Include="Models\JwtObject\JwtObject.cs" />
+    <Compile Include="Models\Lists.cs" />
+    <Compile Include="Models\Loghi.cs" />
+    <Compile Include="Models\Logs.cs" />
+    <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\MailMessageOut.cs" />
+    <Compile Include="Models\Names.cs" />
+    <Compile Include="Models\NamesDm.cs" />
+    <Compile Include="Models\NamesLists.cs" />
+    <Compile Include="Models\NamesTelegram.cs" />
+    <Compile Include="Models\Notifications.cs" />
+    <Compile Include="Models\operationFeatures.cs" />
+    <Compile Include="Models\Operations.cs" />
+    <Compile Include="Models\PecEmailSend.cs" />
+    <Compile Include="Models\Preventivo.cs" />
+    <Compile Include="Models\Provincia.cs" />
+    <Compile Include="Models\Recipient.cs" />
+    <Compile Include="Models\RedirectSingleNamesVisure.cs" />
+    <Compile Include="Models\RedirectSingleNames.cs" />
+    <Compile Include="Models\SenderOperations.cs" />
+    <Compile Include="Models\Sender.cs" />
+    <Compile Include="Models\Sms.cs" />
+    <Compile Include="Models\SmsUsers.cs" />
+    <Compile Include="Models\SpecialOperations.cs" />
+    <Compile Include="Models\TemporaryValidateTable.cs" />
+    <Compile Include="Models\ListUploadFileRecipientResponse.cs" />
+    <Compile Include="Models\TxtBipiolResponse.cs" />
+    <Compile Include="Models\UploadFileRecipientResponse.cs" />
+    <Compile Include="Models\UploadFileResponse.cs" />
+    <Compile Include="Models\UploadListResponse.cs" />
+    <Compile Include="Models\UserPermits.cs" />
+    <Compile Include="Models\Users.cs" />
+    <Compile Include="Models\ValidateNamesProgress.cs" />
+    <Compile Include="Models\ZipCompressione.cs" />
+    <Compile Include="Models\PdfOptimizationResponse.cs" />
+    <Compile Include="Models\ZipResponse.cs" />
+    <Compile Include="Models\ZipStampaUnione.cs" />
+    <Compile Include="Models\Ocr.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\DashboardViewModel.cs" />
+    <Compile Include="ViewModel\GetDmViewModel.cs" />
+    <Compile Include="ViewModel\SmsViewModel.cs" />
+    <Compile Include="ViewModel\DmViewModel.cs" />
+    <Compile Include="ViewModel\UserViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\animate.css" />
+    <Content Include="Content\Balloon.css" />
+    <Content Include="Content\basic.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\cookies.css" />
+    <Content Include="Content\custom-1.0.css" />
+    <Content Include="Content\dropzone.css" />
+    <Content Include="Content\floating-wpp.min.css" />
+    <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\Media.css" />
+    <Content Include="Crop\jquery.Jcrop.min.js" />
+    <Content Include="Crop\jquery.min.js" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Images\Arrow.png" />
+    <Content Include="Images\ArrowDown.png" />
+    <Content Include="Images\BgHome.jpg" />
+    <Content Include="Images\BgPreventivo.jpg" />
+    <Content Include="Images\Cartolina A6.png" />
+    <Content Include="Images\CartolinaA5.png" />
+    <Content Include="Images\CartoplusLg.png" />
+    <Content Include="Images\CartoplusLGRid.png" />
+    <Content Include="Images\checkmark.gif" />
+    <Content Include="Images\Close.png" />
+    <Content Include="Images\f24.png" />
+    <Content Include="Images\graphic.png" />
+    <Content Include="Images\Icn-Dashboard.png" />
+    <Content Include="Images\Icn-NuovaSpedizione.png" />
+    <Content Include="Images\Icn-StatoSpedizioni.png" />
+    <Content Include="Images\Icn-StoricoSpedizioni.png" />
+    <Content Include="Images\IcnAddBollettino.png" />
+    <Content Include="Images\IcnAllegatoPec.png" />
+    <Content Include="Images\IcnAnuullaSped.png" />
+    <Content Include="Images\IcnArchivioSped.png" />
+    <Content Include="Images\IcnBonifico.png" />
+    <Content Include="Images\IcnBoxAdmin.png" />
+    <Content Include="Images\IcnBoxDestinatari.png" />
+    <Content Include="Images\IcnBoxMittenti.png" />
+    <Content Include="Images\IcnBoxUser.png" />
+    <Content Include="Images\IcnBusta2.jpg" />
+    <Content Include="Images\IcnCartaCredito.png" />
+    <Content Include="Images\IcnCestino.png" />
+    <Content Include="Images\IcnClose.png" />
+    <Content Include="Images\IcnCompilaLettera.png" />
+    <Content Include="Images\IcnComunicazione.png" />
+    <Content Include="Images\IcnConfiguration.png" />
+    <Content Include="Images\IcnControllaSpedizione.png" />
+    <Content Include="Images\IcnCorrispondenza.png" />
+    <Content Include="Images\IcnCsv.png" />
+    <Content Include="Images\IcnDashForm.png" />
+    <Content Include="Images\IcnDashPers.png" />
+    <Content Include="Images\IcnDashTicket.png" />
+    <Content Include="Images\IcnDelete.png" />
+    <Content Include="Images\IcnDestinatariAdmin.png" />
+    <Content Include="Images\IcnDestinatariList.png" />
+    <Content Include="Images\IcnDestinatariNew.png" />
+    <Content Include="Images\IcnDettaglio.png" />
+    <Content Include="Images\IcnDettaglioError.png" />
+    <Content Include="Images\IcnDirectMarketing.png" />
+    <Content Include="Images\IcnDonna.png" />
+    <Content Include="Images\IcnDownload.png" />
+    <Content Include="Images\IcnDownloadSped.png" />
+    <Content Include="Images\IcnDwnDest.png" />
+    <Content Include="Images\IcnEliminaEMail.png" />
+    <Content Include="Images\IcnEnd.png" />
+    <Content Include="Images\IcnFormazione.png" />
+    <Content Include="Images\IcnFormazioneInt.png" />
+    <Content Include="Images\IcnFronteRetro.png" />
+    <Content Include="Images\IcnFullScreen.png" />
+    <Content Include="Images\IcnGestioneAccount.png" />
+    <Content Include="Images\IcnGestioneRitiri.png" />
+    <Content Include="Images\IcnInbox.png" />
+    <Content Include="Images\IcnInoltra.png" />
+    <Content Include="Images\IcnLetteraMenu.png" />
+    <Content Include="Images\IcnLetteraSped.png" />
+    <Content Include="Images\IcnLogout.png" />
+    <Content Include="Images\IcnMarketing.png" />
+    <Content Include="Images\IcnMarketingMenu.png" />
+    <Content Include="Images\IcnMittentiAdmin.png" />
+    <Content Include="Images\IcnModificaRitiro.png" />
+    <Content Include="Images\IcnNewMessage.png" />
+    <Content Include="Images\IcnNewRitiro.png" />
+    <Content Include="Images\IcnNewSped.png" />
+    <Content Include="Images\IcnNext.png" />
+    <Content Include="Images\IcnNoLotti.png" />
+    <Content Include="Images\IcnNotifica.png" />
+    <Content Include="Images\IcnOff.png" />
+    <Content Include="Images\IcnOn.png" />
+    <Content Include="Images\IcnOutBox.png" />
+    <Content Include="Images\IcnPacchi.png" />
+    <Content Include="Images\IcnPacchi2.jpg" />
+    <Content Include="Images\IcnPacchiMenu.png" />
+    <Content Include="Images\IcnPallet2.jpg" />
+    <Content Include="Images\IcnPaperclip.png" />
+    <Content Include="Images\IcnPaypal.png" />
+    <Content Include="Images\IcnPEC.png" />
+    <Content Include="Images\IcnPrenotaRitiro.png" />
+    <Content Include="Images\IcnPrev.png" />
+    <Content Include="Images\IcnPrint.png" />
+    <Content Include="Images\IcnPwdLogin.png" />
+    <Content Include="Images\IcnRaccomandataMenu.png" />
+    <Content Include="Images\IcnRaccomandataSped.png" />
+    <Content Include="Images\IcnReport.png" />
+    <Content Include="Images\IcnRicevutaRitorno.png" />
+    <Content Include="Images\IcnRispondi.png" />
+    <Content Include="Images\IcnRitiri.png" />
+    <Content Include="Images\IcnSearchRitiro.png" />
+    <Content Include="Images\IcnSelectRitiro.png" />
+    <Content Include="Images\IcnSendPec.png" />
+    <Content Include="Images\IcnServiziMarketing.png" />
+    <Content Include="Images\IcnSms.png" />
+    <Content Include="Images\IcnSmsMenu.png" />
+    <Content Include="Images\IcnSpedisci.png" />
+    <Content Include="Images\IcnStar.png" />
+    <Content Include="Images\IcnStatoCorrispondenza.png" />
+    <Content Include="Images\IcnSupport.png" />
+    <Content Include="Images\IcnTelegrammaMenu.png" />
+    <Content Include="Images\IcnTelegrammaSped.png" />
+    <Content Include="Images\IcnTicketing.png" />
+    <Content Include="Images\IcnTipoStampa.png" />
+    <Content Include="Images\IcnTrack.png" />
+    <Content Include="Images\IcnUD.png" />
+    <Content Include="Images\IcnUomo.png" />
+    <Content Include="Images\IcnUserAdmin.png" />
+    <Content Include="Images\IcnUserLogin.png" />
+    <Content Include="Images\IcnUtility.png" />
+    <Content Include="Images\IcnVisure.png" />
+    <Content Include="Images\IcnVisurePopup.png" />
+    <Content Include="Images\ImgCarte.png" />
+    <Content Include="Images\ImgCartoplusSc.png" />
+    <Content Include="Images\Label.jpg" />
+    <Content Include="Images\LabelDemo.png" />
+    <Content Include="Images\Logo-o.jpg" />
+    <Content Include="Images\Logo-o.png" />
+    <Content Include="Images\Logo-v.png" />
+    <Content Include="Images\LogoFooter.png" />
+    <Content Include="Images\LogoPoste.png" />
+    <Content Include="Images\LogoPosteBianco.png" />
+    <Content Include="Images\LogoPreventivo.png" />
+    <Content Include="Images\ModelloF24.jpg" />
+    <Content Include="Images\pagopa.jpg" />
+    <Content Include="Images\Pec\delete.png" />
+    <Content Include="Images\Pec\deleteDef.png" />
+    <Content Include="Images\Pec\markAsRead.png" />
+    <Content Include="Images\Pec\markAsUnRead.png" />
+    <Content Include="Images\Pec\moveInBox.png" />
+    <Content Include="Images\Pec\requestEmail.png" />
+    <Content Include="Images\Pec\sendEmail.png" />
+    <Content Include="Images\Popup.png" />
+    <Content Include="Images\preload.gif" />
+    <Content Include="Images\qrcode.png" />
+    <Content Include="Images\Send.gif" />
+    <Content Include="Images\Sondaggio\IcnSondaggio.png" />
+    <Content Include="Images\Sondaggio\Pittogramma.png" />
+    <Content Include="Images\wrong.gif" />
+    <Content Include="Rotativa\help-wkhtmltoimage.txt" />
+    <Content Include="Rotativa\help-wkhtmltopdf.txt" />
+    <Content Include="Rotativa\wkhtmltoimage.exe" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
+    <Content Include="Scripts\bootbox.locales.min.js" />
+    <Content Include="Scripts\bootbox.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Less\Style.less" />
+    <Content Include="Less\Mixin\Default.less" />
+    <Content Include="Images\Prev.pdf" />
+    <Content Include="App_Browsers\qt.browser" />
+    <Content Include="Download\preventivo.pdf" />
+    <Content Include="json\comuniItaliani.json" />
+    <Content Include="ExampleFiles\DestinatariSenzaBollettini.csv" />
+    <Content Include="ExampleFiles\DestinatariConBollettini.csv" />
+    <Content Include="ExampleFiles\DestinatariLista.csv" />
+    <Content Include="json\cap.xlsx" />
+    <Content Include="json\upu.json" />
+    <Content Include="Content\tessdata\eng.word-dawg" />
+    <Content Include="Content\tessdata\eng.user-words" />
+    <Content Include="Content\tessdata\eng.unicharset" />
+    <Content Include="Content\tessdata\eng.pffmtable" />
+    <Content Include="Content\tessdata\eng.normproto" />
+    <Content Include="Content\tessdata\eng.inttemp" />
+    <Content Include="Content\tessdata\eng.freq-dawg" />
+    <Content Include="Content\tessdata\eng.DangAmbigs" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <Content Include="Scripts\api\configuration.json" />
+    <Content Include="Scripts\api\typehead_collection.json" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\floating-wpp.min.js" />
+    <Content Include="Scripts\frame.js" />
+    <Content Include="Scripts\menu.js" />
+    <Content Include="Scripts\jquery.countdown.js" />
+    <Content Include="Scripts\jquery.redirect.js" />
+    <Content Include="Scripts\langs\it.js" />
+    <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\private\corrispondenza\index.js" />
+    <Content Include="Scripts\private\corrispondenza\dettaglioLotto.js" />
+    <Content Include="Scripts\private\corrispondenza\conciliazionePagamenti.js" />
+    <Content Include="Scripts\private\corrispondenza\report.js" />
+    <Content Include="Scripts\private\lettera\DestinatariList.js" />
+    <Content Include="Scripts\private\lettera\DestinatariNew.js" />
+    <Content Include="Scripts\private\lettera\Step3.js" />
+    <Content Include="Scripts\private\pacchi\DestinatariNew.js" />
+    <Content Include="Scripts\private\pacchi\invii.js" />
+    <Content Include="Scripts\private\raccomandata\DestinatariNew.js" />
+    <Content Include="Scripts\private\raccomandata\DestinatariList.js" />
+    <Content Include="Scripts\private\raccomandata\Index.js" />
+    <Content Include="Scripts\private\raccomandata\Step3.js" />
+    <Content Include="Scripts\private\telegramma\NewMessage.js" />
+    <Content Include="Scripts\private\user\AddDestinatari.js" />
+    <Content Include="Scripts\private\visure\dettaglioLotto.js" />
+    <Content Include="Scripts\private\visure\IntestatariNew.js" />
+    <Content Include="Scripts\private\visure\report.js" />
+    <Content Include="Scripts\validateForm.js" />
+    <Content Include="Scripts\charsCount.js" />
+    <Content Include="Scripts\dropzone.js" />
+    <Content Include="Scripts\Fullscreen.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui.min.js" />
+    <Content Include="Scripts\jquery.divascookies-0.6.min.js" />
+    <Content Include="Content\jquery.modal.min.css" />
+    <Content Include="Scripts\jquery.modal.min.js" />
+    <Content Include="Scripts\jquery.nicescroll.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\less.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Site.js" />
+    <Content Include="Scripts\wow.min.js" />
+    <Content Include="Views\Images\IcnInfo.png" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Marketing.cshtml" />
+    <Content Include="Views\Home\Account.cshtml" />
+    <Content Include="Views\Corrispondenza\Index.cshtml" />
+    <Content Include="Views\Corrispondenza\DettaglioLotto.cshtml" />
+    <Content Include="Views\Home\Pacchi.cshtml" />
+    <Content Include="Views\Corrispondenza\Report.cshtml" />
+    <Content Include="Views\Corrispondenza\ProdottiPostali.cshtml" />
+    <Content Include="Views\Lettera\DestinatariList.cshtml" />
+    <Content Include="Views\Lettera\DestinatariNew.cshtml" />
+    <Content Include="Views\Lettera\Index.cshtml" />
+    <Content Include="Views\Lettera\Step2.cshtml" />
+    <Content Include="Views\Lettera\Step3.cshtml" />
+    <Content Include="Views\Lettera\StepEnd.cshtml" />
+    <Content Include="Views\Raccomandata\DestinatariList.cshtml" />
+    <Content Include="Views\Raccomandata\DestinatariNew.cshtml" />
+    <Content Include="Views\Raccomandata\Index.cshtml" />
+    <Content Include="Views\Raccomandata\Step2.cshtml" />
+    <Content Include="Views\Raccomandata\Step3.cshtml" />
+    <Content Include="Views\Raccomandata\StepEnd.cshtml" />
+    <Content Include="Views\Telegramma\DestinatariList.cshtml" />
+    <Content Include="Views\Telegramma\DestinatariNew.cshtml" />
+    <Content Include="Views\Telegramma\Index.cshtml" />
+    <Content Include="Views\Telegramma\NewMessage.cshtml" />
+    <Content Include="Views\Telegramma\Report.cshtml" />
+    <Content Include="Views\Telegramma\SelezionaDestinatari.cshtml" />
+    <Content Include="Views\Telegramma\StepEnd.cshtml" />
+    <Content Include="Views\User\AddDestinatari.cshtml" />
+    <Content Include="Views\User\AddMittenti.cshtml" />
+    <Content Include="Views\User\AddUtenti.cshtml" />
+    <Content Include="Views\User\Destinatari.cshtml" />
+    <Content Include="Views\User\Mittenti.cshtml" />
+    <Content Include="Views\User\Utenti.cshtml" />
+    <Content Include="Views\Home\Error500.cshtml" />
+    <Content Include="Views\User\Details.cshtml" />
+    <Content Include="Views\User\AddDestinatario.cshtml" />
+    <Content Include="Views\Corrispondenza\Distinta.cshtml" />
+    <Content Include="Views\Raccomandata\DestinatarioSingolo.cshtml" />
+    <Content Include="Views\Lettera\DestinatarioSingolo.cshtml" />
+    <Content Include="Views\Telegramma\DestinatarioSingolo.cshtml" />
+    <Content Include="Views\Home\ChangePwd.cshtml" />
+    <Content Include="Views\Home\PwdRecovery.cshtml" />
+    <Content Include="Views\Home\NewPwd.cshtml" />
+    <Content Include="Views\Home\Dashboard.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Lettera\Preventivo.cshtml" />
+    <Content Include="Views\Raccomandata\Preventivo.cshtml" />
+    <Content Include="Views\Raccomandata\Riepilogo.cshtml" />
+    <Content Include="Views\Lettera\Riepilogo.cshtml" />
+    <Content Include="Views\Telegramma\Preventivo.cshtml" />
+    <Content Include="Views\Telegramma\Riepilogo.cshtml" />
+    <Content Include="Views\Corrispondenza\ArchivioSpedizioni.cshtml" />
+    <Content Include="Views\Corrispondenza\DettaglioSpedizione.cshtml" />
+    <Content Include="Views\Utility\StampaUnione.cshtml" />
+    <Content Include="Views\Utility\Ecr.cshtml" />
+    <Content Include="Views\Utility\OptimizePdf.cshtml" />
+    <Content Include="Views\Visure\Index.cshtml" />
+    <Content Include="Views\Visure\IntestatariNew.cshtml" />
+    <Content Include="Views\Visure\IntestatarioSingolo.cshtml" />
+    <Content Include="Views\Visure\Preventivo.cshtml" />
+    <Content Include="Views\Visure\Riepilogo.cshtml" />
+    <Content Include="Views\Visure\StepEnd.cshtml" />
+    <Content Include="Views\Visure\Richieste.cshtml" />
+    <Content Include="Views\Visure\DettaglioRichiesta.cshtml" />
+    <Content Include="Views\Visure\ArchivioRichieste.cshtml" />
+    <Content Include="Views\Home\Sondaggio.cshtml" />
+    <Content Include="Views\Utility\Files.cshtml" />
+    <Content Include="Views\Utility\SincronizzaBollettiniPagamenti.cshtml" />
+    <Content Include="Views\Home\Test.cshtml" />
+    <Content Include="Views\Corrispondenza\ConciliazionePagamenti.cshtml" />
+    <Content Include="Views\Corrispondenza\ErroriNotificati.cshtml" />
+    <Content Include="Views\Pacchi\Index.cshtml" />
+    <Content Include="Views\Pacchi\DestinatariNew.cshtml" />
+    <Content Include="Views\Pacchi\Preventivo.cshtml" />
+    <Content Include="Views\Pacchi\Riepilogo.cshtml" />
+    <Content Include="Views\Pacchi\StepEnd.cshtml" />
+    <Content Include="Views\Pacchi\DettaglioInvio.cshtml" />
+    <Content Include="Views\Pacchi\Invii.cshtml" />
+    <Content Include="Views\Pacchi\ArchivioSpedizioni.cshtml" />
+    <Content Include="Views\SpecialOperations\Index.cshtml" />
+    <Content Include="Views\SpecialOperations\Error.cshtml" />
+    <Content Include="Views\SpecialOperations\SendOk.cshtml" />
+    <Content Include="Views\SpecialOperations\History.cshtml" />
+    <Content Include="Views\Loghi\Index.cshtml" />
+    <Content Include="Views\Loghi\AddLogo.cshtml" />
+    <Content Include="Views\Home\MassiveImport.cshtml" />
+    <Content Include="Views\Home\MassiveImportRol.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Upload\" />
+    <Folder Include="Views\Default\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>51156</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:51187/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Questo progetto fa riferimento a uno o più pacchetti NuGet che non sono presenti in questo computer. Usare lo strumento di ripristino dei pacchetti NuGet per scaricarli. Per altre informazioni, vedere http://go.microsoft.com/fwlink/?LinkID=322105. Il file mancante è {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\MSBuild.NugetContentRestore.0.1.6\build\net40\MSBuild.NugetContentRestore.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuild.NugetContentRestore.0.1.6\build\net40\MSBuild.NugetContentRestore.targets'))" />
+  </Target>
+  <Import Project="..\packages\MSBuild.NugetContentRestore.0.1.6\build\net40\MSBuild.NugetContentRestore.targets" Condition="Exists('..\packages\MSBuild.NugetContentRestore.0.1.6\build\net40\MSBuild.NugetContentRestore.targets')" />
+  <Target Name="BeforeBuild">
+    <NugetContentRestoreTask SolutionDir="$(SolutionDir)" ProjectDir="$(ProjectDir)" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

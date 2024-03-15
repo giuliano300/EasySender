@@ -1,0 +1,291 @@
+﻿@using WasySender_2_0.Models;
+@using Newtonsoft.Json;
+
+@{
+    ViewBag.Title = "Archivio Richieste";
+
+    Users u = new Users();
+    u = JsonConvert.DeserializeObject<Users>(Request.Cookies["login"].Value);
+
+}
+
+<style>
+    .container-report .report-filters label input, .container-report .report-filters label select {
+        min-width: 150px !important;
+        max-width: 180px !important;
+    }
+   .tbl-responsive {
+        width: 100%;
+    }
+
+        .tbl-responsive th {
+            background: #476bab;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            height: 40px !important;
+            padding: 0 10px;
+            border-right: 1px solid #fff;
+            min-width: 80px;
+        }
+
+        .tbl-responsive td {
+            height: 80px;
+            padding: 5px 10px;
+            border-right: 1px solid #e1e1e1;
+            border-bottom: 1px solid #e1e1e1;
+            text-align: left;
+            font-weight: 600;
+            min-width: 80px;
+        }
+
+            .tbl-responsive td:first-child {
+                border-left: 1px solid #e1e1e1;
+            }
+
+        .tbl-responsive tr:nth-child(2n+1) {
+            background: #fafafa;
+        }
+
+    .empty-td {
+        width: 100%;
+        text-align: center !important;
+        padding: 30px 0;
+    }
+</style>
+
+
+<div class="col-lg-12">
+    <div class="content-breadcrumb">DASHBOARD / ARCHIVIO RICHIESTE CERTIFICATI/VISURE</div>
+</div>
+
+<div class="default-page">
+    <div class="col-lg-12 text-center">
+        <section>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1>ARCHIVIO RICHIESTE CERTIFICATI/VISURE</h1>
+                            <article class="nb">N.b. Ricorda di usare maiuscole e minuscole per cercare il nominativo</article>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="container-report">
+                                <div class="report-filters">
+                                    <label>
+                                        DATA INIZIO<br />
+                                        <input type="date" name="dataDa" class="dataDa" />
+                                    </label>
+                                    <label>
+                                        DATA FINE<br />
+                                        <input type="date" name="dataA" class="dataA" />
+                                    </label>
+                                    <label>
+                                        CODICE/CF/PIVA<br />
+                                        <input type="text" name="codice" class="code" placeholder="Codice" />
+                                    </label>
+                                    <label>
+                                        INTESTATARIO<br />
+                                        <input type="text" name="nominativo" class="username" placeholder="Nominativo" />
+                                    </label>
+                                    <label>
+                                        PRODOTTO POSTALE<br />
+                                        <select name="prodotto" class="pp">
+                                            <option value="">-</option>
+                                            <option value="0">CERTIFICATO</option>
+                                            <option value="1">VISURA</option>
+                                        </select>
+                                    </label>
+                                    <label>
+                                        ESITO<br />
+                                        <select name="esito" class="esito">
+                                            <option value="">Esito</option>
+                                            <option value="true">OK</option>
+                                            <option value="false">ERRORE</option>
+                                        </select>
+                                    </label>
+
+                                    <input type="submit" name="search" value="CERCA" onclick="ApplyFilter()" />
+                                    <input type="button" name="export" value="ESPORTA CSV" onclick="ExportCsv()" disabled class="export" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="content-table-responsive">
+                        <div class="numberOfResult"></div>
+                        <div class="stato-sped-grid-lotto stato-sped-grid-report">
+                            <table class="tbl-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            PRODOTTO
+                                        </th>
+                                        <th>
+                                            RICHIEDENTE
+                                        </th>
+                                        <th>
+                                            INTESTATARIO
+                                        </th>
+                                        <th>
+                                            CF/PIVA
+                                        </th>
+                                        <th>
+                                            ESITO
+                                        </th>
+                                        <th>
+                                            ACCETTAZIONE
+                                        </th>
+                                        @if (!u.hidePrice) 
+                                        {
+                                            <text>
+                                                <th>
+                                                    PREZZO
+                                                </th>
+                                            </text>
+                                        }
+                                        <th>
+                                            CODICE
+                                        </th>
+                                        <th>
+                                            STATO
+                                        </th>
+                                        <th>
+                                            DOCUMENTO
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="names">
+                                    <tr>
+                                        <td colspan="10" class="empty-td">Nessuna ricerca effettuata</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <span class="preload-operation">
+        <img src="~/Images/preload.gif" /><br />
+        Attendere ricerca dei nominativi nel database.
+    </span>
+</div>
+    @Scripts.Render("~/bundles/jqueryredir")
+
+
+<script>
+    var userMol = "@u.mol";
+    var userCol = "@u.col";
+    var guiduser = '@ViewBag.guiduser';
+    var userId = '@ViewBag.userId';
+    var hidePrice = '@u.hidePrice.ToString().ToUpper()';
+
+    function ApplyFilter() {
+        $('.preload-operation').show();
+        var usrname = "";
+        var type = "";
+        var code = "";
+        var esito = "";
+        var dataDa = "";
+        var dataA = "";
+        var pp = "";
+
+        if ($('.username').val() !== "") {
+            usrname = "&username=" + $('.username').val();
+        };
+
+        if ($('.code').val() !== "") {
+            code = "&code=" + $('.code').val();
+        };
+
+        if ($('.esito').val() !== "") {
+            esito = "&esito=" + $('.esito').val();
+        };
+
+        if ($('.dataDa').val() !== "") {
+            dataDa = "&dataDa=" + $('.dataDa').val();
+        };
+
+        if ($('.dataA').val() !== "") {
+            dataA = "&dataA=" + $('.dataA').val();
+        };
+        if ($('.pp').val() !== "") {
+            pp = "&pp=" + $('.pp').val();
+        };
+
+        $('.export').attr("disabled", "disabled");
+
+        $.get("/Default/GetOperations?guidUser=" + guiduser + "&prodotto=6&userId=" + userId + usrname + code + esito + dataDa + dataA + type + pp, function (res) {
+            $('.names').empty();
+            $('.preload-operation').hide();
+            var i = 0;
+            var r = jQuery.parseJSON(res);
+            if (r.length > 0) {
+                $('.export').removeAttr("disabled");
+                var ids = "";
+                $.each(r, function (k, o) {
+                    var type = o.operationType;
+                    var mittente = o.sender.name + " " + o.sender.surname
+                    i = i + parseInt(o.recipients.length);
+                    $.each(o.recipients, function (k, v) {
+                        var ul = "<tr>" +
+                            "<td>" + (v.tipoDocumento === 0 ? "CERTIFICATO" : "VISURA") + "</td>" +
+                            "<td>" + mittente + "</td>" +
+                            "<td>" + v.businessName + "</td>" +
+                            "<td>" + v.fiscalCode + "</td>" +
+                            "<td>" + (v.valid ? "OK" : "ERRORE") + "</td>" +
+                            "<td>" + new Date(v.presaInCaricoDate).toLocaleDateString() + " " + new Date(v.presaInCaricoDate).toLocaleTimeString() + "</td>";
+                            if (hidePrice != "TRUE") {
+                                ul += "<td>€ " + v.totalPrice + "</td>";
+                            }
+                            ul += "<td>" + (v.codice === null ? "" : v.codice) + "</td>" +
+                            "<td class='status' id='" + v.requestId + "'>" + v.stato + "</td>" +
+                            "<td>" + (v.tipoDocumento != 0 ? "<a onclick='GetPdf(" + v.id + ")'><img src='/Images/IcnDownload.png' /></a>" : "Non Dis.") + "</td></tr>";
+                        $('.names').append(ul);
+                    });
+                });
+                //LoadNamesState(ids);
+            }
+            else {
+                var ul = "<tr><td class='empty-td' colspan='10'>Nessun nominativo trovato</td></tr>";
+                $('.names').append(ul);
+            };
+            $('.numberOfResult').html(i + " risultati trovati");
+        });
+    }
+
+    function ExportCsv() {
+
+        $.redirect("/Visure/DownloadCsv",
+            {
+                username: $('.username').val(),
+                code: $('.code').val(),
+                esito: $('.esito').val(),
+                dataDa: $('.dataDa').val(),
+                dataA: $('.dataA').val(),
+                pp: $('.pp').val()
+            },
+            "POST", "_blank");
+    }
+
+    function GetPdf(id) {
+        $.get("/Visure/GetPdf/" + id, function (result) {
+            if (result !== "")
+                window.open(result, "document");
+            else
+                alert("Documento non disponibile");
+            return false;
+        });
+    }
+
+</script>
+
+
+

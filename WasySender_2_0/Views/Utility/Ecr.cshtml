@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "Ecr";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="content-crop">
+    <img src="~/Upload/test.jpg" class="crop" width="100%" />
+</div>
+<script src="~/Crop/jquery.Jcrop.min.js"></script>
+<script>
+    $(function () {
+        $('.crop').Jcrop({
+            onSelect: setPosition
+        })
+    });
+
+    function setPosition(c) {
+        $.post("/Utility/GetText", {
+            a: c.x,
+            b: c.y,
+            c: c.w,
+            d: c.h
+        }, function (response) {
+            var res = jQuery.parseJSON(response);
+            if (res.success) {
+                alert(res.pathCompressedFile);
+            }
+            else {
+                $('.error-msg-file').html(res.errorMessage);
+                $('.error-msg-file').fadeIn(300);
+
+            }
+        });
+    };
+</script>
+<style>
+    .content-crop{
+        margin-top:84px;
+        width:100%;
+        position:relative;
+        float:left;
+    }
+
+    .crop{
+        width:100%;
+    }
+</style>

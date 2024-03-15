@@ -1,0 +1,104 @@
+﻿
+@{
+    Layout = null;
+
+    if (Request.Cookies["login"] != null)
+    {
+        Response.Redirect("/Home/Dashboard");
+    }
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Easy Sender</title>
+    @Styles.Render("~/Content/css")
+    <link rel="stylesheet" type="text/css" href="~/Less/Style.css">
+
+    <title>Index</title>
+</head>
+<body style="background:url('/Images/BgHome.jpg') no-repeat top;">
+    <div class="container-fluid no-padding">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="content-home">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="row">
+                                <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-2 hidden-xs">
+                                    <h1>Benvenuto in Easy Sender</h1>
+                                    <article>
+                                        Easy Sender è una piattaforma web predisposta per l’invio delle tue comunicazioni e dei tuoi pacchi tramite i servizi di Poste Italiane.
+                                        <br /><br />
+                                        Attraverso il portale potrai inviare in tutta Italia qualsiasi tipo di comunicazione o di materiale da inviare via corriere, direttamente dal tuo ufficio, utilizzando pc, smartphone o tablet.
+                                        <br /><br />
+                                        Stampa, distribuzione e recapito di buste e pacchi saranno effettuati direttamente da Poste Italiane.
+                                        Da oggi un solo strumento ti consentirà di comunicare e raggiungere i tuoi clienti tenendo traccia di quanto inviato, recuperabile in qualsiasi istante.
+                                    </article>
+                                    <ul>
+                                        <li>
+                                            <h3>
+                                                Software di proprietà
+                                            </h3>
+                                            <h4>EASYWAY TECHNOLOGY</h4>
+                                        </li>
+                                        <li>
+                                            <img src="~/Images/LogoPosteBianco.png" width="230" />
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-lg-offset-2 col-md-offset-2 col-sm-offset-2">
+                                    <section>
+                                        <div class="logo-home">
+                                            <img src="~/Images/Logo-v.png" />
+                                        </div>
+                                        <h2>Inserisci una nuova password</h2>
+                                        <h3>Inserisci le tue credenziali ed effettua l’accesso al servizio.</h3>
+                                        <form id="frm" name="login" action="/Home/SavePwd" method="post">
+                                            <ul>
+                                                <li class="li-pwd">
+                                                    <input type="password" name="newpassword" placeholder="password" required class="pwd" />
+                                                    <span class="show-pwd">
+                                                        <i class="fas fa-eye hidden"></i>
+                                                        <i class="fas fa-eye-slash"></i>
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <input type="submit" name="save" value="SALVA" />
+                                                </li>
+                                                <li>
+                                                    <span>
+                                                       <a href="/">Clicca qui</a> per tornare al login.
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <span>
+                                                        @ViewBag.msg
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                            <input type="hidden" name="id" value="@ViewBag.userId" />
+                                        </form>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/scrollbar")
+    @Scripts.Render("~/bundles/site")
+</body>
+</html>

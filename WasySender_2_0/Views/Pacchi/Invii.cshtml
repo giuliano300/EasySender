@@ -1,0 +1,62 @@
+﻿@model IEnumerable<WasySender_2_0.Models.GetOperations>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="col-lg-12">
+    <div class="content-breadcrumb">DASHBOARD / STATO INVII </div>
+</div>
+
+<div class="default-page">
+    <div class="col-lg-12">
+        <section>
+            <div class="row">
+                <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 text-center">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1>STATO INVII PACCHI</h1>
+                            <article>
+                                In quest’area puoi controllare lo stato della spedizione di un pacco.<br />
+                                Cliccando sul dettaglio puoi visionare lo stato della spedizione per ogni destinatario.
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="content-table-responsive">
+                        <div class="stato-sped-grid">
+                            <ul>
+                                <li class="top-grid">DATA E ORA CREAZIONE LOTTO</li>
+                                <li class="top-grid" style="width:48.1%; text-align:center;">% LOTTO TRASFERITO A POSTE ITALIANE</li>
+                                <li class="top-grid">NUMERO PACCHI</li>
+                                <li class="top-grid">DETTAGLIO</li>
+                            </ul>
+                            @foreach (var o in Model)
+                            {
+                                <ul>
+                                    <li>@o.operationDate.ToString("dd/MM/yyyy HH:mm:ss")</li>
+                                    <li style="width:48.1%;">
+                                        <h7><span class="percentageText" id="t-@o.operationId"></span></h7>
+                                        <div class="content-progress-sped">
+                                            <div class="progress-bar-sped b-@o.operationId" style="width:0%"></div>
+                                        </div>
+                                    </li>
+                                    <li>@o.recipients.Where(a => a.valid == true).Count()</li>
+                                    <li><a href="/Pacchi/DettaglioInvio/@o.operationId"><img src="~/Images/IcnDettaglio.png" title="Vai al dettaglio" style="width:25px;" /></a></li>
+                                </ul>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<script>
+    var guiduser = '@ViewBag.guiduser';
+</script>
+
+@Scripts.Render("~/bundles/pacchi/invii")
+

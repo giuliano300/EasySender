@@ -1,0 +1,600 @@
+﻿
+@{
+    ViewBag.Title = "DestinatariNew";
+}
+
+<div class="col-lg-12">
+    <div class="content-breadcrumb">DASHBOARD / CORRISPONDENZA / LETTERA / INSERISCI MITTENTE E DESTINATARIO</div>
+</div>
+
+<div class="default-page">
+    <div class="col-lg-12">
+        <section>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h1>INVIA LETTERA AD UN SINGOLO NOMINATIVO.</h1>
+                    <i><h4>INSERISCI TUTTI I CAMPI OBBLIGATORI</h4></i>
+                </div>
+            </div>
+            @using (Ajax.BeginForm("ValidazioneMittenteDestinatario", "Lettera", new { @class = "form" },
+  new AjaxOptions { HttpMethod = "POST", OnSuccess = "Submit", OnFailure = "Error" }))
+            {
+                <div class="user-form">
+                    <div class="row">
+                        <div class="col-lg-6 box-mittente">
+                            <div class="row">
+                                <div class="col-lg-12 text-center">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <h1>
+                                                AGGIUNGI MITTENTE
+                                                <select name="senders" class="senders" onchange="GetMittente($(this).val())">
+                                                    <option value="">seleziona un mittente dalla rubrica</option>
+                                                </select>
+                                            </h1>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            <label>NOMINATIVO <em>(Lunghezza massima 44 char)</em></label>
+                                            <input type="text" name="nominativoSender" value="" class="nominativoSender" maxlength="44" required />
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            <label>COMPLETAMENTO NOMINATIVO <em>(Es. Presso sig.Rossi)</em></label>
+                                            <input type="text" name="complementoNominativoSender" value="" class="complementoNominativoSender" maxlength="44" />
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            <label>INDIRIZZO <em>(ES.via Toledo, 50)</em></label>
+                                            <input type="text" name="indirizzoSender" value="" class="indirizzoSender" required />
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            <label>COMPLETAMENTO INDIRIZZO <em>(Es. vicino alla stazione)</em></label>
+                                            <input type="text" name="completamentoIndirizzoSender" value="" maxlength="44" class="completamentoIndirizzoSender" />
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            <label>CAP</label>
+                                            <input type="text" name="capSender" value="" required onkeypress="return onlyNumbers(event);" size="5" maxlength="5"
+                                                   class="capSender" onchange="ReadAndWriteCapSender()" />
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            <label>CITT&Agrave;</label>
+                                            <input type="text" name="cittaSender" value="" required class="cittaSender readonly" readonly />
+                                            <select name="citta" value="" class="selCittaSender" style="display:none" onchange="GetProvinciaSender()">
+                                                <option value="">Seleziona un comune</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            <label>PROVINCIA <em>(SOLO 2 LETTERE)</em></label>
+                                            <input type="text" name="provinciaSender" maxlength="2" minlength="2" style="text-transform:uppercase;" value="" class="provinciaSender readonly" readonly required
+                                                   onkeypress="return onlyLetters(event);" />
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            <label>STATO  <em>(SECONDO I CODICI UPU)</em></label>
+                                            <input type="text" name="statoSender" value="ITALIA" class="statoSender readonly" readonly required />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 box-destinatario">
+                            <div class="row">
+                                <div class="col-lg-12" style="border-bottom:solid 1px #d4d4d4; margin-bottom:12px; padding-bottom:5px">
+                                    <h1>
+                                        <span style="margin:10px 0 0 0; float:left;">SPEDIZIONE</span>
+                                        <select name="TipoSpedizione" onchange="SetRemoveCtrlField($(this).val())" class="shippingType">
+                                            <option value="0">ITALIA</option>
+                                            <option value="1">ESTERO</option>
+                                        </select>
+                                    </h1>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col-lg-12 text-center">
+                                            <h1>
+                                                AGGIUNGI DESTINATARIO
+                                            </h1>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                                    <label>NOMINATIVO <em>(Lunghezza massima 44 char)</em></label>
+                                                    <input type="text" name="nominativoNames" value="" class="nominativoNames" maxlength="44" required />
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                                    <label>COMPLETAMENTO NOMINATIVO <em>(Es. Presso sig.Rossi)</em></label>
+                                                    <input type="text" name="complementoNominativoNames" value="" class="complementoNominativoNames" maxlength="44" />
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                                    <label>INDIRIZZO <em>(ES.Via Toledo, 30)</em></label>
+                                                    <input type="text" name="indirizzoNames" value="" class="indirizzoNames" required />
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                                    <label>COMPLETAMENTO INDIRIZZO <em>(Es. vicino alla stazione)</em></label>
+                                                    <input type="text" name="completamentoIndirizzoNames" value="" maxlength="44" class="completamentoIndirizzoNames" />
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                                    <label>CAP</label>
+                                                    <input type="text" name="capNames" required value="" onkeypress="return onlyNumbers(event);" size="5" maxlength="5" class="capNames"
+                                                           onchange="ReadAndWriteCapNames()" />
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                                    <label>CITT&Agrave;</label>
+                                                    <input type="text" name="cittaNames" value="" required class="cittaNames readonly" readonly />
+                                                    <select name="citta" value="" class="selCittaNames" style="display:none" onchange="GetProvinciaNames()">
+                                                        <option value="">Seleziona un comune</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                                    <label>PROVINCIA <em>(SOLO 2 LETTERE)</em></label>
+                                                    <input type="text" name="provinciaNames" maxlength="2" minlength="2" style="text-transform:uppercase;" value="" class="provinciaNames readonly" readonly
+                                                           onkeypress="return onlyLetters(event);" />
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                                    <label>STATO  <em>(SECONDO I CODICI UPU)</em></label>
+                                                    <input type="text" name="statoNames" value="ITALIA" class="statoNames readonly" readonly />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 single-file-upload">
+                            <label>
+                                CARICA UN SINGOLO FILE <em>(in formato .pdf)</em>
+                            </label>
+                            <div class="dropZoneForm relative">
+                                <div id="myId" class="fallback dropzone"></div>
+                            </div>
+                            <span class="progress">
+                                <span class="progress-bar">0%</span>
+                            </span>
+                        </div>
+                        <div class="col-lg-12">
+                            <input type="text" name="FileName" value="" required readonly class="FileName readonly" />
+                            <a href="/" style="color:green; font-weight:600;float:right; margin:5px 0 -10px; display:none" class="ad" target="_blank">>> Vedi il file caricato</a>
+                            <div class="msg msg-ok"></div>
+                            <div class="error-msg error-msg-file"></div>
+                        </div>
+                    </div>
+                    @if (Request.QueryString["Bollettini"] == "3")
+                    {
+                        <div class="col-lg-12 box-bollettino">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col-lg-12 text-center">
+                                            <h1>
+                                                COMPILA DATI BOLLETTINO
+                                            </h1>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="row">
+                                                <div class="col-lg-4 col-md-4 col-sm-6">
+                                                    <label>NUMERO CONTO CORRENTE</label>
+                                                    <input type="text" name="NumeroContoCorrente" value="" class="NumeroContoCorrente" required />
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-sm-6">
+                                                    <label>INTESTATO A</label>
+                                                    <input type="text" name="IntestatoA" value="" class="IntestatoA" required />
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-sm-6">
+                                                    <label>IMPORTO EURO</label>
+                                                    <input type="text" name="ImportoEuro" value="" class="ImportoEuro" required />
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-sm-6">
+                                                    <label>ESEGUITO DA NOMINATIVO</label>
+                                                    <input type="text" name="EseguitoDaNominativo" value="" class="EseguitoDaNominativo" required />
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-sm-6">
+                                                    <label>ESEGUITO DA INDIRIZZO</label>
+                                                    <input type="text" name="EseguitoDaIndirizzo" value="" class="EseguitoDaIndirizzo" required />
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-sm-6">
+                                                    <label>ESEGUITO DA LOCALITA'</label>
+                                                    <input type="text" name="EseguitoDaLocalita" value="" class="EseguitoDaLocalita" required />
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-sm-6">
+                                                    <label>ANNO DI RIFERIMENTO</label>
+                                                    <input type="number" name="Anno" value="" class="Anno" required onchange="CreateCustomerCode()" />
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-sm-6">
+                                                    <label>ESEGUITO DA CAP</label>
+                                                    <input type="text" name="EseguitoDaCap" value="" class="EseguitoDaCap" required onkeypress="return onlyNumbers(event);" size="5" maxlength="5" onchange="CreateCustomerCode()" />
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-sm-6">
+                                                    <label>CODICE CLIENTE</label>
+                                                    <input type="text" name="CodiceCliente" value="" class="CodiceCliente readonly" required readonly />
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <label>CAUSALE</label>
+                                                    <input type="text" name="Causale" value="" class="Causale" required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="row">
+                        <div class="col-lg-6 col-lg-offset-3">
+                            <input type="submit" name="save" value="INSERISCI" class="inputInsert" />
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="error-msg"></div>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="namesId" class="namesId" value="0" />
+                <input type="hidden" name="selectedNamesListId" class="selectedNamesListId" value="0" />
+                <input type="hidden" name="Bollettini" value="@Request.QueryString["Bollettini"]" />
+                <input type="hidden" name="TipoStampa" value="@Request.QueryString["TipoStampa"]" />
+                <input type="hidden" name="FronteRetro" value="@Request.QueryString["FronteRetro"]" />
+                <input type="hidden" name="RicevutaRitorno" value="@Request.QueryString["RicevutaRitorno"]" />
+                <input type="hidden" name="TipoLettera" value="@Request.QueryString["TipoLettera"]" />
+                <input type="hidden" name="Formato" value="@Request.QueryString["Formato"]" />
+                <input type="hidden" name="Logo" value="@Request.QueryString["logo"]" />
+            }
+        </section>
+    </div>
+</div>
+
+@Styles.Render("~/Content/dropZoneStyles")
+@Scripts.Render("~/bundles/dropZone")
+
+<script>
+    function countChar() {
+        var c = $('.testoSmsNames').val();
+        $('.charNum').html("Caratteri inseriti : " + c.length);
+    };
+
+    function InviaSMS() {
+        var val = $('#inviaSMS').prop("checked");
+        if (val === false) {
+            $('.box-SMS').hide();
+            $('.mobileNames').attr('disabled', true);
+            $('.testoSmsNames').attr('disabled', true);
+            $('.mobileNames').val("");
+            $('.testoSmsNames').val("");
+        }
+        else {
+            $('.box-SMS').show();
+            $('.mobileNames').attr('disabled', false);
+            $('.testoSmsNames').attr('disabled', false);
+            $('.charNum').html("Caratteri inseriti : 0");
+        }
+    }
+
+  function SetRemoveCtrlField(val) {
+        if (val === "0") {
+            //ITALIA
+            $('.statoNames').addClass('readonly');
+            $('.statoNames').attr('readonly', 'readonly');
+            $('.cittaNames').addClass('readonly');
+            $('.cittaNames').attr('readonly', 'readonly');
+            $('.provinciaNames').addClass('readonly');
+            $('.cittaNames').val('');
+            $('.provinciaNames').val('');
+            $('.capNames').val('');
+            $('.statoNames').val('ITALIA');
+            $('.capNames').attr('required', 'required');
+            $('.provinciaNames').attr('required', 'required');
+
+        }
+        else {
+            //ESTERO
+            $('.statoNames').removeClass('readonly');
+            $('.statoNames').removeAttr('readonly');
+            $('.cittaNames').removeClass('readonly');
+            $('.cittaNames').removeAttr('readonly');
+            $('.provinciaNames').removeClass('readonly');
+            $('.provinciaNames').removeAttr('readonly');
+            $('.statoNames').val('');
+            $('.capNames').removeAttr('required');
+            $('.provinciaNames').removeAttr('required');
+
+
+        }
+    }
+
+    $(function () {
+        GetMittenti();
+        GetDestinatari();
+  })
+
+    $("div#myId").dropzone({
+    url: "/Lettera/UploadFileSingolo?fronteRetro=@Request.QueryString["fronteRetro"]",
+    paramName: "file",
+    maxFilesize: 50,
+    maxFiles: 1,
+    chunking: true,
+    acceptedFiles: ".pdf",
+    dictDefaultMessage: "<i class='fas fa-file-upload'></i><br>Trascina un file oppure clicca per effettuare l'upload",
+    init: function () {
+        this.on("maxfilesexceeded", function (data) {
+            var res = eval('(' + data.xhr.responseText + ')');
+        });
+        this.on("addedfile", function (file) {
+            $('.error-msg-file').hide();
+        });
+        this.on("processing", function (file) {
+            $('.progress-bar').css('width', '0%');
+            $('.progress-bar').text('0%');
+        });
+        this.on("complete", function (file) {
+            this.removeFile(file);
+        });
+        this.on("uploadprogress", function (file, a) {
+            $('.progress-bar').css('width', parseInt(a) + '%');
+            $('.progress-bar').text(parseInt(a) + '%');
+            if (a === 100) {
+                $('.preload-file').html('<i class="fas fa-file-upload"></i><br>Trascina un file oppure clicca per effettuare l\'upload');
+           }
+        });
+    },
+    success: function (file, response) {
+        $('.preload-nominativi').hide();
+        $('.preload-file').hide();
+        var res = jQuery.parseJSON(response);
+        if (res.success) {
+            $('.FileName').val(res.fileName);
+            $('.msg').html("file caricato correttamente");
+            $('.msg').fadeIn(300);
+            $('.error-msg-file').hide();
+            $('.ad').show();
+            $('.ad').attr("href", "/Upload/FilePdf/" + res.fileName);
+       }
+        else
+        {
+            $('.msg').hide();
+            $('.error-msg-file').html(res.errorMessage);
+            $('.error-msg-file').fadeIn(300);
+            $('.progress-bar').css('width', '0%');
+            $('.progress-bar').text('0%');
+
+        }
+    }
+});
+
+    function Submit(data) {
+        var json = $.parseJSON(data);
+        if (!json.Valido) {
+            $('.error-msg').html(json.Errore);
+            $('.error-msg').show();
+        }
+        else
+            location.href = "/Lettera/GeneraPreventivoSingoloDestinatario?ListId=" + json.ListId + "&Bollettini=" + json.Bollettini +
+                "&Sender=" + json.Sender + "&TipoStampa=" + json.TipoStampa + "&FronteRetro=" + json.FronteRetro + "&RicevutaRitorno=" + json.RicevutaRitorno + "&TipoLettera=" + json.TipoLettera + "&Formato=" + json.Formato;
+    }
+
+
+    function onlyNumbers(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+    function onlyLetters(evt) {
+        var keyCode = (evt.which) ? evt.which : evt.keyCode
+        if ((keyCode < 65 || keyCode > 90) && (keyCode < 97 || keyCode > 123) && keyCode != 32)
+            return false;
+
+        return true;
+    }
+
+    function GetDestinatari() {
+        $.get("/User/GetDestinatari", function (result) {
+            if (result !== "null") {
+                var res = jQuery.parseJSON(result);
+                for (var i = 0; i < res.length; i++) {
+                    $('.names').append("<option value=" + res[i].id + ">" + res[i].name + " " + res[i].surname + " " + res[i].businessName + "</option>")
+                }
+            }
+            else {
+                $('.names').hide();
+            }
+        });
+    }
+
+    function GetDestinatario(id) {
+        if (id === "" || id === undefined)
+            removeValuesNames();
+        else {
+            $.get("/User/GetDestinatario?Id=" + id, function (result) {
+                if (result !== "null") {
+                    var res = jQuery.parseJSON(result);
+                    $('.nominativoNames').val(res.businessName + " " + res.name + " " + res.surname);
+                    $('.complementoNominativoNames').val(res.complementNames);
+                    $('.indirizzoNames').val((res.dug !== "" ? res.dug + " " : "") + res.address + (res.houseNumber !== "" ? " " + res.houseNumber : ""));
+                    $('.completamentoIndirizzoNames').val(res.complementAddress);
+                    $('.capNames').val(res.cap);
+                    $('.cittaNames').val(res.city);
+                    $('.provinciaNames').val(res.province);
+                    $('.statoNames').val(res.state);
+                    $('.selectedNamesListId').val(res.listId);
+                    $('.namesId').val(res.id);
+                }
+                else {
+                    removeValuesNames();
+                }
+            });
+        }
+    }
+
+    function removeValuesNames() {
+        $('.nominativoNames').val('');
+        $('.complementoNominativoNames').val('');
+        $('.indirizzoNames').val('');
+        $('.completamentoIndirizzoNames').val('');
+        $('.capNames').val('');
+        $('.cittaNames').val('');
+        $('.provinciaNames').val('');
+        $('.statoNames').val('ITALIA');
+        $('.selectedNamesListId').val('0');
+        $('.namesId').val('0');
+    };
+
+    function GetProvinciaNames() {
+        var sigla = "";
+        if ($('.selCittaNames').val() !== "")
+            sigla = $('.selCittaNames').val();
+        $('.provinciaNames').val(sigla);
+        var c = $(".selCittaNames option:selected").text();
+        $('.cittaNames').val(c);
+    }
+
+    function GetProvinciaSender() {
+        var sigla = "";
+        if ($('.selCittaSender').val() !== "")
+            sigla = $('.selCittaSender').val();
+        $('.provinciaSender').val(sigla);
+        var c = $(".selCittaSender option:selected").text();
+        $('.cittaSender').val(c);
+    }
+
+    function GetMittenti() {
+        $.get("/User/GetMittenti", function (result) {
+            if (result !== "null") {
+                var res = jQuery.parseJSON(result);
+                for (var i = 0; i < res.length; i++) {
+                    $('.senders').append("<option value=" + res[i].id + ">" + res[i].name + " " + res[i].surname + " " + res[i].businessName + "</option>")
+                }
+            }
+            else {
+                $('.senders').hide();
+            }
+        });
+    }
+
+    function GetMittente(id) {
+        if (id === "" || id === undefined)
+            removeValues();
+        else {
+            $.get("/User/GetMittente?Id=" + id, function (result) {
+                if (result !== "null") {
+                    var res = jQuery.parseJSON(result);
+                    $('.nominativoSender').val(res.businessName + " " + res.name + " " + res.surname);
+                    $('.complementoNominativoSender').val(res.complementNames);
+                    $('.indirizzoSender').val((res.dug !== "" ? res.dug + " " : "") + res.address + (res.houseNumber !== "" ? " " + res.houseNumber : ""));
+                    $('.completamentoIndirizzoSender').val(res.complementAddress);
+                    $('.capSender').val(res.cap);
+                    $('.cittaSender').val(res.city);
+                    $('.provinciaSender').val(res.province);
+                    $('.statoSender').val(res.state);
+                }
+                else {
+                    removeValues();
+                }
+            });
+        }
+    }
+
+    function coloraRiga() {
+        if ($('#addRubrica').is(":checked"))
+            $('.checkbox-add').addClass("rigaSelect")
+        else
+            $('.checkbox-add').removeClass("rigaSelect")
+    }
+
+    function removeValues() {
+        $('.nominativoSender').val('');
+        $('.completamentoNominativoSender').val('');
+        $('.indirizzoSender').val('');
+        $('.completamentoindirizzoSender').val('');
+        $('.capSender').val('');
+        $('.cittaSender').val('');
+        $('.provinciaSender').val('');
+        $('.statoSender').val('ITALIA');
+    };
+
+
+    function ReadAndWriteCapNames() {
+        $.post("/User/SearchCity", {
+            cap: $('.capNames').val()
+        }, function (result) {
+            if (result !== "null") {
+                var res = jQuery.parseJSON(result);
+                if (res.length > 1) {
+                    $('.cittaNames').hide();
+                    $('.selCittaNames').show();
+                    $('.cittaNames').removeAttr("required");
+                    $('.selCittaNames').attr("required", "required");
+                    $('.selCittaNames').empty();
+                    $('.selCittaNames').append("<option value=''>Seleziona un comune</option>");
+                    for (var i = 0; i < res.length; i++) {
+                        $('.selCittaNames').append("<option value='" + res[i].sigla + "'>" + res[i].comune + "</option>");
+                    };
+                    $('.provinciaNames').val("");
+                } else {
+                    $('.cittaNames').show();
+                    $('.selCittaNames').hide();
+                    $('.cittaNames').attr("required");
+                    $('.selCittaNames').removeAttr("required", "required");
+                    $('.cittaNames').val(res[0].comune);
+                    $('.provinciaNames').val(res[0].sigla);
+                }
+            }
+            else {
+                $('.cittaNames').val("");
+                $('.provinciaNames').val("");
+                $('.error-popup').html("Cap inserito non corrisponde a nessun valore presente nel nostro database.");
+                $('.error-popup').fadeIn(300);
+            }
+        });
+    }
+
+    function ReadAndWriteCapSender() {
+        $.post("/User/SearchCity", {
+            cap: $('.capSender').val()
+        }, function (result) {
+            if (result !== "null") {
+                var res = jQuery.parseJSON(result);
+                if (res.length > 1) {
+                    $('.cittaSender').hide();
+                    $('.selCittaSender').show();
+                    $('.cittaSender').removeAttr("required");
+                    $('.selCittaSender').attr("required", "required");
+                    $('.selCittaSender').empty();
+                    $('.selCittaSender').append("<option value=''>Seleziona un comune</option>");
+                    for (var i = 0; i < res.length; i++) {
+                        $('.selCittaSender').append("<option value='" + res[i].sigla + "'>" + res[i].comune + "</option>");
+                    };
+                    $('.provinciaSender').val("");
+                } else {
+                    $('.cittaSender').show();
+                    $('.selCittaSender').hide();
+                    $('.cittaSender').attr("required");
+                    $('.selCittaSender').removeAttr("required", "required");
+                    $('.cittaSender').val(res[0].comune);
+                    $('.provinciaSender').val(res[0].sigla);
+                }
+            }
+            else {
+                $('.cittaSender').val("");
+                $('.provinciaSender').val("");
+            }
+        });
+    }
+
+    function CreateCustomerCode() {
+        if ($('.Anno').val() != "" && $('.EseguitoDaCap').val() != "") {
+            $.post("/User/GetBulletinCustomerCode", {
+                anno: $('.Anno').val(),
+                cap: $('.EseguitoDaCap').val(),
+            }, function (result) {
+                if (result != "null")
+                    $('.CodiceCliente').val(result);
+                else
+                    $('.CodiceCliente').val("");
+            });
+        }
+    }
+
+</script>

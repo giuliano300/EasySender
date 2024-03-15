@@ -1,0 +1,169 @@
+﻿@model WasySender_2_0.Models.Users
+@{
+    ViewBag.Title = "Account";
+
+    if (Request.Cookies["login"] == null)
+    {
+        Response.Redirect("/Home/Index");
+    }
+}
+
+<div class="col-lg-12">
+    <div class="content-breadcrumb"><a href="/Home/Dashboard/">DASHBOARD</a> / GESTIONE ACCOUNT</div>
+</div>
+
+<div class="default-page">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="account">
+                <div class="col-lg-8 col-md-8">
+                    <section>
+                        @using (Ajax.BeginForm("EditPersonalData", "Home", new { @class = "form" },
+                            new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "Update", OnSuccess = "clearForm", OnFailure = "nothing" }))
+                        {
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h1>DATI PERSONALI</h1>
+                                    <h4 class="padding-bottom-15">CON QUESTO MODULO E' POSSIBILE MODIFICARE I DATI PERSONALI E DI LOGIN.</h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <label>NOME</label>
+                                    <input type="text" name="nome" value="@Model.name" />
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <label>COGNOME</label>
+                                    <input type="text" name="cognome" value="@Model.lastName" />
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <label>RAGIONE SOCIALE</label>
+                                    <input type="text" name="ragsoc" value="@Model.businessName" />
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <label>INDIRIZZO</label>
+                                    <input type="text" name="indirizzo" value="@Model.address" />
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <label>CAP</label>
+                                    <input type="text" name="cap" value="@Model.cap" />
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <label>CITT&Agrave;</label>
+                                    <input type="text" name="citta" value="@Model.city" />
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <label>PROVINCIA</label>
+                                    <input type="text" name="provincia" value="@Model.province" />
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <label>TELEFONO</label>
+                                    <input type="text" name="telefono" value="@Model.mobile" />
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <label>EMAIL</label>
+                                    <input type="text" name="email" value="@Model.email" />
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <label></label>
+                                    <input type="submit" name="salva" value="SALVA MODIFICHE" />
+                                </div>
+                                <div class="col-lg-12">
+                                    <div id="Update" class="Update"></div>
+                                </div>
+                            </div>
+                        }
+                    </section>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <section>
+                        @using (Ajax.BeginForm("EditPersonalPwd", "Home", new { @class = "form" },
+                           new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "UpdatePwd", OnBegin = "return controlPwd", OnSuccess = "clearFormPwd", OnFailure = "nothingPwd" }))
+                        {
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h1>MODIFICA PASSWORD</h1>
+                                    <h4>
+                                        CON QUESTO MODULO E' POSSIBILE MODIFICARE LA PASSWORD DI ACCESSO.
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <label>VECCHIA PASSWORD</label>
+                                    <input type="password" name="oldpassword" onchange="controlOldPwd()" class="oldPwd" required />
+                                </div>
+                                <div class="col-lg-12">
+                                    <label>NUOVA PASSWORD</label>
+                                    <input type="password" name="newpassword" required class="newpwd" onchange="controlPwd()" />
+                                </div>
+                                <div class="col-lg-12">
+                                    <label>CONFERMA PASSWORD</label>
+                                    <input type="password" name="confirmpassword" required  class="confirmpwd" onchange="controlPwd()"/>
+                                </div>
+                                <div class="col-lg-12">
+                                    <label></label>
+                                    <input type="submit" name="salvapwd" value="SALVA PASSWORD" class="salvaPwd" onclick="return controlPwd" />
+                                </div>
+                                <div class="col-lg-12">
+                                    <div id="UpdatePwd" class="UpdatePwd"></div>
+                                </div>
+                            </div>
+                        }
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function clearForm() {
+        $('.Update').html("Aggiornamento effettuato correttamente");
+        $('.Update').addClass('validate');
+    }
+    function nothing() {
+        $('.Update').html("Errore interno nella richiesta");
+        $('.Update').addClass('errore');
+    }
+    function clearFormPwd() {
+        $('.UpdatePwd').html("Aggiornamento effettuato correttamente");
+        $('.UpdatePwd').addClass('validate');
+    }
+    function nothingPwd() {
+        $('.UpdatePwd').html("Errore interno nella richiesta");
+        $('.UpdatePwd').addClass('errore');
+    }
+
+    function controlPwd() {
+        if ($('.newpwd').val() != $('.confirmpwd').val() && $('.newpwd').val() != "" && $('.confirmpwd').val() !="") {
+            $('.UpdatePwd').html("le due password inserite non conicidono");
+            $('.UpdatePwd').addClass('errore');
+            $('.salvaPwd').attr("disabled", "disabled");
+        }
+        else {
+            $('.UpdatePwd').html("");
+            $('.UpdatePwd').removeClass('errore');
+            $('.salvaPwd').removeAttr("disabled");
+        }
+    }
+
+    function controlOldPwd() {
+        $.getJSON("/Scripts/api/configuration.json", function (c) {
+            $.get(c.apiurl + "/Users/ControlPwd?pwd=" + $('.oldPwd').val() + "&userId=@Model.id",
+                function (f) {
+                    if (f === false) {
+                        $('.salvaPwd').attr("disabled", "disabled");
+                        $('.UpdatePwd').html("Vecchia password non corretta");
+                        $('.UpdatePwd').addClass('errore');
+                    }
+                    else {
+                        $('.salvaPwd').removeAttr("disabled");
+                        $('.UpdatePwd').html("");
+                        $('.UpdatePwd').removeClass('errore');
+                    }
+                });
+            });
+    };
+</script>
+

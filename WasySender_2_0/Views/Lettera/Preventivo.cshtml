@@ -1,0 +1,101 @@
+﻿
+@{
+    ViewBag.Title = "Preventivo";
+    Layout = null;
+}
+
+<link rel="stylesheet/less" type="text/css" href="~/Less/Style.less">
+<link rel="stylesheet" type="text/css" href="~/Content/bootstrap.css">
+
+<style type="text/css">
+    .bg-preventivo {
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+        float: left;
+        padding: 0px;
+        margin: 0;
+        position: absolute;
+    }
+
+        .bg-preventivo img {
+            width: 100%;
+            float: left;
+            opacity: 0.9;
+        }
+
+
+    .popup-preventivo {
+        width: 100%;
+        height: 100vh;
+        float: left;
+        overflow: hidden;
+        position: absolute;
+        z-index: 1000;
+        background: rgba(36,43,57,.93);
+        color: #FFF;
+        text-align: center;
+    }
+
+        .popup-preventivo h2 {
+            width: 100%;
+            float: left;
+            padding: 35vh 0 0 0;
+            margin: 0;
+            font-size: 22px;
+            line-height: 27px;
+            text-align: center;
+        }
+</style>
+
+<div class="bg-preventivo">
+    <img src="~/Images/BgPreventivo.jpg" />
+</div>
+
+<div class="popup-preventivo">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3">
+                <h2>
+                    <strong>Calcolo del preventivo  in corso</strong><br />
+                    Attendere il collegamento con il Server<br /><br />
+
+                    Conversione dei documenti e prezzatura.<br />
+                    La procedura potrebbe richiedere<br /> qualche istante.
+                </h2>
+                <article>
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: none; display: block; shape-rendering: auto; animation-play-state: running; animation-delay: 0s;" width="251px" height="150px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+                        <circle cx="84" cy="50" r="0.93071" fill="#476aaa" style="animation-play-state: running; animation-delay: 0s;">
+                            <animate attributeName="r" repeatCount="indefinite" dur="0.2747252747252747s" calcMode="spline" keyTimes="0;1" values="10;0" keySplines="0 0.5 0.5 1" begin="0s" style="animation-play-state: running; animation-delay: 0s;"></animate>
+                            <animate attributeName="fill" repeatCount="indefinite" dur="1.0989010989010988s" calcMode="discrete" keyTimes="0;0.25;0.5;0.75;1" values="#476aaa;#fbbd58;#ffaa1e;#7994c5;#476aaa" begin="0s" style="animation-play-state: running; animation-delay: 0s;"></animate>
+                        </circle>
+                        <circle cx="16" cy="50" r="9.06803" fill="#476aaa" style="animation-play-state: running; animation-delay: 0s;">
+                            <animate attributeName="r" repeatCount="indefinite" dur="1.0989010989010988s" calcMode="spline" keyTimes="0;0.25;0.5;0.75;1" values="0;0;10;10;10" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="0s" style="animation-play-state: running; animation-delay: 0s;"></animate>
+                            <animate attributeName="cx" repeatCount="indefinite" dur="1.0989010989010988s" calcMode="spline" keyTimes="0;0.25;0.5;0.75;1" values="16;16;16;50;84" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="0s" style="animation-play-state: running; animation-delay: 0s;"></animate>
+                        </circle>
+                        <circle cx="46.8313" cy="50" r="10" fill="#7994c5" style="animation-play-state: running; animation-delay: 0s;">
+                            <animate attributeName="r" repeatCount="indefinite" dur="1.0989010989010988s" calcMode="spline" keyTimes="0;0.25;0.5;0.75;1" values="0;0;10;10;10" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="-0.2747252747252747s" style="animation-play-state: running; animation-delay: 0s;"></animate>
+                            <animate attributeName="cx" repeatCount="indefinite" dur="1.0989010989010988s" calcMode="spline" keyTimes="0;0.25;0.5;0.75;1" values="16;16;16;50;84" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="-0.2747252747252747s" style="animation-play-state: running; animation-delay: 0s;"></animate>
+                        </circle>
+                        <circle cx="80.8313" cy="50" r="10" fill="#ffaa1e" style="animation-play-state: running; animation-delay: 0s;">
+                            <animate attributeName="r" repeatCount="indefinite" dur="1.0989010989010988s" calcMode="spline" keyTimes="0;0.25;0.5;0.75;1" values="0;0;10;10;10" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="-0.5494505494505494s" style="animation-play-state: running; animation-delay: 0s;"></animate>
+                            <animate attributeName="cx" repeatCount="indefinite" dur="1.0989010989010988s" calcMode="spline" keyTimes="0;0.25;0.5;0.75;1" values="16;16;16;50;84" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="-0.5494505494505494s" style="animation-play-state: running; animation-delay: 0s;"></animate>
+                        </circle>
+                        <circle cx="16" cy="50" r="0" fill="#fbbd58" style="animation-play-state: running; animation-delay: 0s;">
+                            <animate attributeName="r" repeatCount="indefinite" dur="1.0989010989010988s" calcMode="spline" keyTimes="0;0.25;0.5;0.75;1" values="0;0;10;10;10" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="-0.8241758241758241s" style="animation-play-state: running; animation-delay: 0s;"></animate>
+                            <animate attributeName="cx" repeatCount="indefinite" dur="1.0989010989010988s" calcMode="spline" keyTimes="0;0.25;0.5;0.75;1" values="16;16;16;50;84" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="-0.8241758241758241s" style="animation-play-state: running; animation-delay: 0s;"></animate>
+                </article>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@Scripts.Render("~/bundles/jquery")
+<script>
+    $(function () {
+        setTimeout(function () {
+            location.href = "Riepilogo";
+        }, 2500);
+    })
+</script>

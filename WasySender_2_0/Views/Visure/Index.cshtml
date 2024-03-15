@@ -1,0 +1,362 @@
+﻿@model IEnumerable<WasySender_2_0.Models.Sender>
+@using WasySender_2_0.Models
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="col-lg-12">
+    <div class="content-breadcrumb">DASHBOARD / CORRISPONDENZA / VISURA/CERTIFICATO @ViewBag.ProductTypeName.ToUpper()</div>
+</div>
+
+<div class="default-page">
+    <div class="col-lg-12">
+        <section>
+            @using (Html.BeginForm("GotoStep2", "Visure", FormMethod.Post, new { @class = "request-form" }))
+            {
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h1>VISURA/CERTIFICATO</h1>
+                        <h2>Selezionare il richiedente e le opzioni.</h2>
+                    </div>
+                </div>
+                <div class="raccomandata">
+                    @if (Convert.ToInt32(Request.QueryString["id"]) == (int)ProductType.semplice)
+                    {
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-lg-offset-3 col-md-offset-3 text-center label-disclaimer" style="margin-top:-40px; margin-bottom:15px; color:#ff0000">
+                                Attenzione! Nel caso di visura è necessaria l'email del richiedente.<br /> Accertarsi, nella rubrica mittenti, che il richiedente abbia l'email inserita.
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-lg-offset-3 col-md-offset-3">
+                                <label>SELEZIONA IL RICHIEDENTE</label>
+                                <select name="Sender" required class="Sender">
+                                    <option value="" selected>Seleziona--</option>
+                                    @foreach (var s in Model)
+                                    {
+                                        <option value="@s.id">@s.businessName  @s.name  @s.surname</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    }
+                    <div class="row">
+                        <div class="col-lg-8 col-lg-offset-3">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 col-sm-4">
+                                    <div class="box-option">
+                                        <h6>
+                                            <img src="~/Images/IcnFormato.png" />
+                                            <span>TIPO</span>
+                                        </h6>
+                                        <ul>
+                                            <li>
+                                                <label><input type="radio" name="tipoDocumento" value="1" required class="tipoDocumento a4" checked />&nbsp;&nbsp;VISURA</label>
+                                            </li>
+                                            <li>
+                                                <label><input type="radio" name="tipoDocumento" value="0" class="tipoDocumento special" required />&nbsp;&nbsp;CERTIFICATO</label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-4">
+                                    <div class="box-option">
+                                        <h6>
+                                            <img src="~/Images/IcnTipoStampa.png" />
+                                            <span>TIPO DOCUMENTO</span>
+                                        </h6>
+                                        <ul>
+                                            <li>
+                                                <label class="select">
+                                                    <select name="codiceDocumento" class="codiceDocumento" required>
+                                                        <option value="">Tipo di documento</option>
+                                                    </select>
+                                                </label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-4">
+                                    <div class="box-option">
+                                        <h6>
+                                            <img src="~/Images/IcnRicevutaRitorno.png" />
+                                            <span>DESTINATARIO DIVERSO</span>
+                                        </h6>
+                                        <ul>
+                                            <li>
+                                                <label><input type="radio" name="RicevutaRitorno" value="@Convert.ToInt32(RicevutaDiRitorno.Si)" required class="RicevutaRitorno" />&nbsp;&nbsp;SI</label>
+                                            </li>
+                                            <li>
+                                                <label><input type="radio" name="RicevutaRitorno" value="@Convert.ToInt32(RicevutaDiRitorno.No)" required class="RicevutaRitorno" />&nbsp;&nbsp;NO</label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @if (Convert.ToInt32(Request.QueryString["id"]) == (int)ProductType.semplice)
+                    {
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-8 col-lg-offset-3 col-md-offset-3 col-sm-offset-2 col-xs-offset-0 box-AR-multiple">
+                                <div class="col-lg-12">
+                                    <h1>
+                                        <span style="padding-top:12px; float:left; font-size:18px;"> DESTINATARIO DIVERSO<br />DAL RICHIEDENTE</span>
+                                        <select name="senders" class="senders" onchange="GetMittenteAR($(this).val())">
+                                            <option value="">seleziona un mittente dalla rubrica</option>
+                                        </select>
+                                    </h1>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <label>NOME <em>(Lunghezza massima 44 char)</em></label>
+                                    <input type="text" name="nameSenderAR" value="" class="nameSenderAR" maxlength="44" required />
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <label>COGNOME <em>(Es. Presso sig.Rossi)</em></label>
+                                    <input type="text" name="surnameSenderAR" value="" class="surnameSenderAR" maxlength="44" />
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <label>INDIRIZZO <em>(ES.via Toledo, 50)</em></label>
+                                    <input type="text" name="indirizzoSenderAR" value="" class="indirizzoSenderAR" required />
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <label>CAP</label>
+                                    <input type="text" name="capSenderAR" value="" required onkeypress="return onlyNumbers(event);" size="5" maxlength="5"
+                                           class="capSenderAR" onchange="ReadAndWriteCapSenderAR()" />
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <label>CITT&Agrave;</label>
+                                    <input type="text" name="cittaSenderAR" value="" required class="cittaSenderAR readonly" readonly />
+                                    <select name="citta" value="" class="selCittaSenderAR" style="display:none" onchange="GetProvinciaSenderAR()">
+                                        <option value="">Seleziona un comune</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <label>PROVINCIA <em>(SOLO 2 LETTERE)</em></label>
+                                    <input type="text" name="provinciaSenderAR" maxlength="2" minlength="2" style="text-transform:uppercase;" value="" class="provinciaSenderAR readonly" readonly required
+                                           onkeypress="return onlyLetters(event);" />
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <label>TELEFONO</label>
+                                    <input type="text" name="telefonoSenderAR" value="" class="telefonoSenderAR" required />
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <label>EMAIL</label>
+                                    <input type="text" name="emailSenderAR" value="" class="emailSenderAR" required />
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-6">
+                                    <label>STATO  <em>(SECONDO I CODICI UPU)</em></label>
+                                    <input type="text" name="statoSenderAR" value="ITALIA" class="statoSender readonly" readonly required />
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                </div>
+                <div class="row">
+                    <div class="nav-step">
+                        <div class="col-lg-4 col-lg-offset-5 col-md-4 col-md-offset-5">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <button type="submit">PROSEGUI <img src="~/Images/IcnNext.png" /></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="id" value="@ViewBag.ProductTypeId" />
+            }
+        </section>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        disabledAR();
+        GetMittenti();
+        tipoDocumento = $('.tipoDocumento').val();
+        GetTipoDocumento(tipoDocumento);
+
+        $('.tipoDocumento').on('change', function () {
+            GetTipoDocumento($(this).val());
+
+            if ($(this).val() == "1")
+                $('.label-disclaimer').show();
+            else
+                $('.label-disclaimer').hide();
+        });
+
+        $('.RicevutaRitorno').on('click', function () {
+            if ($(this).val() === "1") {
+                $('.nameSenderAR').attr("disabled", false);
+                $('.surnameSenderAR').attr("disabled", false);
+                $('.indirizzoSenderAR').attr("disabled", false);
+                $('.capSenderAR').attr("disabled", false);
+                $('.cittaSenderAR').attr("disabled", false);
+                $('.selCittaSenderAR').attr("disabled", false);
+                $('.provinciaSenderAR').attr("disabled", false);
+                $('.statoSenderAR').attr("disabled", false);
+                $('.telefonoSenderAR').attr("disabled", false);
+                $('.emailSenderAR').attr("disabled", false);
+                $('.box-AR-multiple').show();
+            }
+            else {
+                $('.box-AR-multiple').hide();
+                disabledAR();
+            }
+        });
+
+    });
+
+    function GetTipoDocumento(tipoDocumento) {
+        $.post("/Visure/SearchTipoDocumento", {
+            tipoDocumento: tipoDocumento
+        }, function (result) {
+                var res = jQuery.parseJSON(result);
+                if (res.length > 1) {
+                    $('.codiceDocumento').empty();
+                    $('.codiceDocumento').append('<option value="">Tipo di documento</option>');
+                    for (var i = 0; i < res.length; i++) {
+                        $('.codiceDocumento').append('<option value=' + res[i].value + '>' + res[i].description + '(' + res[i].attribute + ')</option>');
+                    }
+                }
+            });
+    }
+
+    function GetMittenti() {
+        $.get("/User/GetMittenti", function (result) {
+            if (result !== "null") {
+                var res = jQuery.parseJSON(result);
+                for (var i = 0; i < res.length; i++) {
+                    $('.senders').append("<option value=" + res[i].id + ">" + res[i].name + " " + res[i].surname + " " + res[i].businessName + "</option>")
+                }
+            }
+            else {
+                $('.senders').hide();
+            }
+        });
+    }
+
+    function GetMittenteAR(id) {
+        if (id === "" || id === undefined)
+            removeValuesAR();
+        else {
+            $.get("/User/GetMittente?Id=" + id, function (result) {
+                if (result !== "null") {
+                    var res = jQuery.parseJSON(result);
+                    $('.nameSenderAR').val(res.name);
+                    $('.surnameSenderAR').val(res.surname);
+                    $('.indirizzoSenderAR').val((res.dug !== "" ? res.dug + " " : "") + res.address + (res.houseNumber !== "" ? " " + res.houseNumber : ""));
+                    $('.capSenderAR').val(res.cap);
+                    $('.cittaSenderAR').val(res.city);
+                    $('.provinciaSenderAR').val(res.province);
+                    $('.statoSenderAR').val(res.state);
+                    $('.telefonoSenderAR').val(res.telefono);
+                    $('.emailSenderAR').val(res.email);
+                }
+                else {
+                    removeValuesAR();
+                }
+            });
+        }
+    }
+
+    function ReadAndWriteCapSenderAR() {
+        $.post("/User/SearchCity", {
+            cap: $('.capSenderAR').val()
+        }, function (result) {
+            if (result !== "null") {
+                var res = jQuery.parseJSON(result);
+                if (res.length > 1) {
+                    $('.cittaSenderAR').hide();
+                    $('.selCittaSenderAR').show();
+                    $('.cittaSenderAR').removeAttr("required");
+                    $('.selCittaSenderAR').attr("required", "required");
+                    $('.selCittaSenderAR').empty();
+                    $('.selCittaSenderAR').append("<option value=''>Seleziona un comune</option>");
+                    for (var i = 0; i < res.length; i++) {
+                        $('.selCittaSenderAR').append("<option value='" + res[i].sigla + "'>" + res[i].comune + "</option>");
+                    };
+                    $('.provinciaSenderAR').val("");
+                } else {
+                    $('.cittaSenderAR').show();
+                    $('.selCittaSenderAR').hide();
+                    $('.cittaSenderAR').attr("required");
+                    $('.selCittaSenderAR').removeAttr("required", "required");
+                    $('.cittaSenderAR').val(res[0].comune);
+                    $('.provinciaSenderAR').val(res[0].sigla);
+                    $('.telefonoAR').val(res[0].telefono);
+                    $('.emailAR').val(res[0].email);
+                }
+            }
+            else {
+                $('.cittaSenderAR').val("");
+                $('.provinciaSenderAR').val("");
+            }
+        });
+    }
+
+    function GetProvinciaSenderAR() {
+        var sigla = "";
+        if ($('.selCittaSenderAR').val() !== "")
+            sigla = $('.selCittaSenderAR').val();
+        $('.provinciaSenderAR').val(sigla);
+        var c = $(".selCittaSenderAR option:selected").text();
+        $('.cittaSenderAR').val(c);
+    }
+
+    function onlyNumbers(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+    function onlyLetters(evt) {
+        var keyCode = (evt.which) ? evt.which : evt.keyCode
+        if ((keyCode < 65 || keyCode > 90) && (keyCode < 97 || keyCode > 123) && keyCode !== 32)
+            return false;
+
+        return true;
+    }
+
+    function disabledAR() {
+        $('.nameSenderAR').attr("disabled", true);
+        $('.surnameSenderAR').attr("disabled", true);
+        $('.indirizzoSenderAR').attr("disabled", true);
+        $('.capSenderAR').attr("disabled", true);
+        $('.cittaSenderAR').attr("disabled", true);
+        $('.selCittaSenderAR').attr("disabled", true);
+        $('.provinciaSenderAR').attr("disabled", true);
+        $('.statoSenderAR').attr("disabled", true);
+        $('.telefonoSenderAR').attr("disabled", true);
+        $('.emailSenderAR').attr("disabled", true);
+    }
+
+    function removeValuesAR() {
+        $('.nameSenderAR').val('');
+        $('.surnameSenderAR').val('');
+        $('.indirizzoSenderAR').val('');
+        $('.capSenderAR').val('');
+        $('.cittaSenderAR').val('');
+        $('.provinciaSenderAR').val('');
+        $('.telefonoSenderAR').val('');
+        $('.emailSenderAR').val('');
+        $('.statoSenderAR').val('ITALIA');
+    };
+
+</script>
+
+<style>
+    .select {
+        margin: 10px 0 0 0 !important;
+    }
+
+    .select select{
+        font-size:14px;
+        font-weight:300;
+        height:40px;
+    }
+</style>

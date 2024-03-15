@@ -1,0 +1,292 @@
+﻿@using WasySender_2_0.Models;
+
+@{
+    ViewBag.Title = "Invii Speciali";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-lg-12">
+    <div class="content-breadcrumb">DASHBOARD / INVII SPECIALI</div>
+</div>
+
+<div class="default-page form-stampa-unione">
+    <div class="col-lg-12">
+        <section>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h1>INVII SPECIALI H2H</h1>
+                    <i><h6>INSERISCI UN FILE ZIP CONTENENTE I FILE PDF DA LAVORARE <br />E SELEZIONA TUTTE LE CARATTERISTICHE RELATIVE ALL'INVIO DAL MENU DI DESTRA</h6></i>
+                </div>
+            </div>
+            <div class="user-form">
+                <form action="/SpecialOperations/Send" method="post" onsubmit="return CheckSend();">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label>
+                                <b>CARICA UN FILE</b> <em>(in formato .zip)</em>
+                            </label>
+                            <div class="dropZoneForm relative">
+                                <div id="myId" class="fallback dropzone"></div>
+                            </div>
+                            <span class="progress">
+                                <span class="progress-bar">0%</span>
+                            </span>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <input type="text" name="fileName" value="" required readonly class="FileName readonly" />
+                                    <input type="hidden" name="filePath" required class="filePath" />
+                                    <div class="msg msg-ok"></div>
+                                    <div class="error-msg error-msg-file"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 relative no-background">
+                            <h1>Seleziona le voci obbligatorie</h1>
+                            <ul>
+                                <li>
+                                    <select name="sender" class="Sender" required style="height:40px!important">
+                                        <option value="">Seleziona un mittente dalla rubrica</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <select name="operationType" required onchange="SelectType($(this).val())" style="height:40px!important">
+                                        <option value="">Tipo di prodotto postale</option>
+                                        <option value="P1">Lettera P1</option>
+                                        <option value="P4">Lettera P4</option>
+                                        <option value="R1">Raccomandata R1</option>
+                                        <option value="R4">Raccomandata R4</option>
+                                    </select>
+                                </li>
+                                <li class="liAR display-none">
+                                    <select name="AR" class="AR" onchange="SelectAR($(this).val())" style="height:40px!important">
+                                        <option value="">Desideri la ricevuta di ritorno?</option>
+                                        <option value="SI">SI</option>
+                                        <option value="NO">NO</option>
+                                    </select>
+                                </li>
+                                <li class="liSenderAR display-none">
+                                    <select name="senderAR" class="SenderAR" style="height:40px!important">
+                                        <option value="">Seleziona il destinatario della ricevuta di ritorno</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <select name="fronteRetro" class="fronteRetro" required style="height:40px!important">
+                                        <option value="">Stampa fronte/retro</option>
+                                        <option value="SI">Fronte Retro</option>
+                                        <option value="NO">Solo fronte</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <select name="tipoStampa" class="tipoStampa" required style="height:40px!important">
+                                        <option value="">Scegli il tipo di stampa</option>
+                                        <option value="SI">Bianco Nero</option>
+                                        <option value="NO">Colori</option>
+                                    </select>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <input type="submit" value="EFFETTUA L'INVIO" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
+
+
+
+<style>
+    .no-background input, select {
+        width: 98% !important;
+    }
+
+    input[type=submit] {
+        width: 40% !important;
+        float: none !important;
+    }
+</style>
+
+<script>
+    function SelectType(val) {
+        if (val === "R1" || val === "R4") {
+            $('.liAR').removeClass('display-none');
+            $('.AR').attr('required', 'required');
+        }
+        else {
+            $('.liAR').addClass('display-none');
+            $('.AR').removeAttr('required');
+        }
+    }
+
+    function SelectAR(val) {
+        if (val === "SI") {
+            $('.liSenderAR').removeClass('display-none');
+            $('.SenderAR').attr('required', 'required');
+        }
+        else {
+            $('.liSenderAR').addClass('display-none');
+            $('.SenderAR').removeAttr('required');
+        }
+    }
+
+    $(function () {
+        GetMittenti();
+    })
+
+    function GetMittenti() {
+        $.get("/User/GetMittenti", function (result) {
+            if (result !== "null") {
+                var res = jQuery.parseJSON(result);
+                for (var i = 0; i < res.length; i++) {
+                    $('.Sender').append("<option value=" + res[i].id + ">" + res[i].name + " " + res[i].surname + " " + res[i].businessName + "</option>")
+                    $('.SenderAR').append("<option value=" + res[i].id + ">" + res[i].name + " " + res[i].surname + " " + res[i].businessName + "</option>")
+                }
+            }
+        });
+    }
+
+    function CheckSend() {
+        if (confirm("Sei sicuro di voler effettuare la spedizione?")) {
+            ShowPreload();
+            return true;
+        }
+
+        return false;
+    }
+
+</script>
+
+@Styles.Render("~/Content/dropZoneStyles")
+@Scripts.Render("~/bundles/dropZone")
+
+<script>
+    $("div#myId").dropzone({
+        url: "/SpecialOperations/UploadFile",
+        paramName: "file",
+        maxFilesize: 50,
+        maxFiles: 1,
+        chunking: true,
+        acceptedFiles: ".zip",
+        dictDefaultMessage: "<i class='fas fa-file-upload'></i><br>Trascina un file oppure clicca per effettuare l'upload",
+        init: function () {
+            this.on("maxfilesexceeded", function (data) {
+                var res = eval('(' + data.xhr.responseText + ')');
+            });
+            this.on("addedfile", function (file) {
+                $('.download').hide();
+                $('.error-msg-file').hide();
+            });
+            this.on("processing", function (file) {
+                $('.progress-bar').css('width', '0%');
+                $('.progress-bar').text('0%');
+            });
+            this.on("complete", function (file) {
+                this.removeFile(file);
+            });
+            this.on("uploadprogress", function (file, a) {
+                $('.progress-bar').css('width', parseInt(a) + '%');
+                $('.progress-bar').text(parseInt(a) + '%');
+                if (a === 100) {
+                    $('.preload-file').html('<i class="fas fa-file-upload"></i><br>Trascina un file oppure clicca per effettuare l\'upload');
+                }
+            });
+        },
+        success: function (file, response) {
+            var res = jQuery.parseJSON(response);
+            if (res.success) {
+                $('.spinner').show();
+                $('.FileName').val(res.name);
+                $('.filePath').val(res.filePath);
+                $('.msg').html("file caricato correttamente. " + res.pathCsv);
+                $('.msg').fadeIn(300);
+                $('.error-msg-file').hide();
+            }
+            else {
+                $('.msg').hide();
+                $('.spinner').hide();
+                $('.error-msg-file').html(res.errorMessage);
+                $('.error-msg-file').fadeIn(300);
+                $('.progress-bar').css('width', '0%');
+                $('.progress-bar').text('0%');
+
+            }
+        }
+    });
+</script>
+
+
+
+<script>
+    function ShowPreload() {
+        $('.popup-preventivo').show();
+    }
+</script>
+
+<style type="text/css">
+
+    .popup-preventivo {
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+        position: fixed;
+        z-index: 9999;
+        background: rgba(36,43,57,.93);
+        color: #FFF;
+        text-align: center;
+        left:0;
+        top:0;
+        display: none;
+    }
+
+        .popup-preventivo h2 {
+            width: 100%;
+            float: left;
+            padding: 35vh 0 0 0;
+            margin: 0;
+            font-size: 22px;
+            line-height: 27px;
+            text-align: center;
+        }
+</style>
+
+<div class="popup-preventivo">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3">
+                <h2>
+                    <strong>Creazione spedizione in corso</strong><br />
+                    Attendere il collegamento con il Server<br /><br />
+
+                    La procedura potrebbe richiedere<br /> qualche istante.
+                </h2>
+                <article>
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: none; display: block; shape-rendering: auto; animation-play-state: running; animation-delay: 0s;" width="251px" height="150px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+                        <circle cx="84" cy="50" r="0.93071" fill="#476aaa" style="animation-play-state: running; animation-delay: 0s;">
+                            <animate attributeName="r" repeatCount="indefinite" dur="0.2747252747252747s" calcMode="spline" keyTimes="0;1" values="10;0" keySplines="0 0.5 0.5 1" begin="0s" style="animation-play-state: running; animation-delay: 0s;"></animate>
+                            <animate attributeName="fill" repeatCount="indefinite" dur="1.0989010989010988s" calcMode="discrete" keyTimes="0;0.25;0.5;0.75;1" values="#476aaa;#fbbd58;#ffaa1e;#7994c5;#476aaa" begin="0s" style="animation-play-state: running; animation-delay: 0s;"></animate>
+                        </circle>
+                        <circle cx="16" cy="50" r="9.06803" fill="#476aaa" style="animation-play-state: running; animation-delay: 0s;">
+                            <animate attributeName="r" repeatCount="indefinite" dur="1.0989010989010988s" calcMode="spline" keyTimes="0;0.25;0.5;0.75;1" values="0;0;10;10;10" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="0s" style="animation-play-state: running; animation-delay: 0s;"></animate>
+                            <animate attributeName="cx" repeatCount="indefinite" dur="1.0989010989010988s" calcMode="spline" keyTimes="0;0.25;0.5;0.75;1" values="16;16;16;50;84" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="0s" style="animation-play-state: running; animation-delay: 0s;"></animate>
+                        </circle>
+                        <circle cx="46.8313" cy="50" r="10" fill="#7994c5" style="animation-play-state: running; animation-delay: 0s;">
+                            <animate attributeName="r" repeatCount="indefinite" dur="1.0989010989010988s" calcMode="spline" keyTimes="0;0.25;0.5;0.75;1" values="0;0;10;10;10" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="-0.2747252747252747s" style="animation-play-state: running; animation-delay: 0s;"></animate>
+                            <animate attributeName="cx" repeatCount="indefinite" dur="1.0989010989010988s" calcMode="spline" keyTimes="0;0.25;0.5;0.75;1" values="16;16;16;50;84" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="-0.2747252747252747s" style="animation-play-state: running; animation-delay: 0s;"></animate>
+                        </circle>
+                        <circle cx="80.8313" cy="50" r="10" fill="#ffaa1e" style="animation-play-state: running; animation-delay: 0s;">
+                            <animate attributeName="r" repeatCount="indefinite" dur="1.0989010989010988s" calcMode="spline" keyTimes="0;0.25;0.5;0.75;1" values="0;0;10;10;10" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="-0.5494505494505494s" style="animation-play-state: running; animation-delay: 0s;"></animate>
+                            <animate attributeName="cx" repeatCount="indefinite" dur="1.0989010989010988s" calcMode="spline" keyTimes="0;0.25;0.5;0.75;1" values="16;16;16;50;84" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="-0.5494505494505494s" style="animation-play-state: running; animation-delay: 0s;"></animate>
+                        </circle>
+                        <circle cx="16" cy="50" r="0" fill="#fbbd58" style="animation-play-state: running; animation-delay: 0s;">
+                            <animate attributeName="r" repeatCount="indefinite" dur="1.0989010989010988s" calcMode="spline" keyTimes="0;0.25;0.5;0.75;1" values="0;0;10;10;10" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="-0.8241758241758241s" style="animation-play-state: running; animation-delay: 0s;"></animate>
+                            <animate attributeName="cx" repeatCount="indefinite" dur="1.0989010989010988s" calcMode="spline" keyTimes="0;0.25;0.5;0.75;1" values="16;16;16;50;84" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="-0.8241758241758241s" style="animation-play-state: running; animation-delay: 0s;"></animate>
+                </article>
+            </div>
+        </div>
+    </div>
+</div>
+

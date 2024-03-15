@@ -1,0 +1,106 @@
+﻿
+@{
+    ViewBag.Title = "ProdottiPostali";
+}
+
+<div class="col-lg-12">
+    <div class="content-breadcrumb"><a href="/Home/Dashboard/">DASHBOARD</a> / CORRISPONDENZA</div>
+</div>
+
+<div class="default-page">
+    <div class="col-lg-12">
+        <section>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h1>COSA VUOI SPEDIRE?</h1>
+                    <h2>Seleziona uno dei tre prodotti dal menu in basso ed effettua la spedizione.</h2>
+                </div>
+            </div>
+            <div class="corrispondenza">
+                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-0">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="content-product-sped">
+                                <img src="~/Images/IcnTelegrammaSped.png" width="85" /><br />
+                                <h5>TELEGRAMMA</h5>
+                                <article>
+                                    <strong>Invia un telegramma a uno o più destinatari.</strong><br />
+                                    Componi un nuovo messaggio nell’area dedicata ed effettua l'invio.<br /><br />
+                                </article>
+                                <ul>
+                                    <li>
+                                        <label>SEGLI TIPOLOGIA</label>
+                                        <select name="SelTelegramma" class="SelTelegramma" required>
+                                            <option value="" selected>Selezionare--</option>
+                                            <option value="0">Semplice</option>
+                                            <option value="2">Semplice singolo destinatario</option>
+                                        </select>
+                                    </li>
+                                    <li>
+                                        <a id="SubmitTelegramma">SELEZIONA</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="content-product-sped">
+                                <img src="~/Images/IcnRaccomandataSped.png" width="85" /><br />
+                                <h5>RACCOMANDATA</h5>
+                                <article>
+                                    <strong>Invia una raccomandata a uno o più destinatari:</strong><br />
+                                    - scrivendo un testo direttamente dal portale.<br />
+                                    - inserendo un documento in .pdf.<br />
+                                    - inserendo un gruppo di documenti in formato.zip.
+                                </article>
+                                <ul>
+                                    <li>
+                                        <label>SEGLI TIPOLOGIA</label>
+                                        <select name="SelRaccomandata" class="SelRaccomandata" required>
+                                            <option value="" selected>Selezionare--</option>
+                                            <option value="0">Semplice</option>
+                                            <option value="1">Con Bollettino</option>
+                                            <option value="2">Semplice singolo destinatario</option>
+                                            <option value="3">Con Bollettino singolo destinatario</option>
+                                        </select>
+                                    </li>
+                                    <li>
+                                        <a id="SubmitRaccomandata">SELEZIONA</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="content-product-sped">
+                                <img src="~/Images/IcnLetteraSped.png" width="85" /><br />
+                                <h5>LETTERA</h5>
+                                <article>
+                                    <strong>Invia una lettera di tre diverse tipologie:</strong><br />
+                                    - scrivendo un testo direttamente dal portale.<br />
+                                    - inserendo un documento in .pdf.<br />
+                                    - inserendo un gruppo di documenti in formato.zip.
+                                </article>
+                                <ul>
+                                    <li>
+                                        <label>SEGLI TIPOLOGIA</label>
+                                        <select class="SelLettera" required>
+                                            <option value="" selected>Selezionare--</option>
+                                            <option value="0">Semplice</option>
+                                            <option value="1">Con Bollettino</option>
+                                            <option value="2">Semplice singolo destinatario</option>
+                                            <option value="3">Con Bollettino singolo destinatario</option>
+                                        </select>
+                                    </li>
+                                    <li>
+                                        <a id="SubmitLettera">SELEZIONA</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+

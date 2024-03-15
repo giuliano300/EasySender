@@ -1,0 +1,102 @@
+﻿@model  WasySender_2_0.DataModel.GetLists
+
+@{
+    ViewBag.Title = "NewMessage";
+}
+
+<div class="col-lg-12">
+    <div class="content-breadcrumb">DASHBOARD / CORRISPONDENZA / TELEGRAMMA / SELEZIONA DESTINATARI / MESSAGGIO</div>
+</div>
+
+<div class="default-page">
+    <div class="col-lg-12">
+        <section>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h1>TELEGRAMMA</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="telegramma">
+                    <div class="col-lg-6 col-md-6 col-lg-offset-3 col-md-offset-3">
+                        <label>COMPONI IL TESTO DEL TUO MESSAGGIO E CALCOLA IL PREVENTIVO</label>
+                        <textarea name="msg" class="messaggio-telegramma"></textarea>
+                    </div>
+                    <div class="col-lg-6 col-md-6 hidden">
+                        <label>RIEPILOGO ORDINE</label>
+                        <div class="report-raccomandata">
+                            <span class="preload-report">
+                                <img src="~/Images/preload.gif" /><br />
+                                Attendere collegamento con 'POSTE ITALIANE'<br />Calcolo del preventivo in corso.<br /><br />
+                                <span class="progress">
+                                    <span class="progress-bar-nominativi">0%</span>
+                                </span>
+                            </span>
+                            <ul>
+                                <li>Invii totali</li>
+                                <li class="numberOfNames">@Model.recipients.Count()</li>
+                            </ul>
+                            <ul>
+                                <li>Importo netto</li>
+                                <li class="importoNetto">-</li>
+                            </ul>
+                            <ul>
+                                <li>IVA 22%</li>
+                                <li class="importoIva">-</li>
+                            </ul>
+                            <ul>
+                                <li>TOTALE</li>
+                                <li class="importoTotale">-</li>
+                            </ul>
+                        </div>
+                        <div class="msg-base">
+                            <span>La lista selezionata contiene <b>@Model.recipients.Count() destinatari</b></span>.<br />
+                            Scrivi il messaggio da inviare e clicca su calcola preventivo <br />per conoscere il costo dell'invio dei telegrammi.<br />
+                        </div>
+                        <div class="msg">CARICAMENTO COMPLETATO.<br />Ora, cliccando su 'calcola il preventivo' <br />richiedi a poste Italiane il valore della tua spedizione.</div>
+                        <div class="msg-spedizione">Sei pronto a spedire. <br />Clicca su spedisci e la tua spedizione sarà presa in carico dai nostri sistemi.</div>
+                        <div class="error-msg">ATTENZIONE!<br />Errore interno. Riprova più tardi ad effettuare un nuovo invio.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2">
+                    <div class="row">
+                        <div class="nav-step">
+                            <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <a class="nav-back" href="/">
+                                            <img src="~/Images/IcnAnuullaSped.png" style="width:30px" />&nbsp;&nbsp;ANNULLA
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-6 peventivo">
+                                        <a class="nav-ship" onclick="GetPreventivo()">
+                                            CALCOLA PREVENTIVO&nbsp;&nbsp;<img src="~/Images/IcnSpedisci.png" style="width:30px" />
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <span class="preload-operation">
+        <img src="~/Images/preload.gif" /><br />
+        Attendere!<br />Inserimento richiesta nei nostri archivi...<br />L'operazione può durare alcuni minuti.
+    </span>
+</div>
+
+
+<input type="hidden" name="ListId" value="@Request.QueryString["ListId"]" class="ListId" />
+<input type="hidden" name="Sender" value="@Request.QueryString["Sender"]" class="Sender" />
+<input type="hidden" name="RicevutaRitorno" value="@Request.QueryString["RicevutaRitorno"]" class="RicevutaRitorno" />
+<input type="hidden" name="operationId" class="operationId" />
+<script>
+    var guiduser = '@ViewBag.guiduser';
+    var userId = @ViewBag.userId;
+    var areaTestUser = '@ViewBag.areaTestUser';
+</script>
+@Scripts.Render("~/bundles/telegramma/NewMessage")

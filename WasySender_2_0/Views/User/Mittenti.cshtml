@@ -1,0 +1,77 @@
+﻿@model IEnumerable<WasySender_2_0.Models.Sender>
+@{
+    ViewBag.Title = "Mittenti";
+}
+
+<div class="col-lg-12">
+    <div class="content-breadcrumb"><a href="/Home/Dashboard/">DASHBOARD</a> / UTENTI</div>
+</div>
+
+<div class="default-page">
+    <div class="col-lg-12">
+        <section>
+            <div class="row">
+                <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 text-center">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1>MITTENTI</h1>
+                            <article>
+                                In quest'area puoi aggiungere e modificare l'elenco dei mittenti.
+                            </article>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-lg-offset-4 col-md-offset-4">
+                            <a class="generic-btn" href="/User/AddMittenti">NUOVO MITTENTE</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="content-table-responsive">
+                        <div class="mittenti-grid">
+                            <ul>
+                                <li class="top-grid" style="width:300px;">NOMINATIVO</li>
+                                <li class="top-grid" style="width:312px;">INDIRIZZO</li>
+                                <li class="top-grid">CAP</li>
+                                <li class="top-grid">CITT&Agrave;</li>
+                                <li class="top-grid">PROVINCIA</li>
+                                <li class="top-grid">STATO</li>
+                                <li class="top-grid">MODIFICA</li>
+                                <li class="top-grid">ELIMINA</li>
+                            </ul>
+                            @foreach (var m in Model.OrderByDescending(a=>a.id))
+                            {
+                                <ul>
+                                    <li style="width:300px;">@m.businessName @m.name @m.surname</li>
+                                    <li style="width:312px;">@m.dug @m.address @m.houseNumber</li>
+                                    <li>@m.cap</li>
+                                    <li>@m.city</li>
+                                    <li>@m.province</li>
+                                    <li>@m.state</li>
+                                    <li><a href="/User/ModMittente/@m.id"><img src="~/Images/IcnModificaRitiro.png" /></a></li>
+                                    <li><a href="#" id="del-@m.id" class="btn-delete"><img src="~/Images/IcnDelete.png" /></a></li>
+                                </ul>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<script>
+    $('.btn-delete').on("click", function () {
+        var btnId = $(this).attr("id");
+        var id = btnId.split("-")[1];
+        var div = $('.mittenti-grid');
+        if (confirm("Sei sicuro di voler eliminare il mittente?")) {
+            $.get("/User/DeleteSender/" + id)
+                .done(function () {
+                    var p = $("#" + btnId).parents("ul");
+                    p.slideUp(400);
+                });
+        };
+    });
+
+</script>
+

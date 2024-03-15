@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "Pacchi";
+    if (Request.Cookies["login"] == null)
+    {
+        Response.Redirect("/Home/Index");
+    }
+}
+
+<div class="col-lg-12">
+    <div class="content-breadcrumb"><a href="/Home/Dashboard/">DASHBOARD</a> / PACCHI</div>
+</div>
+
+<div class="default-page">
+    <div class="col-lg-12">
+        <section>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h1>PACCHI</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                    <div class="pacchi">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h2>
+                                    Sulla piattaforma EasySender è possibile inviare pacchi in modo rapido e sicuro. <br />
+                                    Offre un servizio di spedizione di pacchi, plichi e buste di dimensione e peso diversi, con servizio di ritiro a domicilio e consegna in tutta Italia.
+                                    Potrai sapere in qualsiasi momento dove si trova la tua spedizione.
+                                </h2>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="basic">
+                                    <h3>BASIC</h3>
+                                    <span>
+                                        <img src="~/Images/IcnStar.png" style="width:50px;" />
+                                    </span>
+                                    <article>
+                                        In quest'area potrai prenotare il sigolo ritiro compilando la lettera di vettura.<br /><br />
+                                    </article>
+                                    <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
+                                        <a href="/Basic/">SELEZIONA</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="corporate">
+                                    <h3>CORPORATE</h3>
+                                    <span>
+                                        <img src="~/Images/IcnStar.png" style="width:50px;" />&nbsp;&nbsp;<img src="~/Images/IcnStar.png" style="width:50px;" />
+                                    </span>
+                                    <article>
+                                        L'area Corporate è dedicata alle prenotazioni multiple di spedizioni con la compilazione autmatica delle lettere di invio.
+                                    </article>
+                                    <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
+                                        <a href="#">SELEZIONA</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+

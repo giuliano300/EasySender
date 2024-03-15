@@ -1,0 +1,122 @@
+﻿@model WasySender_2_0.ViewModel.UserViewModel
+@using WasySender_2_0.Models
+
+@{
+    ViewBag.Title = "AddUtenti";
+}
+
+
+<style>
+    .noLabel {
+        float: none !important;
+        width: auto !important;
+    }
+
+    .bgGray {
+        float: left;
+        width: 100%;
+        padding: 0px 10px 10px;
+        background: #eff0f1;
+    }
+    .bgGray  label{
+        cursor: pointer;
+    }
+
+    .list-form{
+        max-height:32vh;
+        overflow-y:auto!important;
+    }
+</style>
+
+<div class="col-lg-12">
+    <div class="content-breadcrumb"><a href="/Home/Dashboard/">DASHBOARD</a> / <a href="/User/Utenti">UTENTI</a> / NUOVO UTENTE</div>
+</div>
+
+<div class="default-page">
+    <div class="col-lg-12">
+        <section>
+            @using (Html.BeginForm("SalvaUser", "User", FormMethod.Post, new { @class = "request-form" }))
+            {
+                <div class="row">
+                    <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 text-center">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h1>INUOVO UTENTE</h1>
+                                <article>
+                                </article>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="user-form">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-sm-7">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-6">
+                                    <label>TIPO UTENTE</label>
+                                    <select name="userType" required aria-required="true">
+                                        <option @if (Model.user.userType > 0) { <text> value="@Model.user.userType" </text> }>@(Enum.GetName(typeof(userType), Model.user.userType))</option>
+                                        <option value="@Convert.ToInt32(userType.Inseritore)">Visualizzazione e inserimento</option>
+                                        <option value="@Convert.ToInt32(userType.Visualizzatore)">Solo visualizzazione</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6">
+                                    <label>NOME</label>
+                                    <input type="text" name="nome" value="@Model.user.name" required />
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6">
+                                    <label>COGNOME</label>
+                                    <input type="text" name="cognome" value="@Model.user.lastName" required />
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6">
+                                    <label>CITT&Agrave;</label>
+                                    <input type="text" name="citta" value="@Model.user.city" required />
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6">
+                                    <label>TELEFONO</label>
+                                    <input type="text" name="telefono" value="@Model.user.mobile" />
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-sm-8">
+                                    <label>EMAIL/USERNAME</label>
+                                    <input type="email" name="email" value="@Model.user.email" required />
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6">
+                                    <label>PASSWORD</label>
+                                    <input type="password" name="pwd" value="@Model.user.pwd" required />
+                                </div>
+                                <div class="col-lg-12 hidden">
+                                    <label>NASCONDI PREZZI</label>
+                                    <div class="bgGray">
+                                        <input type="checkbox" name="hidePrice" @*value="@Model.user.hidePrice"*@ id="hidePrice" value="0"  />
+                                        <label for="hidePrice" class="noLabel">Seleziona se vuoi che l'utente NON visualizzi i prezzi</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6">
+                                    <input type="submit" name="save" value="SALVA" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-5">
+                            <h4>SCEGLI I MITTENTI</h4>
+                            <article>
+                                Seleziona uno o più mittenti con cui l'utente potrà spedire le comunicazioni.
+                            </article>
+                            <ul class="list-form">
+                                @foreach (var s in Model.senders)
+                                {
+                                    var id = Convert.ToString(s.id);
+                                    <li>
+                                        <label><input type="checkbox" value="@s.id" name="sender" @if (Model.selectedSender != null) { if (Model.selectedSender.All(id.Contains)) { <text>checked</text> } } /> @s.name @s.surname @s.businessName</label>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="id" value="@Model.user.id" />
+            }
+        </section>
+    </div>
+</div>
+
+

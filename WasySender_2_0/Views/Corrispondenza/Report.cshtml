@@ -1,0 +1,259 @@
+﻿@using WasySender_2_0.Models;
+@using Newtonsoft.Json;
+
+@{
+    ViewBag.Title = "Report spedizioni";
+
+    Users u = new Users();
+    u = JsonConvert.DeserializeObject<Users>(Request.Cookies["login"].Value);
+
+}
+<style>
+    .container-report .report-filters label input, .container-report .report-filters label select {
+        min-width: 120px !important;
+        max-width: 130px !important;
+    }
+
+    .report-filters {
+        margin: 20px 1%!important;
+    }
+
+    input[type=submit], input[type=button] {
+        float: right !important;
+        border: solid 1px #e1e1e1;
+        padding: 8px 10px;
+        font-size: 13px;
+        min-width: 140px;
+        margin: 8px 10px 0 0;
+        background: #46a289;
+        border: none;
+        color: #fff;
+        font-weight: 600;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        border-radius: 5px;
+        box-shadow: 1px 2px 10px #ddd;
+    }
+
+    input[type=date] {
+        padding-top: 5px !important;
+        padding-bottom: 5px !important;
+    }
+
+    .bulletin-show {
+        display: none;
+    }
+
+    .bulletinTotal {
+        font-size: 16px;
+        font-weight: 600;
+        color: #1f9047;
+        float: right;
+    }
+
+    .names li {
+        height: 85px !important;
+    }
+
+    .tbl-responsive {
+        width:100%;
+    }
+
+        .tbl-responsive th {
+            background: #476bab;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            height: 40px !important;
+            padding: 0 10px;
+            border-right: 1px solid #fff;
+            min-width:80px;
+        }
+
+        .tbl-responsive td {
+            height: 80px;
+            padding: 5px 10px;
+            border-right: 1px solid #e1e1e1;
+            border-bottom: 1px solid #e1e1e1;
+            text-align: left;
+            font-weight: 600;
+            min-width: 80px;
+        }
+
+            .tbl-responsive td:first-child {
+                border-left: 1px solid #e1e1e1;
+            }
+
+            .tbl-responsive tr:nth-child(2n+1) {
+                background:#fafafa;
+            }
+
+    .empty-td {
+        width: 100%;
+        text-align:center!important;
+        padding:30px 0;
+    }
+
+    .status{
+        width:140px!important;
+    }
+
+</style>
+
+<div class="col-lg-12">
+    <div class="content-breadcrumb">DASHBOARD / REPORT SPEDIZIONI</div>
+</div>
+
+<div class="default-page">
+    <div class="col-lg-12">
+        <section>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1>REPORT SPEDIZIONI</h1>
+                            <article class="nb">N.b. Ricorda di usare maiuscole e minuscole per cercare il nominativo</article>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="container-report">
+                                <div class="report-filters">
+                                    <label>
+                                        DATA INIZIO<br />
+                                        <input type="date" name="dataDa" class="dataDa" />
+                                    </label>
+                                    <label>
+                                        DATA FINE<br />
+                                        <input type="date" name="dataA" class="dataA" />
+                                    </label>
+                                    @if (u.parentId == 0)
+                                    {
+                                        <text>
+                                            <label class="usr">
+                                                UTENTE<br />
+                                                <select name="utenti" class="utenti" style="max-width:220px!important;">
+                                                    <option value="">TUTTI GLI UTENTI</option>
+                                                </select>
+                                            </label>
+                                        </text>
+                                    }
+                                    <label class="mit">
+                                        MITTENTE<br />
+                                        <select name="mittente" class="mittente" style="max-width:220px!important;">
+                                            <option value="">TUTTI I MITTENTI</option>
+                                        </select>
+                                    </label>
+                                    <label>
+                                        CODICE<br />
+                                        <input type="text" name="codice" class="code" placeholder="Codice" />
+                                    </label>
+                                    <label>
+                                        NOMINATIVO<br />
+                                        <input type="text" name="nominativo" class="username" placeholder="Nominativo" />
+                                    </label>
+                                    <label>
+                                        PRODOTTO POSTALE<br />
+                                        <select name="prodotto" class="prodotto">
+                                            <option value="">PRODOTTO</option>
+                                            <option value="1">RACCOMANDATA</option>
+                                            <option value="2">LETTERA</option>
+                                            <option value="3">TELEGRAMMA</option>
+                                            <option value="4">VISURE/CERT.</option>
+                                        </select>
+                                    </label>
+                                    <label>
+                                        ESITO<br />
+                                        <select name="esito" class="esito">
+                                            <option value="">Esito</option>
+                                            <option value="true">OK</option>
+                                            <option value="false">ERRORE</option>
+                                        </select>
+                                    </label>
+                                    <label class="ars" style="display:none">
+                                        A/R<br />
+                                        <select name="ricevutaRitorno" class="ricevutaRitorno">
+                                            <option value="">A/R</option>
+                                            <option value="true">SI</option>
+                                            <option value="false">NO</option>
+                                        </select>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="button" name="export" value="ESPORTA CSV" onclick="ExportCsv()" disabled class="export" />
+                        <input type="submit" name="search" value="CERCA" onclick="ApplyFilter()" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="content-table-responsive">
+                        <div class="numberOfResult"></div>
+                        <div class="stato-sped-grid-lotto stato-sped-grid-report">
+                            <table class="tbl-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            PRODOTTO
+                                        </th>
+                                        <th>
+                                            MITTENTE
+                                        </th>
+                                        <th>
+                                            DESTINATARIO
+                                        </th>
+                                        <th>
+                                            ACCETTAZIONE
+                                        </th>
+                                        @if (!u.hidePrice) 
+                                        {
+                                            <text>
+                                                <th>
+                                                    COSTO
+                                                </th>
+                                            </text>
+                                        }
+                                        <th>
+                                            FILE
+                                        </th>
+                                        <th>
+                                            CODICE
+                                        </th>
+                                        <th>
+                                            STATO
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="names">
+                                    <tr>
+                                        <td class="empty-td" colspan="9">Nessuna ricerca effettuata</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+     </div>
+    <span class="preload-operation">
+        <img src="~/Images/preload.gif" /><br />
+        Attendere ricerca dei nominativi nel database.
+    </span>
+</div>
+@Scripts.Render("~/bundles/jqueryredir")
+
+
+<script>
+        var userMol = "@u.mol";
+        var userCol = "@u.col";
+        var guiduser = '@ViewBag.guiduser';
+        var userId = '@u.id';
+        var myUserId = '@u.id';
+        var rr = '@u.GED';
+        var hidePrice = '@u.hidePrice.ToString().ToUpper()';
+</script>
+
+@Scripts.Render("~/bundles/corrispondenza/report")

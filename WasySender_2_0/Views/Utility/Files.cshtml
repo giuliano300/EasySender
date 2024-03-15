@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "Download files";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-lg-12">
+    <div class="content-breadcrumb">DASHBOARD / DOWNLOAD FILE </div>
+</div>
+
+<div class="default-page form-stampa-unione">
+    <div class="col-lg-12">
+        <section>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h1>UTILITY DOWNLOAD DI FILE DI ESEMPIO</h1>
+                    <i><h6>Di seguito una lista di file CSV da utilizzare durante l'upolad di destinatari per gli invii multipli</h6></i>
+                </div>
+            </div>
+            <div class="user-form">
+                <div class="row">
+                    <div class="col-lg-6 list-of-files">
+                        <ul>
+                            <li><a href="/ExampleFiles/DestinatariSenzaBollettini.csv" target="_blank" class="dwn">1. Lista di destinatari per invio Lettere/Raccomandate SENZA bollettino <i class="fas fa-file-excel"></i></a></li>
+                            <li><a href="/ExampleFiles/DestinatariConBollettini.csv" target="_blank" class="dwn">2. Lista di destinatari per invio Lettere/Raccomandate CON bollettino <i class="fas fa-file-excel"></i></a></li>
+                            <li><a href="/ExampleFiles/DestinatariVisureCertificati.csv" target="_blank" class="dwn">3. Lista di intestatari per Visure/Certificati <i class="fas fa-file-excel"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-6 list-of-files">
+                        <ul>
+                            <li><a href="/ExampleFiles/DestinatariPacchi.csv" target="_blank" class="dwn">4. Lista di destinatari per Pacchi <i class="fas fa-file-excel"></i></a></li>
+                            <li><a href="/ExampleFiles/stati-stranieri.csv" target="_blank" class="dwn">5. Lista di stati esteri <i class="fas fa-file-excel"></i></a></li>
+                            <li><a href="/ExampleFiles/comuni-italiani.csv" target="_blank" class="dwn">6. Lista di comuni italini <i class="fas fa-file-excel"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<style>
+    .list-of-files{
+        margin-top:20px;
+    }
+
+        .list-of-files li {
+            transition: all;
+            transition-duration: 0.5s;
+            padding: 0 !important;
+            border: solid 1px #eff0f1;
+        }
+
+        .list-of-files li:hover {
+            background: #ffffff;
+            border:solid 1px #46a289;
+        }
+
+    .fa-file-excel {
+        font-size: 15px !important;
+        color: #46a289;
+        float: right;
+        margin: 2px 20px 0;
+    }
+
+    .dwn:link, .dwn:visited {
+        color: #46a289 !important;
+        width: 100%;
+        margin: -10px 0;
+        float: left;
+        padding: 10px 0;
+    }
+
+</style>
