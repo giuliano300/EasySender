@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{0A2CD7A9-4049-4215-BD70-C089BB5EEEFE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WasySender_2_0", "..\..\..\Desktop\WebSite\WasySender_2_0\WasySender_2_0.csproj", "{B0A3B91A-14A0-4E3E-BD30-2B4D5BC287CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,12 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0A2CD7A9-4049-4215-BD70-C089BB5EEEFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0A2CD7A9-4049-4215-BD70-C089BB5EEEFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0A2CD7A9-4049-4215-BD70-C089BB5EEEFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0A2CD7A9-4049-4215-BD70-C089BB5EEEFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0A3B91A-14A0-4E3E-BD30-2B4D5BC287CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0A3B91A-14A0-4E3E-BD30-2B4D5BC287CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0A3B91A-14A0-4E3E-BD30-2B4D5BC287CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0A3B91A-14A0-4E3E-BD30-2B4D5BC287CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {013F61E5-9DCE-4D53-A4AE-E563EAE7547C}
 	EndGlobalSection
 EndGlobal
