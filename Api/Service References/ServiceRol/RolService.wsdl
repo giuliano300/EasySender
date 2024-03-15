@@ -1,0 +1,2066 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://ComunicazioniElettroniche.ROL.WS" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="RolService" targetNamespace="http://ComunicazioniElettroniche.ROL.WS" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="BasicHttpBinding_ROLServiceSoap1_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://ComunicazioniElettroniche.ROL.WS" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://ComunicazioniElettroniche.XOL" />
+      <xs:element name="RecuperaIdRichiesta">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="RecuperaIdRichiestaResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="RecuperaIdRichiestaResult" type="tns:RecuperaIdRichiestaResult" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="RecuperaIdRichiestaResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="IDRichiesta" type="xs:string" />
+          <xs:element xmlns:q1="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="CEResult" type="q1:CEResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="RecuperaDCS">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q2="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="Richiesta" type="q2:Richiesta" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="RecuperaDCSResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="RecuperaDCSResult" type="tns:RecuperaDCSResult" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="RecuperaDCSResult">
+        <xs:sequence>
+          <xs:element xmlns:q3="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="Documento" type="q3:Documento" />
+          <xs:element xmlns:q4="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="CEResult" type="q4:CEResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="RecuperaInfo">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q5="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="Richiesta" type="q5:Richiesta" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="RecuperaInfoResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="RecuperaInfoResult" type="tns:RecuperaInfoResult" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="RecuperaInfoResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="ROL" type="tns:ROLInfo" />
+          <xs:element xmlns:q6="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="Valorizzazione" type="q6:Valorizzazione" />
+          <xs:element xmlns:q7="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="CEResult" type="q7:CEResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ROLInfo">
+        <xs:sequence>
+          <xs:element xmlns:q8="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="Mittente" type="q8:Mittente" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DatiRicevuta" type="tns:DatiRicevuta" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Destinatari" type="tns:ArrayOfDestinatario" />
+          <xs:element minOccurs="1" maxOccurs="1" name="NumeroDestinatari" type="xs:int" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Opzioni">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="1" name="Inserti">
+                  <xs:complexType>
+                    <xs:attribute name="InserisciMittente" type="xs:boolean" use="required" />
+                    <xs:attribute name="Inserto" type="xs:string" />
+                  </xs:complexType>
+                </xs:element>
+                <xs:element xmlns:q9="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="OpzionidiStampa" type="q9:OpzionidiStampa" />
+                <xs:element xmlns:q10="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="OpzioniAggiuntive" type="q10:ArrayOfServizioAggiuntivo" />
+              </xs:sequence>
+              <xs:attribute name="SecurPaper" type="xs:boolean" use="required" />
+              <xs:attribute name="InserisciMittente" type="xs:boolean" use="required" />
+              <xs:attribute name="DataStampa" type="xs:dateTime" use="required" />
+              <xs:attribute name="FirmaElettronica" type="xs:boolean" use="required" />
+              <xs:attribute name="Archiviazione" type="xs:boolean" use="required" />
+              <xs:attribute name="DPM" type="xs:boolean" use="required" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element xmlns:q11="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="ServiziAggiuntivi" type="q11:ArrayOfServizioAggiuntivo" />
+        </xs:sequence>
+        <xs:attribute name="DataLettera" type="xs:dateTime" use="required" />
+      </xs:complexType>
+      <xs:complexType name="DatiRicevuta">
+        <xs:sequence>
+          <xs:element xmlns:q12="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="Nominativo" type="q12:Nominativo" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ArrayOfDestinatario">
+        <xs:sequence>
+          <xs:element xmlns:q13="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="unbounded" name="Destinatario" nillable="true" type="q13:Destinatario" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="RecuperaDestinatari">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q14="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="Richiesta" type="q14:Richiesta" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="RecuperaDestinatariResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="RecuperaDestinatariResult" type="tns:RecuperaDestinatariResult" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="RecuperaDestinatariResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Destinatari" type="tns:ArrayOfDestinatario" />
+          <xs:element xmlns:q15="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="CEResult" type="q15:CEResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ValidaDestinatari">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="IDRichiesta" type="xs:string" />
+            <xs:element minOccurs="0" maxOccurs="1" name="Destinatari" type="tns:ArrayOfDestinatario" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ValidaDestinatariResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="ValidaDestinatariResults" type="tns:ValidaDestinatariResults" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="ValidaDestinatariResults">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="DatiDestinatari" type="tns:ArrayOfValidaDestinatariResult" />
+          <xs:element xmlns:q16="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="CEResult" type="q16:CEResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ArrayOfValidaDestinatariResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ValidaDestinatariResult" nillable="true" type="tns:ValidaDestinatariResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ValidaDestinatariResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Destinatari" type="tns:ArrayOfDestinatario" />
+          <xs:element xmlns:q17="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="CEResult" type="q17:CEResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ValidaBollettini">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="IDRichiesta" type="xs:string" />
+            <xs:element minOccurs="0" maxOccurs="1" name="Bollettini" type="tns:ArrayOfBollettinoBase" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="ArrayOfBollettinoBase">
+        <xs:sequence>
+          <xs:element xmlns:q18="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="unbounded" name="BollettinoBase" nillable="true" type="q18:BollettinoBase" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ValidaBollettiniResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="ValidaBollettiniResult" type="tns:ValidaBollettiniResult" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="ValidaBollettiniResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="BollettiniResult" type="tns:ArrayOfValidaBollettinoResult" />
+          <xs:element xmlns:q19="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="CEResult" type="q19:CEResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ArrayOfValidaBollettinoResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ValidaBollettinoResult" nillable="true" type="tns:ValidaBollettinoResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ValidaBollettinoResult">
+        <xs:sequence>
+          <xs:element xmlns:q20="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="Bollettino" type="q20:BollettinoBase" />
+          <xs:element xmlns:q21="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="CEResult" type="q21:CEResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="RecuperaBollettiniInfo">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="IDRichiesta" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="RecuperaBollettiniInfoResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="PagineBollettiniInfo" type="tns:RecuperaBollettiniInfoResult" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="RecuperaBollettiniInfoResult">
+        <xs:sequence>
+          <xs:element xmlns:q22="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="PagineBollettiniInfo" type="q22:PagineBollettiniInfo" />
+          <xs:element xmlns:q23="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="CEResult" type="q23:CEResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="RecuperaAR">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="numeroRaccomandata" type="xs:string" />
+            <xs:element minOccurs="0" maxOccurs="1" name="oggetto" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="RecuperaARResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="RecuperaAR" type="tns:RecuperaArResult" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="RecuperaArResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="DocAR" type="xs:base64Binary" />
+          <xs:element xmlns:q24="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="CEResult" type="q24:CEResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="InvioDoc">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q24="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="Richiesta" type="q24:Richiesta" />
+            <xs:element xmlns:q25="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="Documento" type="q25:Documento" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="InvioDocResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="InvioDocResult" type="tns:InvioDocResult" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="InvioDocResult">
+        <xs:sequence>
+          <xs:element xmlns:q26="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="DescrizioneFirma" type="q26:DescrizioneFirma" />
+          <xs:element xmlns:q27="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="CEResult" type="q27:CEResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Invio">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="IDRichiesta" type="xs:string" />
+            <xs:element minOccurs="0" maxOccurs="1" name="Cliente" type="xs:string" />
+            <xs:element minOccurs="0" maxOccurs="1" name="ROLSubmit" type="tns:ROLSubmit" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="ROLSubmit">
+        <xs:sequence>
+          <xs:element xmlns:q28="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="Mittente" type="q28:Mittente" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DatiRicevuta" type="tns:DatiRicevuta" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Destinatari" type="tns:ArrayOfDestinatario" />
+          <xs:element minOccurs="1" maxOccurs="1" name="NumeroDestinatari" type="xs:int" />
+          <xs:element xmlns:q29="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="unbounded" name="Documento" type="q29:Documento" />
+          <xs:element minOccurs="0" maxOccurs="1" name="TestataCover" type="tns:TestataCover" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Opzioni">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="1" name="Inserti">
+                  <xs:complexType>
+                    <xs:attribute name="InserisciMittente" type="xs:boolean" use="required" />
+                    <xs:attribute name="Inserto" type="xs:string" />
+                  </xs:complexType>
+                </xs:element>
+                <xs:element xmlns:q30="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="OpzionidiStampa" type="q30:OpzionidiStampa" />
+                <xs:element xmlns:q31="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="OpzioniAggiuntive" type="q31:ArrayOfServizioAggiuntivo" />
+              </xs:sequence>
+              <xs:attribute name="SecurPaper" type="xs:boolean" use="required" />
+              <xs:attribute name="InserisciMittente" type="xs:boolean" use="required" />
+              <xs:attribute name="DataStampa" type="xs:dateTime" use="required" />
+              <xs:attribute name="FirmaElettronica" type="xs:boolean" use="required" />
+              <xs:attribute name="Archiviazione" type="xs:boolean" use="required" />
+              <xs:attribute name="DPM" type="xs:boolean" use="required" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element xmlns:q32="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="ServiziAggiuntivi" type="q32:ArrayOfServizioAggiuntivo" />
+          <xs:element xmlns:q33="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="OpzioniAvanzate" type="q33:OpzioniAvanzate" />
+          <xs:element xmlns:q34="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="PagineBollettini" type="q34:PagineBollettini" />
+        </xs:sequence>
+        <xs:attribute name="Nazionale" type="xs:string" />
+        <xs:attribute name="ForzaInvioDestinazioniValide" type="xs:boolean" use="required" />
+      </xs:complexType>
+      <xs:complexType name="TestataCover">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Logo" type="xs:base64Binary" />
+          <xs:element xmlns:q35="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="ChiusuraLettera" type="q35:ArrayOfString2" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="InvioResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="InvioResult" type="tns:InvioResult" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="InvioResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="IDRichiesta" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="GuidUtente" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="ROLResponse" type="tns:ROLResponse" />
+          <xs:element xmlns:q36="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="DescrizioneFirma" type="q36:DescrizioneFirma" />
+          <xs:element xmlns:q37="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="CEResult" type="q37:CEResult" />
+          <xs:element minOccurs="0" maxOccurs="1" name="PreviewEncryptionPassword" type="xs:base64Binary" />
+          <xs:element minOccurs="0" maxOccurs="1" name="PreviewEncryptionSalt" type="xs:base64Binary" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ROLResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="ArrayOfDatiRicevuta" type="tns:ArrayOfDatiRicevuta" />
+          <xs:element minOccurs="0" maxOccurs="1" name="ValidaDestinatariResults" type="tns:ValidaDestinatariResults" />
+          <xs:element minOccurs="1" maxOccurs="1" name="NumeroDestinatari" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ArrayOfDatiRicevuta">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ArrayOfDatiRicevuta" type="tns:DatiRicevuta" />
+          <xs:element xmlns:q38="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="CEResult" type="q38:CEResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="RecuperaEnquiry">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="TipoVisualizzazione" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="RecuperaEnquiryResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="RecuperaEnquiryResult" type="tns:RecuperaEnquiryResult" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="RecuperaEnquiryResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="PreServiziEnquiry" type="tns:ArrayOfServizioEnquirySubmit" />
+          <xs:element xmlns:q39="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="CEResult" type="q39:CEResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ArrayOfServizioEnquirySubmit">
+        <xs:sequence>
+          <xs:element xmlns:q40="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="unbounded" name="ServizioEnquiry" nillable="true" type="q40:ServizioEnquirySubmit" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Valorizza">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q41="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="unbounded" name="Richieste" type="q41:Richiesta" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ValorizzaResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="ValorizzaResult" type="tns:ValorizzaResult" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="ValorizzaResult">
+        <xs:sequence>
+          <xs:element xmlns:q42="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="unbounded" name="ServizioEnquiryResponse" type="q42:ServizioEnquiryResponse" />
+          <xs:element xmlns:q43="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="CEResult" type="q43:CEResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ValorizzaSingle">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="ServizioEnquiry" type="tns:ServizioSingleEnquirySubmit" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="ServizioSingleEnquirySubmit">
+        <xs:sequence>
+          <xs:element xmlns:q44="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="Richiesta" type="q44:Richiesta" />
+          <xs:element minOccurs="1" maxOccurs="1" name="RestituisciDocumento" type="xs:boolean" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ValorizzaSingleResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="ValorizzaSingleResult" type="tns:ValorizzaSingleResult" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="ValorizzaSingleResult">
+        <xs:sequence>
+          <xs:element xmlns:q45="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="ServizioEnquiryResponse" type="q45:ServizioEnquiryResponse" />
+          <xs:element minOccurs="0" maxOccurs="1" name="ROLInfo" type="tns:ROLInfo" />
+          <xs:element xmlns:q46="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="Documento" type="q46:Documento" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="PreConferma">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q47="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="unbounded" name="Richieste" type="q47:Richiesta" />
+            <xs:element minOccurs="1" maxOccurs="1" name="autoConferma" type="xs:boolean" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="PreConfermaResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="PreConfermaResult" type="tns:PreConfermaResult" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="PreConfermaResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="IdOrdine" type="xs:string" />
+          <xs:element xmlns:q48="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="Valorizzazione" type="q48:Valorizzazione" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DestinatariRaccomandata" type="tns:ArrayOfDestinatarioRaccomandata" />
+          <xs:element xmlns:q49="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="CEResult" type="q49:CEResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ArrayOfDestinatarioRaccomandata">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ArrayOfDestinatarioRaccomandata" nillable="true" type="tns:DestinatarioRaccomandata" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="DestinatarioRaccomandata">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="IdRicevuta" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="NumeroRaccomandata" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="EPM" type="tns:EPM" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="EPM">
+        <xs:attribute name="TimeStamp" type="xs:string" />
+        <xs:attribute name="TranKey" type="xs:string" />
+        <xs:attribute name="PostmarkToken" type="xs:base64Binary" />
+      </xs:complexType>
+      <xs:element name="PostConferma">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="IdOrdine" type="xs:string" />
+            <xs:element minOccurs="1" maxOccurs="1" name="ImportoCatturato" type="xs:double" />
+            <xs:element minOccurs="1" maxOccurs="1" name="DataCattura" type="xs:dateTime" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="PostConfermaResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="PostConfermaResult" type="tns:PostConfermaResult" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="PostConfermaResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="IdOrdine" type="xs:string" />
+          <xs:element xmlns:q50="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="CEResult" type="q50:CEResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Conferma">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="IdOrdine" type="xs:string" />
+            <xs:element xmlns:q51="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="OpzionePagamento" type="q51:OpzionePagamento" />
+            <xs:element xmlns:q52="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="DatiTransazione" type="q52:DatiTransazione" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ConfermaResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="ConfermaResult" type="tns:ConfermaResult" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="ConfermaResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="DestinatariRaccomandata" type="tns:ArrayOfDestinatarioRaccomandata" />
+          <xs:element xmlns:q53="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="CEResult" type="q53:CEResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Nascondi">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q54="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="Richiesta" type="q54:Richiesta" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="NascondiResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="NascondiResult" type="tns:NascondiResult" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="NascondiResult">
+        <xs:sequence>
+          <xs:element xmlns:q55="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="Richiesta" type="q55:Richiesta" />
+          <xs:element xmlns:q56="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="CEResult" type="q56:CEResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="AnnullaOrdine">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="IdOrdine" type="xs:string" />
+            <xs:element minOccurs="1" maxOccurs="1" name="AbortRequest" type="xs:boolean" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="AnnullaOrdineResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="AnnullaOrdineResult" type="tns:AnnullaOrdineResult" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="AnnullaOrdineResult">
+        <xs:sequence>
+          <xs:element xmlns:q57="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="CEResult" type="q57:CEResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Annulla">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q58="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="unbounded" name="Richieste" type="q58:Richiesta" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="AnnullaResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="AnnullaResult" type="tns:AnnullaResult" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="AnnullaResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Richieste" type="tns:AnnullaItem" />
+          <xs:element xmlns:q59="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="CEResult" type="q59:CEResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="AnnullaItem">
+        <xs:sequence>
+          <xs:element xmlns:q60="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="Richiesta" type="q60:Richiesta" />
+          <xs:element xmlns:q61="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="CEResult" type="q61:CEResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="RecuperaNumeriRaccomandata">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="RichiestaNumRaccomandata" type="tns:ArrayOfIdRichiestaNR" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="ArrayOfIdRichiestaNR">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="IdRichiestaNR" type="tns:IdRichiestaNR" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="IdRichiestaNR">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="IdDestinatari" type="tns:ArrayOfString" />
+        </xs:sequence>
+        <xs:attribute name="IsEstero" type="xs:string" />
+      </xs:complexType>
+      <xs:complexType name="ArrayOfString">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="IdDestinatario" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="RecuperaNumeriRaccomandataResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="RecuperaNumeriRaccomandataResult" type="tns:RecuperaNumeriRaccomandataResult" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="RecuperaNumeriRaccomandataResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="RichiestaNR">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="NR" type="tns:NR" />
+                <xs:element xmlns:q62="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="CEResult" type="q62:CEResult" />
+              </xs:sequence>
+              <xs:attribute name="IdRichiesta" type="xs:string" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element xmlns:q63="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="CEResult" type="q63:CEResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="NR">
+        <xs:attribute name="NumeroRaccomandata" type="xs:string" />
+        <xs:attribute name="IdDestinatario" type="xs:string" />
+        <xs:attribute name="DataScadenza" type="xs:dateTime" use="required" />
+      </xs:complexType>
+      <xs:element name="ScambiaRichiesta">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="RichiestaAssegnata">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element minOccurs="0" maxOccurs="unbounded" name="NRAssegnati" type="xs:string" />
+                </xs:sequence>
+                <xs:attribute name="IdRichiesta" type="xs:string" />
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ScambiaRichiestaResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="ScambiaRichiestaResult" type="tns:ScambiaRichiestaResult" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="ScambiaRichiestaResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="RichiestaProrogata">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="NRAProrogati" type="tns:NR" />
+              </xs:sequence>
+              <xs:attribute name="NuovoIdRichiesta" type="xs:string" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element xmlns:q64="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="CEResult" type="q64:CEResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="RecuperaStati">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="IdRichiesta" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="RecuperaStatiResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="RecuperaStatiResult" type="tns:RecuperaStatiResult" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="RecuperaStatiResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="OutputRichiesta" type="tns:OutputRichiestaResult" />
+          <xs:element xmlns:q65="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="CEResult" type="q65:CEResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="OutputRichiestaResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="OutputRichiesta" type="tns:OutputRichiesta" />
+          <xs:element xmlns:q66="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="CEResult" type="q66:CEResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="OutputRichiesta">
+        <xs:attribute name="IdRichiesta" type="xs:string" />
+        <xs:attribute name="Stato" type="xs:string" />
+      </xs:complexType>
+      <xs:element name="StatoInviiPerID">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q67="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="unbounded" name="Richieste" type="q67:Richiesta" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="StatoInviiPerIDResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="StatoInviiPerIDResult" type="tns:StatoInviiPerIDResult" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="StatoInviiPerIDResult">
+        <xs:sequence>
+          <xs:element xmlns:q68="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="unbounded" name="ArrayDiRichieste" nillable="true" type="q68:StatoDestinatario" />
+          <xs:element xmlns:q69="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="CeResult" type="q69:CEResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="StatoInviiPerData">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="1" name="DataInizio" type="xs:dateTime" />
+            <xs:element minOccurs="1" maxOccurs="1" name="DataFine" type="xs:dateTime" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="StatoInviiPerDataResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="StatoInviiPerDataResult" type="tns:StatoInviiPerDataResult" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="StatoInviiPerDataResult">
+        <xs:sequence>
+          <xs:element xmlns:q70="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="unbounded" name="ArrayDiRichieste" nillable="true" type="q70:StatoDestinatario" />
+          <xs:element xmlns:q71="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="CeResult" type="q71:CEResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="StatoInviiPerNumero">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="NumeroMissive" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="StatoInviiPerNumeroResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="StatoInviiPerNumeroResult" type="tns:StatoInviiPerNumeroResult" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="StatoInviiPerNumeroResult">
+        <xs:sequence>
+          <xs:element xmlns:q72="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="unbounded" name="StatoRichieste" nillable="true" type="q72:StatoRichiesta" />
+          <xs:element xmlns:q73="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="CeResult" type="q73:CEResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="StatoInvii">
+        <xs:complexType />
+      </xs:element>
+      <xs:element name="StatoInviiResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="StatoInviiResult" type="tns:StatoInviiResult" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="StatoInviiResult">
+        <xs:sequence>
+          <xs:element xmlns:q74="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="unbounded" name="ArrayDiRichieste" nillable="true" type="q74:StatoDestinatario" />
+          <xs:element xmlns:q75="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="CeResult" type="q75:CEResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="RecuperaStatoIdRichiesta">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="IdRichiesta" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="RecuperaStatoIdRichiestaResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="RecuperaStatoIdRichiestaResult" type="tns:GetStatoIdRichiestaResult" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="GetStatoIdRichiestaResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="StatoIdRichiesta" type="xs:string" />
+          <xs:element xmlns:q76="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="CeResult" type="q76:CEResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="RecuperaStatoOrdine">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="IdOrdine" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="RecuperaStatoOrdineResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="RecuperaStatoOrdineResult" type="tns:GetStatoOrdineResult" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="GetStatoOrdineResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="IdOrdine" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="TicketId" type="tns:ArrayOfTicketId" />
+          <xs:element minOccurs="0" maxOccurs="1" name="StatoIdRichiesta" type="tns:ArrayOfStatoIdRichiesta" />
+          <xs:element minOccurs="0" maxOccurs="1" name="StatoOrdine" type="xs:string" />
+          <xs:element xmlns:q77="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="1" name="CeResult" type="q77:CEResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ArrayOfTicketId">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="TicketId" nillable="true" type="tns:TicketId" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="TicketId">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="EPM" type="tns:EPM" />
+          <xs:element minOccurs="0" maxOccurs="1" name="ReceipientId" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="ID" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="ServiceId" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="RequestId" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="AcceptDate" type="xs:dateTime" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ArrayOfStatoIdRichiesta">
+        <xs:sequence>
+          <xs:element xmlns:q78="http://ComunicazioniElettroniche.XOL" minOccurs="0" maxOccurs="unbounded" name="StatoIdRichiesta" nillable="true" type="q78:StatoIdRichiesta" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="RecuperaNomiNazioniUPU">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="1" name="lingua" type="tns:CountryLanguage" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:simpleType name="CountryLanguage">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="Italiano" />
+          <xs:enumeration value="Inglese" />
+          <xs:enumeration value="Francese" />
+          <xs:enumeration value="Italiano_Inglese" />
+          <xs:enumeration value="Italiano_Francese" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="RecuperaNomiNazioniUPUResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="RecuperaNomiNazioniUPUResult" type="tns:NomiUPUCountries" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="NomiUPUCountries">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="Lingua" type="tns:CountryLanguage" />
+          <xs:element minOccurs="0" maxOccurs="1" name="ListaNomi" type="tns:ArrayOfString1" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ArrayOfString1">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+    <xs:schema xmlns:tns="http://ComunicazioniElettroniche.XOL" elementFormDefault="qualified" targetNamespace="http://ComunicazioniElettroniche.XOL" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="CEResult">
+        <xs:attribute name="Type" type="xs:string" />
+        <xs:attribute name="Code" type="xs:string" />
+        <xs:attribute name="Description" type="xs:string" />
+      </xs:complexType>
+      <xs:complexType name="Richiesta">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="IDRichiesta" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="GuidUtente" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Documento">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Immagine" type="xs:base64Binary" />
+          <xs:element minOccurs="0" maxOccurs="1" name="MD5" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Firmatari" type="tns:ArrayOfString" />
+        </xs:sequence>
+        <xs:attribute name="TipoDocumento" type="xs:string" />
+      </xs:complexType>
+      <xs:complexType name="ArrayOfString">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Firma" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Mittente">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Nominativo" type="tns:Nominativo" />
+        </xs:sequence>
+        <xs:attribute name="InviaStampa" type="xs:boolean" use="required" />
+      </xs:complexType>
+      <xs:complexType name="Nominativo">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Indirizzo" type="tns:Indirizzo" />
+        </xs:sequence>
+        <xs:attribute name="Zona" type="xs:string" />
+        <xs:attribute name="TipoIndirizzo" use="required">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="NORMALE" />
+              <xs:enumeration value="CASELLA POSTALE" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="Stato" type="xs:string" />
+        <xs:attribute name="Telefono" type="xs:string" />
+        <xs:attribute name="ForzaDestinazione" type="xs:boolean" use="required" />
+        <xs:attribute name="CasellaPostale" type="xs:string" />
+        <xs:attribute name="UfficioPostale" type="xs:string" />
+        <xs:attribute name="Provincia" type="xs:string" />
+        <xs:attribute name="ComplementoNominativo" type="xs:string" />
+        <xs:attribute name="RagioneSociale" type="xs:string" />
+        <xs:attribute name="Cognome" type="xs:string" />
+        <xs:attribute name="Nome" type="xs:string" />
+        <xs:attribute name="Frazione" type="xs:string" />
+        <xs:attribute name="Citta" type="xs:string" />
+        <xs:attribute name="ComplementoIndirizzo" type="xs:string" />
+        <xs:attribute name="CAP" type="xs:string" />
+        <xs:attribute name="InesitateDigitali" type="xs:boolean" use="required" />
+        <xs:attribute name="CodiceFiscale" type="xs:string" />
+        <xs:attribute name="CodiceFiscaleResult" type="xs:int" use="required" />
+        <xs:anyAttribute />
+      </xs:complexType>
+      <xs:complexType name="Indirizzo">
+        <xs:attribute name="DUG" type="xs:string" />
+        <xs:attribute name="Toponimo" type="xs:string" />
+        <xs:attribute name="NumeroCivico" type="xs:string" />
+        <xs:attribute name="Esponente" type="xs:string" />
+      </xs:complexType>
+      <xs:complexType name="Destinatario">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Nominativo" type="tns:Nominativo" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DettaglioCover" type="tns:DattaglioCover" />
+          <xs:any minOccurs="0" maxOccurs="1" namespace="##other" />
+        </xs:sequence>
+        <xs:attribute name="IdDestinatario" type="xs:string" />
+        <xs:attribute name="IdRicevuta" type="xs:string" />
+      </xs:complexType>
+      <xs:complexType name="DattaglioCover">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="ProtocolloMittente" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="TestoLibero" type="tns:ArrayOfString1" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ArrayOfString1">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="TestoTL" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="OpzionidiStampa">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="OpzioniAggiuntiveStampa" type="tns:ArrayOfServizioAggiuntivo" />
+        </xs:sequence>
+        <xs:attribute name="ResolutionY" type="xs:string" />
+        <xs:attribute name="PageSize" use="required">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="A0" />
+              <xs:enumeration value="A1" />
+              <xs:enumeration value="A2" />
+              <xs:enumeration value="A3" />
+              <xs:enumeration value="A4" />
+              <xs:enumeration value="A5" />
+              <xs:enumeration value="A6" />
+              <xs:enumeration value="A7" />
+              <xs:enumeration value="A8" />
+              <xs:enumeration value="A9" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="ResolutionX" type="xs:string" />
+        <xs:attribute name="BW" type="xs:string" />
+        <xs:attribute name="FronteRetro" type="xs:string" />
+      </xs:complexType>
+      <xs:complexType name="ArrayOfServizioAggiuntivo">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ArrayOfServizioAggiuntivo" type="tns:ServizioAggiuntivo" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ServizioAggiuntivo">
+        <xs:attribute name="ID" type="xs:string" />
+        <xs:attribute name="Descrizione" type="xs:string" />
+        <xs:attribute name="Valore" type="xs:string" />
+      </xs:complexType>
+      <xs:complexType name="Valorizzazione">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ValorizzazioneServizio" type="tns:ValorizzazioneServizio" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="OpzionePagamento" type="tns:OpzionePagamento" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Totale" type="tns:Totale" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ImpostaDiBollo" type="xs:double" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ImportoTotaleConIdB" type="xs:double" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ValorizzazioneServizio">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Richiesta" type="tns:Richiesta" />
+          <xs:element minOccurs="0" maxOccurs="1" name="IDServizio" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="NumeroPagine" type="xs:int" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="OggettoValorizzazione" type="tns:OggettoValorizzazione" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Totale" type="tns:Totale" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ImpostaDiBollo" type="xs:double" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ImportoTotaleConIdB" type="xs:double" />
+          <xs:element minOccurs="0" maxOccurs="1" name="CEResult" type="tns:CEResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="OggettoValorizzazione">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Totale" type="tns:Totale" />
+          <xs:element minOccurs="0" maxOccurs="1" name="CodiceMateriale" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DescrizioneCodiceMateriale" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="PercentualeIva" type="xs:double" />
+          <xs:element minOccurs="0" maxOccurs="1" name="CodiceIva" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="Quantita" type="xs:int" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ImportoUnitarioTotale" type="xs:double" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ImportoUnitarioNetto" type="xs:double" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ImportoUnitarioIva" type="xs:double" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Totale">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Valuta" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Descrizione" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ImportoTotale" type="xs:double" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ImportoNetto" type="xs:double" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ImportoIva" type="xs:double" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="OpzionePagamento">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="PostFatturazione" type="xs:boolean" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DescrizioneTipoPagamento" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="IdTipoPagamento" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="BollettinoBase" abstract="true">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Logo" type="xs:base64Binary" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ExtendedProperty" type="tns:ExtendedPropertyBase" />
+          <xs:element minOccurs="0" maxOccurs="1" name="EseguitoDa" type="tns:BollettinoEseguitoDa" />
+        </xs:sequence>
+        <xs:attribute name="NumeroContoCorrente" type="xs:string" />
+        <xs:attribute name="IntestatoA" type="xs:string" />
+        <xs:attribute name="FormatoStampa" type="tns:FormatoStampaBollettino" use="required" />
+        <xs:attribute name="Template" type="xs:string" />
+        <xs:attribute name="AdditionalInfo" type="xs:string" />
+        <xs:attribute name="NumeroAutorizzazioneStampaInProprio" type="xs:string" />
+        <xs:attribute name="IBAN" type="xs:string" />
+        <xs:attribute name="Codice" type="xs:string" />
+        <xs:attribute name="LogoFileName" type="xs:string" />
+        <xs:attribute name="Causale" type="xs:string" />
+      </xs:complexType>
+      <xs:complexType name="ExtendedPropertyBase" abstract="true" />
+      <xs:complexType name="ExtendedPropertyXml">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:ExtendedPropertyBase">
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="1" name="xml">
+                <xs:complexType mixed="true">
+                  <xs:sequence>
+                    <xs:any />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="BollettinoEseguitoDa">
+        <xs:attribute name="Nominativo" type="xs:string" />
+        <xs:attribute name="Indirizzo" type="xs:string" />
+        <xs:attribute name="CAP" type="xs:string" />
+        <xs:attribute name="Localita" type="xs:string" />
+      </xs:complexType>
+      <xs:simpleType name="FormatoStampaBollettino">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="BIS" />
+          <xs:enumeration value="TER" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:complexType name="Bollettino896">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:BollettinoBase">
+            <xs:attribute name="ImportoEuro" type="xs:decimal" use="required" />
+            <xs:attribute name="CodiceCliente" type="xs:string" />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="Bollettino674">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:BollettinoBase">
+            <xs:attribute name="CodiceCliente" type="xs:string" />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="Bollettino451">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:BollettinoBase">
+            <xs:attribute name="ImportoEuro" type="xs:decimal" use="required" />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="PagineBollettiniInfo">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="PaginaBollettinoInfo" type="tns:PaginaBollettinoInfo" />
+        </xs:sequence>
+        <xs:attribute name="NumeroBollettini" type="xs:int" use="required" />
+        <xs:attribute name="NumeroPubblicita" type="xs:int" use="required" />
+        <xs:attribute name="NumeroPagine" type="xs:int" use="required" />
+      </xs:complexType>
+      <xs:complexType name="PaginaBollettinoInfo">
+        <xs:sequence>
+          <xs:any minOccurs="0" maxOccurs="1" />
+        </xs:sequence>
+        <xs:attribute name="NumeroBollettini" type="xs:int" use="required" />
+        <xs:attribute name="NumeroPubblicita" type="xs:int" use="required" />
+        <xs:attribute name="NumeroPagina" type="xs:int" use="required" />
+      </xs:complexType>
+      <xs:complexType name="DescrizioneFirma">
+        <xs:attribute name="Id" type="xs:string" />
+        <xs:attribute name="Descrizione" type="xs:string" />
+      </xs:complexType>
+      <xs:complexType name="ArrayOfString2">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="TestoCL" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="OpzioniAvanzate">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="DocumentEncryptionPassword" type="xs:base64Binary" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DocumentEncryptionSalt" type="xs:base64Binary" />
+        </xs:sequence>
+        <xs:attribute name="LivelloCriticita" type="xs:unsignedByte" use="required" />
+        <xs:attribute name="AdditionalInfo" type="xs:string" />
+        <xs:attribute name="TipoDocumento" type="xs:string" />
+        <xs:attribute name="Customer" type="xs:string" />
+        <xs:attribute name="RecuperaPreviewCifrata" type="xs:boolean" use="required" />
+      </xs:complexType>
+      <xs:complexType name="PagineBollettini">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="PaginaBollettino" type="tns:PaginaBollettinoBase" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="PaginaBollettinoBase" abstract="true">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Bollettino" type="tns:BollettinoBase" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="PaginaBollettino">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:PaginaBollettinoBase" />
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="PaginaDueBollettini">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:PaginaBollettinoBase">
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="1" name="Bollettino2" type="tns:BollettinoBase" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="PaginaBollettinoPubblicita">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:PaginaBollettinoBase">
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="1" name="Pubblicita" type="tns:Pubblicita" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="Pubblicita">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Logo" type="xs:base64Binary" />
+        </xs:sequence>
+        <xs:attribute name="Testo" type="xs:string" />
+        <xs:attribute name="IsHtml" type="xs:boolean" use="required" />
+        <xs:attribute name="LogoFileName" type="xs:string" />
+      </xs:complexType>
+      <xs:complexType name="ServizioEnquirySubmit">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Richiesta" type="tns:Richiesta" />
+          <xs:element minOccurs="0" maxOccurs="1" name="StatoLavorazione" type="tns:StatoLavorazione" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="StatoLavorazione">
+        <xs:attribute name="Id" type="xs:string" />
+        <xs:attribute name="Descrizione" type="xs:string" />
+      </xs:complexType>
+      <xs:complexType name="ServizioEnquiryResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Richiesta" type="tns:Richiesta" />
+          <xs:element minOccurs="0" maxOccurs="1" name="StatoLavorazione" type="tns:StatoLavorazione" />
+          <xs:element minOccurs="0" maxOccurs="1" name="TipoVisualizzazione" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="NumeroPagine" type="xs:int" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Totale" type="tns:Totale" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="OggettoValorizzazione" type="tns:OggettoValorizzazione" />
+          <xs:element minOccurs="0" maxOccurs="1" name="CEResult" type="tns:CEResult" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="DatiTransazione">
+        <xs:attribute name="IdTransazione" type="xs:string" />
+        <xs:attribute name="CodiceAutorizzazione" type="xs:string" />
+        <xs:attribute name="DataAutorizzazione" type="xs:dateTime" use="required" />
+      </xs:complexType>
+      <xs:complexType name="StatoDestinatario">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="IdRichiesta" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="GuidUtente" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="StatoRichieste" nillable="true" type="tns:StatoRichiesta" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="StatoRichiesta">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="StatoType" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="StatoDescrizione" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="NumeroServizio" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DataEsito" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="StatoIdRichiesta">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="IdRichiesta" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Stato" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="ROLServiceSoap_RecuperaIdRichiesta_InputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperaIdRichiesta" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_RecuperaIdRichiesta_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperaIdRichiestaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_RecuperaDCS_InputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperaDCS" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_RecuperaDCS_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperaDCSResponse" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_RecuperaInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperaInfo" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_RecuperaInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperaInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_RecuperaDestinatari_InputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperaDestinatari" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_RecuperaDestinatari_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperaDestinatariResponse" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_ValidaDestinatari_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidaDestinatari" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_ValidaDestinatari_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidaDestinatariResponse" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_ValidaBollettini_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidaBollettini" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_ValidaBollettini_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidaBollettiniResponse" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_RecuperaBollettiniInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperaBollettiniInfo" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_RecuperaBollettiniInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperaBollettiniInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_RecuperaAR_InputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperaAR" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_RecuperaAR_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperaARResponse" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_InvioDoc_InputMessage">
+    <wsdl:part name="parameters" element="tns:InvioDoc" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_InvioDoc_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InvioDocResponse" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_Invio_InputMessage">
+    <wsdl:part name="parameters" element="tns:Invio" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_Invio_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InvioResponse" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_RecuperaEnquiry_InputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperaEnquiry" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_RecuperaEnquiry_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperaEnquiryResponse" />
+  </wsdl:message>
+  <wsdl:message name="ValorizzaRequest">
+    <wsdl:part name="parameters" element="tns:Valorizza" />
+  </wsdl:message>
+  <wsdl:message name="ValorizzaResponse">
+    <wsdl:part name="parameters" element="tns:ValorizzaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_ValorizzaSingle_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValorizzaSingle" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_ValorizzaSingle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValorizzaSingleResponse" />
+  </wsdl:message>
+  <wsdl:message name="PreConfermaRequest">
+    <wsdl:part name="parameters" element="tns:PreConferma" />
+  </wsdl:message>
+  <wsdl:message name="PreConfermaResponse">
+    <wsdl:part name="parameters" element="tns:PreConfermaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_PostConferma_InputMessage">
+    <wsdl:part name="parameters" element="tns:PostConferma" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_PostConferma_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PostConfermaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_Conferma_InputMessage">
+    <wsdl:part name="parameters" element="tns:Conferma" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_Conferma_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConfermaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_Nascondi_InputMessage">
+    <wsdl:part name="parameters" element="tns:Nascondi" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_Nascondi_OutputMessage">
+    <wsdl:part name="parameters" element="tns:NascondiResponse" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_AnnullaOrdine_InputMessage">
+    <wsdl:part name="parameters" element="tns:AnnullaOrdine" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_AnnullaOrdine_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AnnullaOrdineResponse" />
+  </wsdl:message>
+  <wsdl:message name="AnnullaRequest">
+    <wsdl:part name="parameters" element="tns:Annulla" />
+  </wsdl:message>
+  <wsdl:message name="AnnullaResponse">
+    <wsdl:part name="parameters" element="tns:AnnullaResponse" />
+  </wsdl:message>
+  <wsdl:message name="RecuperaNumeriRaccomandataRequest">
+    <wsdl:part name="parameters" element="tns:RecuperaNumeriRaccomandata" />
+  </wsdl:message>
+  <wsdl:message name="RecuperaNumeriRaccomandataResponse">
+    <wsdl:part name="parameters" element="tns:RecuperaNumeriRaccomandataResponse" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_ScambiaRichiesta_InputMessage">
+    <wsdl:part name="parameters" element="tns:ScambiaRichiesta" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_ScambiaRichiesta_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ScambiaRichiestaResponse" />
+  </wsdl:message>
+  <wsdl:message name="RecuperaStatiRequest">
+    <wsdl:part name="parameters" element="tns:RecuperaStati" />
+  </wsdl:message>
+  <wsdl:message name="RecuperaStatiResponse">
+    <wsdl:part name="parameters" element="tns:RecuperaStatiResponse" />
+  </wsdl:message>
+  <wsdl:message name="StatoInviiPerIDRequest">
+    <wsdl:part name="parameters" element="tns:StatoInviiPerID" />
+  </wsdl:message>
+  <wsdl:message name="StatoInviiPerIDResponse">
+    <wsdl:part name="parameters" element="tns:StatoInviiPerIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_StatoInviiPerData_InputMessage">
+    <wsdl:part name="parameters" element="tns:StatoInviiPerData" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_StatoInviiPerData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:StatoInviiPerDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="StatoInviiPerNumeroRequest">
+    <wsdl:part name="parameters" element="tns:StatoInviiPerNumero" />
+  </wsdl:message>
+  <wsdl:message name="StatoInviiPerNumeroResponse">
+    <wsdl:part name="parameters" element="tns:StatoInviiPerNumeroResponse" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_StatoInvii_InputMessage">
+    <wsdl:part name="parameters" element="tns:StatoInvii" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_StatoInvii_OutputMessage">
+    <wsdl:part name="parameters" element="tns:StatoInviiResponse" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_RecuperaStatoIdRichiesta_InputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperaStatoIdRichiesta" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_RecuperaStatoIdRichiesta_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperaStatoIdRichiestaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_RecuperaStatoOrdine_InputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperaStatoOrdine" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_RecuperaStatoOrdine_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperaStatoOrdineResponse" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_RecuperaNomiNazioniUPU_InputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperaNomiNazioniUPU" />
+  </wsdl:message>
+  <wsdl:message name="ROLServiceSoap_RecuperaNomiNazioniUPU_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperaNomiNazioniUPUResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ROLServiceSoap">
+    <wsdl:operation name="RecuperaIdRichiesta">
+      <wsdl:input wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/RecuperaIdRichiesta" message="tns:ROLServiceSoap_RecuperaIdRichiesta_InputMessage" />
+      <wsdl:output wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/ROLServiceSoap/RecuperaIdRichiestaResponse" message="tns:ROLServiceSoap_RecuperaIdRichiesta_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaDCS">
+      <wsdl:input wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/RecuperaDCS" message="tns:ROLServiceSoap_RecuperaDCS_InputMessage" />
+      <wsdl:output wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/ROLServiceSoap/RecuperaDCSResponse" message="tns:ROLServiceSoap_RecuperaDCS_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaInfo">
+      <wsdl:input wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/RecuperaInfo" message="tns:ROLServiceSoap_RecuperaInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/ROLServiceSoap/RecuperaInfoResponse" message="tns:ROLServiceSoap_RecuperaInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaDestinatari">
+      <wsdl:input wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/RecuperaDestinatari" message="tns:ROLServiceSoap_RecuperaDestinatari_InputMessage" />
+      <wsdl:output wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/ROLServiceSoap/RecuperaDestinatariResponse" message="tns:ROLServiceSoap_RecuperaDestinatari_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidaDestinatari">
+      <wsdl:input wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/ValidaDestinatari" message="tns:ROLServiceSoap_ValidaDestinatari_InputMessage" />
+      <wsdl:output wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/ROLServiceSoap/ValidaDestinatariResponse" message="tns:ROLServiceSoap_ValidaDestinatari_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidaBollettini">
+      <wsdl:input wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/ValidaBollettini" message="tns:ROLServiceSoap_ValidaBollettini_InputMessage" />
+      <wsdl:output wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/ROLServiceSoap/ValidaBollettiniResponse" message="tns:ROLServiceSoap_ValidaBollettini_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaBollettiniInfo">
+      <wsdl:input wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/RecuperaBollettiniInfo" message="tns:ROLServiceSoap_RecuperaBollettiniInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/ROLServiceSoap/RecuperaBollettiniInfoResponse" message="tns:ROLServiceSoap_RecuperaBollettiniInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaAR">
+      <wsdl:input wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/RecuperaAR" message="tns:ROLServiceSoap_RecuperaAR_InputMessage" />
+      <wsdl:output wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/ROLServiceSoap/RecuperaARResponse" message="tns:ROLServiceSoap_RecuperaAR_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InvioDoc">
+      <wsdl:input wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/InvioDoc" message="tns:ROLServiceSoap_InvioDoc_InputMessage" />
+      <wsdl:output wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/ROLServiceSoap/InvioDocResponse" message="tns:ROLServiceSoap_InvioDoc_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Invio">
+      <wsdl:input wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/Invio" message="tns:ROLServiceSoap_Invio_InputMessage" />
+      <wsdl:output wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/ROLServiceSoap/InvioResponse" message="tns:ROLServiceSoap_Invio_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaEnquiry">
+      <wsdl:input wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/RecuperaEnquiry" message="tns:ROLServiceSoap_RecuperaEnquiry_InputMessage" />
+      <wsdl:output wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/ROLServiceSoap/RecuperaEnquiryResponse" message="tns:ROLServiceSoap_RecuperaEnquiry_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Valorizza">
+      <wsdl:input wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/Valorizza" name="ValorizzaRequest" message="tns:ValorizzaRequest" />
+      <wsdl:output wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/ROLServiceSoap/ValorizzaResponse" name="ValorizzaResponse" message="tns:ValorizzaResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="ValorizzaSingle">
+      <wsdl:input wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/ValorizzaSingle" message="tns:ROLServiceSoap_ValorizzaSingle_InputMessage" />
+      <wsdl:output wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/ROLServiceSoap/ValorizzaSingleResponse" message="tns:ROLServiceSoap_ValorizzaSingle_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PreConferma">
+      <wsdl:input wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/PreConferma" name="PreConfermaRequest" message="tns:PreConfermaRequest" />
+      <wsdl:output wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/ROLServiceSoap/PreConfermaResponse" name="PreConfermaResponse" message="tns:PreConfermaResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="PostConferma">
+      <wsdl:input wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/PostConferma" message="tns:ROLServiceSoap_PostConferma_InputMessage" />
+      <wsdl:output wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/ROLServiceSoap/PostConfermaResponse" message="tns:ROLServiceSoap_PostConferma_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Conferma">
+      <wsdl:input wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/Conferma" message="tns:ROLServiceSoap_Conferma_InputMessage" />
+      <wsdl:output wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/ROLServiceSoap/ConfermaResponse" message="tns:ROLServiceSoap_Conferma_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Nascondi">
+      <wsdl:input wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/Nascondi" message="tns:ROLServiceSoap_Nascondi_InputMessage" />
+      <wsdl:output wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/ROLServiceSoap/NascondiResponse" message="tns:ROLServiceSoap_Nascondi_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AnnullaOrdine">
+      <wsdl:input wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/AnnullaOrdine" message="tns:ROLServiceSoap_AnnullaOrdine_InputMessage" />
+      <wsdl:output wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/ROLServiceSoap/AnnullaOrdineResponse" message="tns:ROLServiceSoap_AnnullaOrdine_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Annulla">
+      <wsdl:input wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/Annulla" name="AnnullaRequest" message="tns:AnnullaRequest" />
+      <wsdl:output wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/ROLServiceSoap/AnnullaResponse" name="AnnullaResponse" message="tns:AnnullaResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaNumeriRaccomandata">
+      <wsdl:input wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/RecuperaNumeriRaccomandata" name="RecuperaNumeriRaccomandataRequest" message="tns:RecuperaNumeriRaccomandataRequest" />
+      <wsdl:output wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/ROLServiceSoap/RecuperaNumeriRaccomandataResponse" name="RecuperaNumeriRaccomandataResponse" message="tns:RecuperaNumeriRaccomandataResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="ScambiaRichiesta">
+      <wsdl:input wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/ScambiaRichiesta" message="tns:ROLServiceSoap_ScambiaRichiesta_InputMessage" />
+      <wsdl:output wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/ROLServiceSoap/ScambiaRichiestaResponse" message="tns:ROLServiceSoap_ScambiaRichiesta_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaStati">
+      <wsdl:input wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/RecuperaStati" name="RecuperaStatiRequest" message="tns:RecuperaStatiRequest" />
+      <wsdl:output wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/ROLServiceSoap/RecuperaStatiResponse" name="RecuperaStatiResponse" message="tns:RecuperaStatiResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="StatoInviiPerID">
+      <wsdl:input wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/StatoInviiPerID" name="StatoInviiPerIDRequest" message="tns:StatoInviiPerIDRequest" />
+      <wsdl:output wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/ROLServiceSoap/StatoInviiPerIDResponse" name="StatoInviiPerIDResponse" message="tns:StatoInviiPerIDResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="StatoInviiPerData">
+      <wsdl:input wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/StatoInviiPerData" message="tns:ROLServiceSoap_StatoInviiPerData_InputMessage" />
+      <wsdl:output wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/ROLServiceSoap/StatoInviiPerDataResponse" message="tns:ROLServiceSoap_StatoInviiPerData_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="StatoInviiPerNumero">
+      <wsdl:input wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/StatoInviiPerNumero" name="StatoInviiPerNumeroRequest" message="tns:StatoInviiPerNumeroRequest" />
+      <wsdl:output wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/ROLServiceSoap/StatoInviiPerNumeroResponse" name="StatoInviiPerNumeroResponse" message="tns:StatoInviiPerNumeroResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="StatoInvii">
+      <wsdl:input wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/StatoInvii" message="tns:ROLServiceSoap_StatoInvii_InputMessage" />
+      <wsdl:output wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/ROLServiceSoap/StatoInviiResponse" message="tns:ROLServiceSoap_StatoInvii_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaStatoIdRichiesta">
+      <wsdl:input wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/RecuperaStatoIdRichiesta" message="tns:ROLServiceSoap_RecuperaStatoIdRichiesta_InputMessage" />
+      <wsdl:output wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/ROLServiceSoap/RecuperaStatoIdRichiestaResponse" message="tns:ROLServiceSoap_RecuperaStatoIdRichiesta_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaStatoOrdine">
+      <wsdl:input wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/RecuperaStatoOrdine" message="tns:ROLServiceSoap_RecuperaStatoOrdine_InputMessage" />
+      <wsdl:output wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/ROLServiceSoap/RecuperaStatoOrdineResponse" message="tns:ROLServiceSoap_RecuperaStatoOrdine_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaNomiNazioniUPU">
+      <wsdl:input wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/RecuperaNomiNazioniUPU" message="tns:ROLServiceSoap_RecuperaNomiNazioniUPU_InputMessage" />
+      <wsdl:output wsaw:Action="http://ComunicazioniElettroniche.ROL.WS/ROLServiceSoap/RecuperaNomiNazioniUPUResponse" message="tns:ROLServiceSoap_RecuperaNomiNazioniUPU_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_ROLServiceSoap" type="tns:ROLServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="RecuperaIdRichiesta">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/RecuperaIdRichiesta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaDCS">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/RecuperaDCS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaInfo">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/RecuperaInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaDestinatari">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/RecuperaDestinatari" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidaDestinatari">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/ValidaDestinatari" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidaBollettini">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/ValidaBollettini" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaBollettiniInfo">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/RecuperaBollettiniInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaAR">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/RecuperaAR" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InvioDoc">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/InvioDoc" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Invio">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/Invio" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaEnquiry">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/RecuperaEnquiry" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Valorizza">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/Valorizza" style="document" />
+      <wsdl:input name="ValorizzaRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="ValorizzaResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValorizzaSingle">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/ValorizzaSingle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PreConferma">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/PreConferma" style="document" />
+      <wsdl:input name="PreConfermaRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="PreConfermaResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PostConferma">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/PostConferma" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Conferma">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/Conferma" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Nascondi">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/Nascondi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AnnullaOrdine">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/AnnullaOrdine" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Annulla">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/Annulla" style="document" />
+      <wsdl:input name="AnnullaRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="AnnullaResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaNumeriRaccomandata">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/RecuperaNumeriRaccomandata" style="document" />
+      <wsdl:input name="RecuperaNumeriRaccomandataRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="RecuperaNumeriRaccomandataResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ScambiaRichiesta">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/ScambiaRichiesta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaStati">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/RecuperaStati" style="document" />
+      <wsdl:input name="RecuperaStatiRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="RecuperaStatiResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StatoInviiPerID">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/StatoInviiPerID" style="document" />
+      <wsdl:input name="StatoInviiPerIDRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="StatoInviiPerIDResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StatoInviiPerData">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/StatoInviiPerData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StatoInviiPerNumero">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/StatoInviiPerNumero" style="document" />
+      <wsdl:input name="StatoInviiPerNumeroRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="StatoInviiPerNumeroResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StatoInvii">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/StatoInvii" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaStatoIdRichiesta">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/RecuperaStatoIdRichiesta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaStatoOrdine">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/RecuperaStatoOrdine" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaNomiNazioniUPU">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/RecuperaNomiNazioniUPU" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_ROLServiceSoap1" type="tns:ROLServiceSoap">
+    <wsp:PolicyReference URI="#BasicHttpBinding_ROLServiceSoap1_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="RecuperaIdRichiesta">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/RecuperaIdRichiesta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaDCS">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/RecuperaDCS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaInfo">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/RecuperaInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaDestinatari">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/RecuperaDestinatari" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidaDestinatari">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/ValidaDestinatari" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidaBollettini">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/ValidaBollettini" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaBollettiniInfo">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/RecuperaBollettiniInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaAR">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/RecuperaAR" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InvioDoc">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/InvioDoc" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Invio">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/Invio" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaEnquiry">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/RecuperaEnquiry" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Valorizza">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/Valorizza" style="document" />
+      <wsdl:input name="ValorizzaRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="ValorizzaResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValorizzaSingle">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/ValorizzaSingle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PreConferma">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/PreConferma" style="document" />
+      <wsdl:input name="PreConfermaRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="PreConfermaResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PostConferma">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/PostConferma" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Conferma">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/Conferma" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Nascondi">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/Nascondi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AnnullaOrdine">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/AnnullaOrdine" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Annulla">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/Annulla" style="document" />
+      <wsdl:input name="AnnullaRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="AnnullaResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaNumeriRaccomandata">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/RecuperaNumeriRaccomandata" style="document" />
+      <wsdl:input name="RecuperaNumeriRaccomandataRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="RecuperaNumeriRaccomandataResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ScambiaRichiesta">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/ScambiaRichiesta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaStati">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/RecuperaStati" style="document" />
+      <wsdl:input name="RecuperaStatiRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="RecuperaStatiResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StatoInviiPerID">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/StatoInviiPerID" style="document" />
+      <wsdl:input name="StatoInviiPerIDRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="StatoInviiPerIDResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StatoInviiPerData">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/StatoInviiPerData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StatoInviiPerNumero">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/StatoInviiPerNumero" style="document" />
+      <wsdl:input name="StatoInviiPerNumeroRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="StatoInviiPerNumeroResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StatoInvii">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/StatoInvii" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaStatoIdRichiesta">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/RecuperaStatoIdRichiesta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaStatoOrdine">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/RecuperaStatoOrdine" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperaNomiNazioniUPU">
+      <soap:operation soapAction="http://ComunicazioniElettroniche.ROL.WS/RecuperaNomiNazioniUPU" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="RolService">
+    <wsdl:port name="BasicHttpBinding_ROLServiceSoap" binding="tns:BasicHttpBinding_ROLServiceSoap">
+      <soap:address location="http://sptest.posteitaliane.it/ROLGC/RolService.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_ROLServiceSoap1" binding="tns:BasicHttpBinding_ROLServiceSoap1">
+      <soap:address location="https://sptest.posteitaliane.it/ROLGC/RolService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

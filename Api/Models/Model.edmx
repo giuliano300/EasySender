@@ -1,0 +1,1997 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ApiH2HModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bulletins">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="namesId" Type="int" Nullable="false" />
+          <Property Name="NumeroContoCorrente" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IntestatoA" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="FormatoStampa" Type="nvarchar(max)" />
+          <Property Name="Template" Type="nvarchar(max)" />
+          <Property Name="AdditionalInfo" Type="nvarchar(max)" />
+          <Property Name="IBAN" Type="nvarchar(max)" />
+          <Property Name="CodiceCliente" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ImportoEuro" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="EseguitoDaNominativo" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="EseguitoDaIndirizzo" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="EseguitoDaCAP" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="EseguitoDaLocalita" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Causale" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="BulletinType" Type="int" Nullable="false" />
+          <Property Name="namesListsId" Type="int" Nullable="false" />
+          <Property Name="Scadenza" Type="nvarchar" MaxLength="50" />
+          <Property Name="CBILL" Type="nvarchar" MaxLength="50" />
+          <Property Name="PagoPA" Type="bit" />
+          <Property Name="CodiciAvvisi" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Dm">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="productId" Type="int" Nullable="false" />
+          <Property Name="haveCreativity" Type="bit" Nullable="false" />
+          <Property Name="recipientsType" Type="int" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="numberOfNames" Type="int" Nullable="false" />
+          <Property Name="netPrice" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="vatPrice" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="totalPrice" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="sessionUser" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="paymentMethod" Type="int" />
+          <Property Name="complete" Type="bit" Nullable="false" />
+          <Property Name="paid" Type="bit" Nullable="false" />
+          <Property Name="userParentId" Type="int" />
+        </EntityType>
+        <EntityType Name="DmConfigurations">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dmId" Type="int" Nullable="false" />
+          <Property Name="DiCosaSiOccupaLAzienda" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ObiettivoPrincipale" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Target" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ElementiPrincipali" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Logo" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="sessionUser" Type="nvarchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <!--Errori trovati durante la generazione:
+avviso 6002: Nessuna chiave primaria definita per la tabella/visualizzazione 'ApiH2H.dbo.DmProducts'. La chiave è stata dedotta e la definizione è stata creata come tabella/visualizzazione di sola lettura.-->
+        <EntityType Name="DmProducts">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="productName" Type="nvarchar" MaxLength="550" />
+          <Property Name="productDescription" Type="nvarchar(max)" />
+          <Property Name="productDetails" Type="nvarchar(max)" />
+          <Property Name="active" Type="bit" />
+        </EntityType>
+        <EntityType Name="GED">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fileName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="pathFile" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Listini">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="productId" Type="int" Nullable="false" />
+          <Property Name="creativita" Type="decimal" Precision="10" Scale="3" Nullable="false" />
+          <Property Name="distrubuzione" Type="decimal" Precision="10" Scale="3" Nullable="false" />
+          <Property Name="liste" Type="decimal" Precision="10" Scale="3" Nullable="false" />
+          <Property Name="stampa500" Type="decimal" Precision="10" Scale="3" Nullable="false" />
+          <Property Name="stampa1000" Type="decimal" Precision="10" Scale="3" Nullable="false" />
+          <Property Name="stampa2000" Type="decimal" Precision="10" Scale="3" Nullable="false" />
+          <Property Name="stampa3000" Type="decimal" Precision="10" Scale="3" Nullable="false" />
+          <Property Name="stampa4000" Type="decimal" Precision="10" Scale="3" Nullable="false" />
+          <Property Name="stampa5000" Type="decimal" Precision="10" Scale="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Lists">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="550" Nullable="false" />
+          <Property Name="description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="temporary" Type="bit" Nullable="false" />
+          <Property Name="userParentId" Type="int" />
+        </EntityType>
+        <EntityType Name="Names">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="businessName" Type="nvarchar" MaxLength="50" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="surname" Type="nvarchar" MaxLength="50" />
+          <Property Name="complementNames" Type="nvarchar(max)" />
+          <Property Name="complementAddress" Type="nvarchar(max)" />
+          <Property Name="dug" Type="nvarchar" MaxLength="10" />
+          <Property Name="address" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="houseNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="cap" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="city" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="province" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="state" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="insertDate" Type="datetime" Nullable="false" />
+          <Property Name="currentState" Type="int" Nullable="false" />
+          <Property Name="valid" Type="bit" Nullable="false" />
+          <Property Name="operationId" Type="int" Nullable="false" />
+          <Property Name="requestId" Type="nvarchar(max)" />
+          <Property Name="orderId" Type="nvarchar(max)" />
+          <Property Name="codice" Type="nvarchar(max)" />
+          <Property Name="price" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="vatPrice" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="totalPrice" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="attachedFile" Type="varbinary(max)" />
+          <Property Name="fileName" Type="nvarchar(max)" />
+          <Property Name="presaInCaricoDate" Type="datetime" />
+          <Property Name="consegnatoDate" Type="datetime" />
+          <Property Name="stato" Type="nvarchar(max)" />
+          <Property Name="guidUser" Type="nvarchar" MaxLength="550" />
+          <Property Name="tipoStampa" Type="bit" />
+          <Property Name="fronteRetro" Type="bit" />
+          <Property Name="ricevutaRitorno" Type="bit" />
+          <Property Name="locked" Type="bit" Nullable="false" />
+          <Property Name="reSendGuid" Type="uniqueidentifier" />
+          <Property Name="fiscalCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="mobile" Type="nvarchar" MaxLength="50" />
+          <Property Name="namePriority" Type="int" Nullable="false" />
+          <Property Name="tipoLettera" Type="nvarchar" MaxLength="50" />
+          <Property Name="IndiceNelLotto" Type="int" />
+          <Property Name="idLotto" Type="nvarchar(max)" />
+          <Property Name="pathRecoveryFile" Type="nvarchar(max)" />
+          <Property Name="finalState" Type="bit" />
+          <Property Name="numberOfPages" Type="int" />
+          <Property Name="NREA" Type="int" />
+          <Property Name="codiceChiusura" Type="nvarchar" MaxLength="50" />
+          <Property Name="codiceDocumento" Type="int" />
+          <Property Name="tipoDocumento" Type="int" />
+          <Property Name="pathGEDUrl" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="NamesDm">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="businessName" Type="nvarchar" MaxLength="50" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="surname" Type="nvarchar" MaxLength="50" />
+          <Property Name="complementNames" Type="nvarchar(max)" />
+          <Property Name="complementAddress" Type="nvarchar(max)" />
+          <Property Name="dug" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="address" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="houseNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="cap" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="city" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="province" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="state" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="dmId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NamesLists">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="businessName" Type="nvarchar" MaxLength="50" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="surname" Type="nvarchar" MaxLength="50" />
+          <Property Name="complementNames" Type="nvarchar(max)" />
+          <Property Name="complementAddress" Type="nvarchar(max)" />
+          <Property Name="dug" Type="nvarchar" MaxLength="10" />
+          <Property Name="address" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="houseNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="cap" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="city" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="province" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="state" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="listId" Type="int" Nullable="false" />
+          <Property Name="fileName" Type="nvarchar(max)" />
+          <Property Name="fiscalCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="mobile" Type="nvarchar" MaxLength="50" />
+          <Property Name="noUse" Type="bit" />
+          <Property Name="NREA" Type="int" />
+          <Property Name="codiceChiusura" Type="nvarchar" MaxLength="50" />
+          <Property Name="codiceDocumento" Type="int" />
+          <Property Name="tipoDocumento" Type="int" />
+        </EntityType>
+        <EntityType Name="Notifications">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="550" Nullable="false" />
+          <Property Name="description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="enabled" Type="bit" Nullable="false" />
+          <Property Name="usersId" Type="nvarchar(max)" />
+          <Property Name="notificationType" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="operationFeatures">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="operationId" Type="int" Nullable="false" />
+          <Property Name="featureType" Type="nvarchar" MaxLength="550" Nullable="false" />
+          <Property Name="featureValue" Type="nvarchar" MaxLength="550" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Operations">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="operationType" Type="int" Nullable="false" />
+          <Property Name="demoOperation" Type="bit" Nullable="false" />
+          <Property Name="complete" Type="bit" Nullable="false" />
+          <Property Name="userParentId" Type="int" />
+          <Property Name="areaTestOperation" Type="bit" Nullable="false" />
+          <Property Name="operationPriority" Type="int" Nullable="false" />
+          <Property Name="lottoCompleto" Type="bit" />
+          <Property Name="lotto" Type="bit" />
+          <Property Name="formatoSpeciale" Type="bit" />
+          <Property Name="formatoSpecialeInviato" Type="bit" />
+          <Property Name="error" Type="bit" />
+          <Property Name="errorMessage" Type="nvarchar(max)" />
+          <Property Name="csvFileName" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Property">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="550" />
+          <Property Name="description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Senders">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="350" />
+          <Property Name="surname" Type="nvarchar" MaxLength="350" />
+          <Property Name="businessName" Type="nvarchar(max)" />
+          <Property Name="dug" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="address" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="houseNumber" Type="nvarchar" MaxLength="5" />
+          <Property Name="cap" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="city" Type="nvarchar" MaxLength="350" Nullable="false" />
+          <Property Name="province" Type="nvarchar" MaxLength="2" Nullable="false" />
+          <Property Name="state" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="operationId" Type="int" Nullable="false" />
+          <Property Name="complementNames" Type="nvarchar(max)" />
+          <Property Name="complementAddress" Type="nvarchar(max)" />
+          <Property Name="AR" Type="bit" />
+          <Property Name="email" Type="nvarchar" MaxLength="550" />
+          <Property Name="telefono" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="SendersUsers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="350" />
+          <Property Name="surname" Type="nvarchar" MaxLength="350" />
+          <Property Name="businessName" Type="nvarchar(max)" />
+          <Property Name="dug" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="address" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="houseNumber" Type="nvarchar" MaxLength="5" />
+          <Property Name="cap" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="city" Type="nvarchar" MaxLength="350" Nullable="false" />
+          <Property Name="province" Type="nvarchar" MaxLength="2" Nullable="false" />
+          <Property Name="state" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="userParentId" Type="int" />
+          <Property Name="temporary" Type="bit" />
+          <Property Name="complementNames" Type="nvarchar(max)" />
+          <Property Name="complementAddress" Type="nvarchar(max)" />
+          <Property Name="email" Type="nvarchar" MaxLength="550" />
+          <Property Name="telefono" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="SmsLists">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="valueMin" Type="int" Nullable="false" />
+          <Property Name="valueMax" Type="int" Nullable="false" />
+          <Property Name="price" Type="decimal" Precision="10" Scale="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SmsUsers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="errcode" Type="nvarchar" MaxLength="550" />
+          <Property Name="extrainfo" Type="nvarchar(max)" />
+          <Property Name="targetcode" Type="nvarchar" MaxLength="550" />
+          <Property Name="dlr_ok" Type="int" Nullable="false" />
+          <Property Name="dlr_ko" Type="int" Nullable="false" />
+          <Property Name="dlr_wait" Type="int" Nullable="false" />
+          <Property Name="message" Type="nvarchar(max)" />
+          <Property Name="sender" Type="nvarchar" MaxLength="550" />
+          <Property Name="startdate" Type="date" Nullable="false" />
+          <Property Name="upperlimit" Type="nvarchar" MaxLength="550" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="paid" Type="bit" Nullable="false" />
+          <Property Name="paymentMethod" Type="int" />
+          <Property Name="planned" Type="bit" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="vat" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="total" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="userParentId" Type="int" />
+        </EntityType>
+        <EntityType Name="TemporaryValidateTable">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="sessionId" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="valid" Type="bit" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="totalNames" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserPermits">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="rol" Type="bit" Nullable="false" />
+          <Property Name="lol" Type="bit" Nullable="false" />
+          <Property Name="tol" Type="bit" Nullable="false" />
+          <Property Name="mol" Type="bit" Nullable="false" />
+          <Property Name="col" Type="bit" Nullable="false" />
+          <Property Name="pec" Type="bit" Nullable="false" />
+          <Property Name="pacchi" Type="bit" Nullable="false" />
+          <Property Name="sms" Type="bit" Nullable="false" />
+          <Property Name="marketing" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usernamePoste" Type="nvarchar" MaxLength="350" />
+          <Property Name="pwdPoste" Type="nvarchar" MaxLength="350" />
+          <Property Name="porpertyId" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="lastName" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="userType" Type="int" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="guidUser" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="businessName" Type="nvarchar" MaxLength="550" Nullable="false" />
+          <Property Name="baseUrl" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="pwd" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="address" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="cap" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="city" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="province" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="mobile" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="demoUser" Type="bit" Nullable="false" />
+          <Property Name="parentId" Type="int" Nullable="false" />
+          <Property Name="sendersId" Type="nvarchar(max)" />
+          <Property Name="usernamePosteAreaTest" Type="nvarchar" MaxLength="350" />
+          <Property Name="pwdPosteAreaTest" Type="nvarchar" MaxLength="350" />
+          <Property Name="areaTestUser" Type="bit" Nullable="false" />
+          <Property Name="mol" Type="bit" />
+          <Property Name="CodiceContrattoMOL" Type="nvarchar" MaxLength="250" />
+          <Property Name="CodiceContrattoCOL" Type="nvarchar" MaxLength="250" />
+          <Property Name="changePwd" Type="bit" />
+          <Property Name="userPriority" Type="int" Nullable="false" />
+          <Property Name="col" Type="bit" />
+          <Property Name="logoPA" Type="nvarchar(max)" />
+          <Property Name="denominazioneEntePA" Type="nvarchar" MaxLength="250" />
+          <Property Name="infoEntePA" Type="nvarchar" MaxLength="250" />
+          <Property Name="settoreEntePA" Type="nvarchar" MaxLength="250" />
+          <Property Name="codiceFiscaleEntePA" Type="nvarchar" MaxLength="250" />
+          <Property Name="attivoPA" Type="bit" />
+          <Property Name="downloadFile" Type="bit" />
+          <Property Name="piva" Type="nvarchar" MaxLength="250" />
+          <Property Name="usernameGED" Type="nvarchar" MaxLength="50" />
+          <Property Name="passwordGED" Type="nvarchar" MaxLength="50" />
+          <Property Name="GED" Type="bit" />
+        </EntityType>
+        <Association Name="FK_Dm_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Dm" Type="Self.Dm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Dm">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DmConfigurations_Dm">
+          <End Role="Dm" Type="Self.Dm" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DmConfigurations" Type="Self.DmConfigurations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dm">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DmConfigurations">
+              <PropertyRef Name="dmId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GED_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="GED" Type="Self.GED" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="GED">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Listini_Listini">
+          <End Role="Listini" Type="Self.Listini" Multiplicity="1" />
+          <End Role="Listini1" Type="Self.Listini" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Listini">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Listini1">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lists_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Lists" Type="Self.Lists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Lists">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Names_Operations">
+          <End Role="Operations" Type="Self.Operations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Names" Type="Self.Names" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operations">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Names">
+              <PropertyRef Name="operationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NamesDm_Dm">
+          <End Role="Dm" Type="Self.Dm" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="NamesDm" Type="Self.NamesDm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dm">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="NamesDm">
+              <PropertyRef Name="dmId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NamesLists_Lists">
+          <End Role="Lists" Type="Self.Lists" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="NamesLists" Type="Self.NamesLists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lists">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="NamesLists">
+              <PropertyRef Name="listId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_operationFeatures_Operations">
+          <End Role="Operations" Type="Self.Operations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="operationFeatures" Type="Self.operationFeatures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operations">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="operationFeatures">
+              <PropertyRef Name="operationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Operations_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Operations" Type="Self.Operations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Operations">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Senders_Operations">
+          <End Role="Operations" Type="Self.Operations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Senders" Type="Self.Senders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operations">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Senders">
+              <PropertyRef Name="operationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SendersUsers_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="SendersUsers" Type="Self.SendersUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SendersUsers">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SmsUsers_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SmsUsers" Type="Self.SmsUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SmsUsers">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TemporaryValidateTable_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TemporaryValidateTable" Type="Self.TemporaryValidateTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TemporaryValidateTable">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPermits_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserPermits" Type="Self.UserPermits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UserPermits">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Property">
+          <End Role="Property" Type="Self.Property" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Property">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="porpertyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ApiH2HModelStoreContainer">
+          <EntitySet Name="Bulletins" EntityType="Self.Bulletins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dm" EntityType="Self.Dm" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DmConfigurations" EntityType="Self.DmConfigurations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GED" EntityType="Self.GED" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Listini" EntityType="Self.Listini" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lists" EntityType="Self.Lists" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Names" EntityType="Self.Names" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NamesDm" EntityType="Self.NamesDm" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NamesLists" EntityType="Self.NamesLists" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="operationFeatures" EntityType="Self.operationFeatures" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Operations" EntityType="Self.Operations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Property" EntityType="Self.Property" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Senders" EntityType="Self.Senders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SendersUsers" EntityType="Self.SendersUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SmsLists" EntityType="Self.SmsLists" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SmsUsers" EntityType="Self.SmsUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TemporaryValidateTable" EntityType="Self.TemporaryValidateTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserPermits" EntityType="Self.UserPermits" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DmProducts" EntityType="Self.DmProducts" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [DmProducts].[id] AS [id], 
+    [DmProducts].[productName] AS [productName], 
+    [DmProducts].[productDescription] AS [productDescription], 
+    [DmProducts].[productDetails] AS [productDetails], 
+    [DmProducts].[active] AS [active]
+    FROM [dbo].[DmProducts] AS [DmProducts]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Dm_Users" Association="Self.FK_Dm_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Dm" EntitySet="Dm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DmConfigurations_Dm" Association="Self.FK_DmConfigurations_Dm">
+            <End Role="Dm" EntitySet="Dm" />
+            <End Role="DmConfigurations" EntitySet="DmConfigurations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GED_Users" Association="Self.FK_GED_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="GED" EntitySet="GED" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Listini_Listini" Association="Self.FK_Listini_Listini">
+            <End Role="Listini" EntitySet="Listini" />
+            <End Role="Listini1" EntitySet="Listini" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lists_Users" Association="Self.FK_Lists_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Lists" EntitySet="Lists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Names_Operations" Association="Self.FK_Names_Operations">
+            <End Role="Operations" EntitySet="Operations" />
+            <End Role="Names" EntitySet="Names" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NamesDm_Dm" Association="Self.FK_NamesDm_Dm">
+            <End Role="Dm" EntitySet="Dm" />
+            <End Role="NamesDm" EntitySet="NamesDm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NamesLists_Lists" Association="Self.FK_NamesLists_Lists">
+            <End Role="Lists" EntitySet="Lists" />
+            <End Role="NamesLists" EntitySet="NamesLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_operationFeatures_Operations" Association="Self.FK_operationFeatures_Operations">
+            <End Role="Operations" EntitySet="Operations" />
+            <End Role="operationFeatures" EntitySet="operationFeatures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Operations_Users" Association="Self.FK_Operations_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Operations" EntitySet="Operations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Senders_Operations" Association="Self.FK_Senders_Operations">
+            <End Role="Operations" EntitySet="Operations" />
+            <End Role="Senders" EntitySet="Senders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SendersUsers_Users" Association="Self.FK_SendersUsers_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="SendersUsers" EntitySet="SendersUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SmsUsers_Users" Association="Self.FK_SmsUsers_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="SmsUsers" EntitySet="SmsUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TemporaryValidateTable_Users" Association="Self.FK_TemporaryValidateTable_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="TemporaryValidateTable" EntitySet="TemporaryValidateTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPermits_Users" Association="Self.FK_UserPermits_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserPermits" EntitySet="UserPermits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Property" Association="Self.FK_Users_Property">
+            <End Role="Property" EntitySet="Property" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ApiH2HModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Property">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="ApiH2HModel.FK_Users_Property" FromRole="Property" ToRole="Users" />
+        </EntityType>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Property" EntityType="Self.Property" />
+          <EntitySet Name="operationFeatures" EntityType="ApiH2HModel.operationFeatures" />
+          <EntitySet Name="Senders" EntityType="ApiH2HModel.Senders" />
+          <EntitySet Name="Names" EntityType="ApiH2HModel.Names" />
+          <EntitySet Name="Dm" EntityType="ApiH2HModel.Dm" />
+          <EntitySet Name="Lists" EntityType="ApiH2HModel.Lists" />
+          <EntitySet Name="NamesLists" EntityType="ApiH2HModel.NamesLists" />
+          <AssociationSet Name="FK_NamesLists_Lists" Association="ApiH2HModel.FK_NamesLists_Lists">
+            <End Role="Lists" EntitySet="Lists" />
+            <End Role="NamesLists" EntitySet="NamesLists" />
+          </AssociationSet>
+          <EntitySet Name="NamesDm" EntityType="ApiH2HModel.NamesDm" />
+          <AssociationSet Name="FK_NamesDm_Dm" Association="ApiH2HModel.FK_NamesDm_Dm">
+            <End Role="Dm" EntitySet="Dm" />
+            <End Role="NamesDm" EntitySet="NamesDm" />
+          </AssociationSet>
+          <EntitySet Name="DmConfigurations" EntityType="ApiH2HModel.DmConfigurations" />
+          <AssociationSet Name="FK_DmConfigurations_Dm" Association="ApiH2HModel.FK_DmConfigurations_Dm">
+            <End Role="Dm" EntitySet="Dm" />
+            <End Role="DmConfigurations" EntitySet="DmConfigurations" />
+          </AssociationSet>
+          <EntitySet Name="DmProducts" EntityType="ApiH2HModel.DmProducts" />
+          <EntitySet Name="Listini" EntityType="ApiH2HModel.Listini" />
+          <EntitySet Name="SmsUsers" EntityType="ApiH2HModel.SmsUsers" />
+          <EntitySet Name="SmsLists" EntityType="ApiH2HModel.SmsLists" />
+          <EntitySet Name="SendersUsers" EntityType="ApiH2HModel.SendersUsers" />
+          <AssociationSet Name="FK_Listini_Listini" Association="ApiH2HModel.FK_Listini_Listini">
+            <End Role="Listini" EntitySet="Listini" />
+            <End Role="Listini1" EntitySet="Listini" />
+          </AssociationSet>
+          <EntitySet Name="Bulletins" EntityType="ApiH2HModel.Bulletins" />
+          <EntitySet Name="Notifications" EntityType="ApiH2HModel.Notifications" />
+          <EntitySet Name="TemporaryValidateTable" EntityType="ApiH2HModel.TemporaryValidateTable" />
+          <EntitySet Name="Operations" EntityType="ApiH2HModel.Operations" />
+          <AssociationSet Name="FK_Names_Operations" Association="ApiH2HModel.FK_Names_Operations">
+            <End Role="Operations" EntitySet="Operations" />
+            <End Role="Names" EntitySet="Names" />
+          </AssociationSet>
+          <AssociationSet Name="FK_operationFeatures_Operations" Association="ApiH2HModel.FK_operationFeatures_Operations">
+            <End Role="Operations" EntitySet="Operations" />
+            <End Role="operationFeatures" EntitySet="operationFeatures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Senders_Operations" Association="ApiH2HModel.FK_Senders_Operations">
+            <End Role="Operations" EntitySet="Operations" />
+            <End Role="Senders" EntitySet="Senders" />
+          </AssociationSet>
+          <EntitySet Name="UserPermits" EntityType="ApiH2HModel.UserPermits" />
+          <EntitySet Name="Users" EntityType="ApiH2HModel.Users" />
+          <AssociationSet Name="FK_Dm_Users" Association="ApiH2HModel.FK_Dm_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Dm" EntitySet="Dm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lists_Users" Association="ApiH2HModel.FK_Lists_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Lists" EntitySet="Lists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Operations_Users" Association="ApiH2HModel.FK_Operations_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Operations" EntitySet="Operations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Property" Association="ApiH2HModel.FK_Users_Property">
+            <End Role="Property" EntitySet="Property" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SendersUsers_Users" Association="ApiH2HModel.FK_SendersUsers_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="SendersUsers" EntitySet="SendersUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SmsUsers_Users" Association="ApiH2HModel.FK_SmsUsers_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="SmsUsers" EntitySet="SmsUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TemporaryValidateTable_Users" Association="ApiH2HModel.FK_TemporaryValidateTable_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="TemporaryValidateTable" EntitySet="TemporaryValidateTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPermits_Users" Association="ApiH2HModel.FK_UserPermits_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserPermits" EntitySet="UserPermits" />
+          </AssociationSet>
+          <EntitySet Name="GED" EntityType="ApiH2HModel.GED" />
+          <AssociationSet Name="FK_GED_Users" Association="ApiH2HModel.FK_GED_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="GED" EntitySet="GED" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="operationFeatures">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="operationId" Type="Int32" Nullable="false" />
+          <Property Name="featureType" Type="String" Nullable="false" MaxLength="550" FixedLength="false" Unicode="true" />
+          <Property Name="featureValue" Type="String" Nullable="false" MaxLength="550" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Operations" Relationship="ApiH2HModel.FK_operationFeatures_Operations" FromRole="operationFeatures" ToRole="Operations" />
+        </EntityType>
+        <EntityType Name="Senders">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="surname" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cap" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="city" Type="String" Nullable="false" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="province" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="state" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="businessName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="dug" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="houseNumber" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="operationId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Operations" Relationship="ApiH2HModel.FK_Senders_Operations" FromRole="Senders" ToRole="Operations" />
+          <Property Name="complementNames" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="complementAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AR" Type="Boolean" />
+          <Property Name="email" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+          <Property Name="telefono" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EnumType Name="userType">
+          <Member Name="Master" Value="1" />
+          <Member Name="Sub" Value="2" />
+        </EnumType>
+        <EnumType Name="operationType">
+          <Member Name="ROL" Value="1" />
+          <Member Name="LOL" Value="2" />
+          <Member Name="TELEGRAMMA" Value="3" />
+          <Member Name="MOL" Value="4" />
+          <Member Name="COL" Value="5" />
+        </EnumType>
+        <EnumType Name="state">
+          <Member Name="preControlError" Value="0" />
+          <Member Name="preControlValid" Value="1" />
+          <Member Name="valid" Value="2" />
+          <Member Name="error" Value="3" />
+        </EnumType>
+        <EnumType Name="currentState">
+          <Member Name="inAttesa" Value="0" />
+          <Member Name="PresoInCarico" Value="1" />
+          <Member Name="InLavorazione" Value="2" />
+          <Member Name="Spedito" Value="3" />
+          <Member Name="Annullato" Value="4" />
+          <Member Name="ErroreSubmit" Value="5" />
+          <Member Name="ErroreValorizza" Value="6" />
+          <Member Name="ErroreConfirm" Value="7" />
+        </EnumType>
+        <EnumType Name="tipoStampa">
+          <Member Name="colori" Value="0" />
+          <Member Name="biancoNero" Value="1" />
+        </EnumType>
+        <EnumType Name="fronteRetro">
+          <Member Name="fronte" Value="0" />
+          <Member Name="fronteRetro" Value="1" />
+        </EnumType>
+        <EnumType Name="ricevutaRitorno">
+          <Member Name="no" Value="0" />
+          <Member Name="si" Value="1" />
+        </EnumType>
+        <EnumType Name="bulletinType">
+          <Member Name="Bollettino451" Value="1" />
+          <Member Name="Bollettino674" Value="2" />
+          <Member Name="Bollettino896" Value="3" />
+        </EnumType>
+        <EntityType Name="Names">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="businessName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="complementNames" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="complementAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="dug" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="houseNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cap" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="city" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="province" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="state" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="insertDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="currentState" Type="Int32" Nullable="false" />
+          <Property Name="valid" Type="Boolean" Nullable="false" />
+          <Property Name="operationId" Type="Int32" Nullable="false" />
+          <Property Name="requestId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="orderId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="codice" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="price" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="vatPrice" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="totalPrice" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="attachedFile" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="fileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="presaInCaricoDate" Type="DateTime" Precision="3" />
+          <Property Name="consegnatoDate" Type="DateTime" Precision="3" />
+          <Property Name="stato" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="guidUser" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+          <Property Name="tipoStampa" Type="Boolean" />
+          <Property Name="fronteRetro" Type="Boolean" />
+          <Property Name="ricevutaRitorno" Type="Boolean" />
+          <NavigationProperty Name="Operations" Relationship="ApiH2HModel.FK_Names_Operations" FromRole="Names" ToRole="Operations" />
+          <Property Name="locked" Type="Boolean" Nullable="false" />
+          <Property Name="reSendGuid" Type="Guid" />
+          <Property Name="fiscalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="namePriority" Type="Int32" Nullable="false" />
+          <Property Name="tipoLettera" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IndiceNelLotto" Type="Int32" />
+          <Property Name="idLotto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="pathRecoveryFile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="finalState" Type="Boolean" />
+          <Property Name="numberOfPages" Type="Int32" />
+          <Property Name="NREA" Type="Int32" />
+          <Property Name="codiceChiusura" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="codiceDocumento" Type="Int32" />
+          <Property Name="tipoDocumento" Type="Int32" />
+          <Property Name="pathGEDUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EnumType Name="recipientsType">
+          <Member Name="newList" Value="1" />
+          <Member Name="existentList" />
+          <Member Name="requestList" />
+        </EnumType>
+        <EntityType Name="Dm">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="productId" Type="Int32" Nullable="false" />
+          <Property Name="haveCreativity" Type="Boolean" Nullable="false" />
+          <Property Name="recipientsType" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="NamesDm" Relationship="ApiH2HModel.FK_NamesDm_Dm" FromRole="Dm" ToRole="NamesDm" />
+          <NavigationProperty Name="DmConfigurations" Relationship="ApiH2HModel.FK_DmConfigurations_Dm" FromRole="Dm" ToRole="DmConfigurations" />
+          <Property Name="numberOfNames" Type="Int32" Nullable="false" />
+          <Property Name="netPrice" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="vatPrice" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="totalPrice" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="sessionUser" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="paymentMethod" Type="Int32" Nullable="true" />
+          <Property Name="complete" Type="Boolean" Nullable="false" />
+          <Property Name="paid" Type="Boolean" Nullable="false" />
+          <Property Name="userParentId" Type="Int32" />
+          <NavigationProperty Name="Users" Relationship="ApiH2HModel.FK_Dm_Users" FromRole="Dm" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Lists">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="550" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="NamesLists" Relationship="ApiH2HModel.FK_NamesLists_Lists" FromRole="Lists" ToRole="NamesLists" />
+          <Property Name="temporary" Type="Boolean" Nullable="false" />
+          <Property Name="userParentId" Type="Int32" />
+          <NavigationProperty Name="Users" Relationship="ApiH2HModel.FK_Lists_Users" FromRole="Lists" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="NamesLists">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="businessName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="complementNames" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="complementAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="dug" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="houseNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cap" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="city" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="province" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="state" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="listId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Lists" Relationship="ApiH2HModel.FK_NamesLists_Lists" FromRole="NamesLists" ToRole="Lists" />
+          <Property Name="fileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="fiscalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="noUse" Type="Boolean" />
+          <Property Name="NREA" Type="Int32" />
+          <Property Name="codiceChiusura" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="codiceDocumento" Type="Int32" />
+          <Property Name="tipoDocumento" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_NamesLists_Lists">
+          <End Type="ApiH2HModel.Lists" Role="Lists" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ApiH2HModel.NamesLists" Role="NamesLists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lists">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="NamesLists">
+              <PropertyRef Name="listId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EnumType Name="products">
+          <Member Name="CartoPlus10SC" Value="1" />
+          <Member Name="CartoPlusLGRidotto" />
+          <Member Name="CartoPlusLG" />
+          <Member Name="CartolinaA5" />
+          <Member Name="CartolinaA6" />
+        </EnumType>
+        <EntityType Name="NamesDm">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="businessName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="complementNames" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="complementAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="dug" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="houseNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cap" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="city" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="province" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="state" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="dmId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Dm" Relationship="ApiH2HModel.FK_NamesDm_Dm" FromRole="NamesDm" ToRole="Dm" />
+        </EntityType>
+        <Association Name="FK_NamesDm_Dm">
+          <End Type="ApiH2HModel.Dm" Role="Dm" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ApiH2HModel.NamesDm" Role="NamesDm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dm">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="NamesDm">
+              <PropertyRef Name="dmId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="DmConfigurations">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dmId" Type="Int32" Nullable="false" />
+          <Property Name="DiCosaSiOccupaLAzienda" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ObiettivoPrincipale" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Target" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ElementiPrincipali" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Logo" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Dm" Relationship="ApiH2HModel.FK_DmConfigurations_Dm" FromRole="DmConfigurations" ToRole="Dm" />
+          <Property Name="sessionUser" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_DmConfigurations_Dm">
+          <End Type="ApiH2HModel.Dm" Role="Dm" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ApiH2HModel.DmConfigurations" Role="DmConfigurations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dm">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DmConfigurations">
+              <PropertyRef Name="dmId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EnumType Name="paymentMethod">
+          <Member Name="carte" Value="1" />
+          <Member Name="bonifico" />
+          <Member Name="payPal" />
+        </EnumType>
+        <EntityType Name="DmProducts">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="productName" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+          <Property Name="productDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="productDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="active" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Listini">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productId" Type="Int32" Nullable="false" />
+          <Property Name="creativita" Type="Decimal" Nullable="false" Precision="10" Scale="3" />
+          <Property Name="distrubuzione" Type="Decimal" Nullable="false" Precision="10" Scale="3" />
+          <Property Name="liste" Type="Decimal" Nullable="false" Precision="10" Scale="3" />
+          <Property Name="stampa500" Type="Decimal" Nullable="false" Precision="10" Scale="3" />
+          <Property Name="stampa1000" Type="Decimal" Nullable="false" Precision="10" Scale="3" />
+          <Property Name="stampa2000" Type="Decimal" Nullable="false" Precision="10" Scale="3" />
+          <Property Name="stampa3000" Type="Decimal" Nullable="false" Precision="10" Scale="3" />
+          <Property Name="stampa4000" Type="Decimal" Nullable="false" Precision="10" Scale="3" />
+          <Property Name="stampa5000" Type="Decimal" Nullable="false" Precision="10" Scale="3" />
+          <NavigationProperty Name="Listini1" Relationship="ApiH2HModel.FK_Listini_Listini" FromRole="Listini" ToRole="Listini1" />
+          <NavigationProperty Name="Listini2" Relationship="ApiH2HModel.FK_Listini_Listini" FromRole="Listini1" ToRole="Listini" />
+        </EntityType>
+        <EntityType Name="SmsUsers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="errcode" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+          <Property Name="extrainfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="targetcode" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+          <Property Name="dlr_ok" Type="Int32" Nullable="false" />
+          <Property Name="dlr_ko" Type="Int32" Nullable="false" />
+          <Property Name="dlr_wait" Type="Int32" Nullable="false" />
+          <Property Name="message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="sender" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+          <Property Name="startdate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="upperlimit" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="paid" Type="Boolean" Nullable="false" />
+          <Property Name="price" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="paymentMethod" Type="Int32" />
+          <Property Name="planned" Type="Boolean" Nullable="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="vat" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="total" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="userParentId" Type="Int32" />
+          <NavigationProperty Name="Users" Relationship="ApiH2HModel.FK_SmsUsers_Users" FromRole="SmsUsers" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="SmsLists">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="valueMin" Type="Int32" Nullable="false" />
+          <Property Name="valueMax" Type="Int32" Nullable="false" />
+          <Property Name="price" Type="Decimal" Nullable="false" Precision="10" Scale="4" />
+        </EntityType>
+        <EntityType Name="SendersUsers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="surname" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="businessName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="dug" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="houseNumber" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="cap" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="city" Type="String" Nullable="false" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="province" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="state" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="userParentId" Type="Int32" />
+          <Property Name="temporary" Type="Boolean" />
+          <NavigationProperty Name="Users" Relationship="ApiH2HModel.FK_SendersUsers_Users" FromRole="SendersUsers" ToRole="Users" />
+          <Property Name="complementNames" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="complementAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
+          <Property Name="telefono" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_Listini_Listini">
+          <End Type="ApiH2HModel.Listini" Role="Listini" Multiplicity="1" />
+          <End Type="ApiH2HModel.Listini" Role="Listini1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Listini">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Listini1">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Bulletins">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="namesId" Type="Int32" Nullable="false" />
+          <Property Name="NumeroContoCorrente" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IntestatoA" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FormatoStampa" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Template" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AdditionalInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IBAN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CodiceCliente" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ImportoEuro" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="EseguitoDaNominativo" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EseguitoDaIndirizzo" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EseguitoDaCAP" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EseguitoDaLocalita" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Causale" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BulletinType" Type="Int32" Nullable="false" />
+          <Property Name="namesListsId" Type="Int32" Nullable="false" />
+          <Property Name="Scadenza" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CBILL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PagoPA" Type="Boolean" />
+          <Property Name="CodiciAvvisi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Notifications">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" Nullable="false" MaxLength="550" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="enabled" Type="Boolean" Nullable="false" />
+          <Property Name="usersId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="notificationType" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EnumType Name="notificationType">
+          <Member Name="communication" Value="1" />
+          <Member Name="notification" Value="2" />
+        </EnumType>
+        <EntityType Name="TemporaryValidateTable">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Guid" Nullable="false" />
+          <Property Name="sessionId" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="valid" Type="Boolean" Nullable="false" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="totalNames" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="ApiH2HModel.FK_TemporaryValidateTable_Users" FromRole="TemporaryValidateTable" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Operations">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="operationType" Type="Int32" Nullable="false" />
+          <Property Name="demoOperation" Type="Boolean" Nullable="false" />
+          <Property Name="complete" Type="Boolean" Nullable="false" />
+          <Property Name="userParentId" Type="Int32" />
+          <Property Name="areaTestOperation" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Names" Relationship="ApiH2HModel.FK_Names_Operations" FromRole="Operations" ToRole="Names" />
+          <NavigationProperty Name="operationFeatures" Relationship="ApiH2HModel.FK_operationFeatures_Operations" FromRole="Operations" ToRole="operationFeatures" />
+          <NavigationProperty Name="Senders" Relationship="ApiH2HModel.FK_Senders_Operations" FromRole="Operations" ToRole="Senders" />
+          <Property Name="operationPriority" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="ApiH2HModel.FK_Operations_Users" FromRole="Operations" ToRole="Users" />
+          <Property Name="lottoCompleto" Type="Boolean" />
+          <Property Name="lotto" Type="Boolean" />
+          <Property Name="formatoSpeciale" Type="Boolean" />
+          <Property Name="formatoSpecialeInviato" Type="Boolean" />
+          <Property Name="error" Type="Boolean" />
+          <Property Name="errorMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="csvFileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_Names_Operations">
+          <End Type="ApiH2HModel.Operations" Role="Operations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ApiH2HModel.Names" Role="Names" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operations">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Names">
+              <PropertyRef Name="operationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_operationFeatures_Operations">
+          <End Type="ApiH2HModel.Operations" Role="Operations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ApiH2HModel.operationFeatures" Role="operationFeatures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operations">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="operationFeatures">
+              <PropertyRef Name="operationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Senders_Operations">
+          <End Type="ApiH2HModel.Operations" Role="Operations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ApiH2HModel.Senders" Role="Senders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operations">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Senders">
+              <PropertyRef Name="operationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="UserPermits">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="rol" Type="Boolean" Nullable="false" />
+          <Property Name="lol" Type="Boolean" Nullable="false" />
+          <Property Name="tol" Type="Boolean" Nullable="false" />
+          <Property Name="mol" Type="Boolean" Nullable="false" />
+          <Property Name="col" Type="Boolean" Nullable="false" />
+          <Property Name="pec" Type="Boolean" Nullable="false" />
+          <Property Name="pacchi" Type="Boolean" Nullable="false" />
+          <Property Name="sms" Type="Boolean" Nullable="false" />
+          <Property Name="marketing" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="ApiH2HModel.FK_UserPermits_Users" FromRole="UserPermits" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usernamePoste" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="pwdPoste" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="porpertyId" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="lastName" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="userType" Type="Int32" Nullable="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="guidUser" Type="Guid" Nullable="false" />
+          <Property Name="businessName" Type="String" Nullable="false" MaxLength="550" FixedLength="false" Unicode="true" />
+          <Property Name="baseUrl" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="pwd" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="cap" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="city" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="province" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="mobile" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="demoUser" Type="Boolean" Nullable="false" />
+          <Property Name="parentId" Type="Int32" Nullable="false" />
+          <Property Name="sendersId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="usernamePosteAreaTest" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="pwdPosteAreaTest" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="areaTestUser" Type="Boolean" Nullable="false" />
+          <Property Name="mol" Type="Boolean" />
+          <Property Name="CodiceContrattoMOL" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CodiceContrattoCOL" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="changePwd" Type="Boolean" />
+          <Property Name="userPriority" Type="Int32" Nullable="false" />
+          <Property Name="col" Type="Boolean" />
+          <NavigationProperty Name="Dm" Relationship="ApiH2HModel.FK_Dm_Users" FromRole="Users" ToRole="Dm" />
+          <NavigationProperty Name="Lists" Relationship="ApiH2HModel.FK_Lists_Users" FromRole="Users" ToRole="Lists" />
+          <NavigationProperty Name="Operations" Relationship="ApiH2HModel.FK_Operations_Users" FromRole="Users" ToRole="Operations" />
+          <NavigationProperty Name="Property" Relationship="ApiH2HModel.FK_Users_Property" FromRole="Users" ToRole="Property" />
+          <NavigationProperty Name="SendersUsers" Relationship="ApiH2HModel.FK_SendersUsers_Users" FromRole="Users" ToRole="SendersUsers" />
+          <NavigationProperty Name="SmsUsers" Relationship="ApiH2HModel.FK_SmsUsers_Users" FromRole="Users" ToRole="SmsUsers" />
+          <NavigationProperty Name="TemporaryValidateTable" Relationship="ApiH2HModel.FK_TemporaryValidateTable_Users" FromRole="Users" ToRole="TemporaryValidateTable" />
+          <NavigationProperty Name="UserPermits" Relationship="ApiH2HModel.FK_UserPermits_Users" FromRole="Users" ToRole="UserPermits" />
+          <Property Name="logoPA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="denominazioneEntePA" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="infoEntePA" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="settoreEntePA" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="codiceFiscaleEntePA" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="attivoPA" Type="Boolean" />
+          <Property Name="downloadFile" Type="Boolean" />
+          <Property Name="piva" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="usernameGED" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="passwordGED" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GED" Type="Boolean" />
+          <NavigationProperty Name="GED1" Relationship="ApiH2HModel.FK_GED_Users" FromRole="Users" ToRole="GED" />
+        </EntityType>
+        <Association Name="FK_Dm_Users">
+          <End Type="ApiH2HModel.Users" Role="Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ApiH2HModel.Dm" Role="Dm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Dm">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lists_Users">
+          <End Type="ApiH2HModel.Users" Role="Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ApiH2HModel.Lists" Role="Lists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Lists">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Operations_Users">
+          <End Type="ApiH2HModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="ApiH2HModel.Operations" Role="Operations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Operations">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Property">
+          <End Type="ApiH2HModel.Property" Role="Property" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ApiH2HModel.Users" Role="Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Property">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="porpertyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SendersUsers_Users">
+          <End Type="ApiH2HModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="ApiH2HModel.SendersUsers" Role="SendersUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SendersUsers">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SmsUsers_Users">
+          <End Type="ApiH2HModel.Users" Role="Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ApiH2HModel.SmsUsers" Role="SmsUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="SmsUsers">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TemporaryValidateTable_Users">
+          <End Type="ApiH2HModel.Users" Role="Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ApiH2HModel.TemporaryValidateTable" Role="TemporaryValidateTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TemporaryValidateTable">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPermits_Users">
+          <End Type="ApiH2HModel.Users" Role="Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ApiH2HModel.UserPermits" Role="UserPermits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UserPermits">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="GED">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fileName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="pathFile" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="ApiH2HModel.FK_GED_Users" FromRole="GED" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK_GED_Users">
+          <End Type="ApiH2HModel.Users" Role="Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ApiH2HModel.GED" Role="GED" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="GED">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ApiH2HModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Property">
+            <EntityTypeMapping TypeName="ApiH2HModel.Property">
+              <MappingFragment StoreEntitySet="Property">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="operationFeatures">
+            <EntityTypeMapping TypeName="ApiH2HModel.operationFeatures">
+              <MappingFragment StoreEntitySet="operationFeatures">
+                <ScalarProperty Name="featureValue" ColumnName="featureValue" />
+                <ScalarProperty Name="featureType" ColumnName="featureType" />
+                <ScalarProperty Name="operationId" ColumnName="operationId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Senders">
+            <EntityTypeMapping TypeName="ApiH2HModel.Senders">
+              <MappingFragment StoreEntitySet="Senders">
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="AR" ColumnName="AR" />
+                <ScalarProperty Name="complementAddress" ColumnName="complementAddress" />
+                <ScalarProperty Name="complementNames" ColumnName="complementNames" />
+                <ScalarProperty Name="operationId" ColumnName="operationId" />
+                <ScalarProperty Name="houseNumber" ColumnName="houseNumber" />
+                <ScalarProperty Name="dug" ColumnName="dug" />
+                <ScalarProperty Name="businessName" ColumnName="businessName" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="province" ColumnName="province" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="cap" ColumnName="cap" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Names">
+            <EntityTypeMapping TypeName="ApiH2HModel.Names">
+              <MappingFragment StoreEntitySet="Names">
+                <ScalarProperty Name="pathGEDUrl" ColumnName="pathGEDUrl" />
+                <ScalarProperty Name="tipoDocumento" ColumnName="tipoDocumento" />
+                <ScalarProperty Name="codiceDocumento" ColumnName="codiceDocumento" />
+                <ScalarProperty Name="codiceChiusura" ColumnName="codiceChiusura" />
+                <ScalarProperty Name="NREA" ColumnName="NREA" />
+                <ScalarProperty Name="numberOfPages" ColumnName="numberOfPages" />
+                <ScalarProperty Name="finalState" ColumnName="finalState" />
+                <ScalarProperty Name="pathRecoveryFile" ColumnName="pathRecoveryFile" />
+                <ScalarProperty Name="idLotto" ColumnName="idLotto" />
+                <ScalarProperty Name="IndiceNelLotto" ColumnName="IndiceNelLotto" />
+                <ScalarProperty Name="tipoLettera" ColumnName="tipoLettera" />
+                <ScalarProperty Name="namePriority" ColumnName="namePriority" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="fiscalCode" ColumnName="fiscalCode" />
+                <ScalarProperty Name="reSendGuid" ColumnName="reSendGuid" />
+                <ScalarProperty Name="locked" ColumnName="locked" />
+                <ScalarProperty Name="ricevutaRitorno" ColumnName="ricevutaRitorno" />
+                <ScalarProperty Name="fronteRetro" ColumnName="fronteRetro" />
+                <ScalarProperty Name="tipoStampa" ColumnName="tipoStampa" />
+                <ScalarProperty Name="guidUser" ColumnName="guidUser" />
+                <ScalarProperty Name="stato" ColumnName="stato" />
+                <ScalarProperty Name="consegnatoDate" ColumnName="consegnatoDate" />
+                <ScalarProperty Name="presaInCaricoDate" ColumnName="presaInCaricoDate" />
+                <ScalarProperty Name="fileName" ColumnName="fileName" />
+                <ScalarProperty Name="attachedFile" ColumnName="attachedFile" />
+                <ScalarProperty Name="totalPrice" ColumnName="totalPrice" />
+                <ScalarProperty Name="vatPrice" ColumnName="vatPrice" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="codice" ColumnName="codice" />
+                <ScalarProperty Name="orderId" ColumnName="orderId" />
+                <ScalarProperty Name="requestId" ColumnName="requestId" />
+                <ScalarProperty Name="operationId" ColumnName="operationId" />
+                <ScalarProperty Name="valid" ColumnName="valid" />
+                <ScalarProperty Name="currentState" ColumnName="currentState" />
+                <ScalarProperty Name="insertDate" ColumnName="insertDate" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="province" ColumnName="province" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="cap" ColumnName="cap" />
+                <ScalarProperty Name="houseNumber" ColumnName="houseNumber" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="dug" ColumnName="dug" />
+                <ScalarProperty Name="complementAddress" ColumnName="complementAddress" />
+                <ScalarProperty Name="complementNames" ColumnName="complementNames" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="businessName" ColumnName="businessName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dm">
+            <EntityTypeMapping TypeName="ApiH2HModel.Dm">
+              <MappingFragment StoreEntitySet="Dm">
+                <ScalarProperty Name="userParentId" ColumnName="userParentId" />
+                <ScalarProperty Name="paid" ColumnName="paid" />
+                <ScalarProperty Name="complete" ColumnName="complete" />
+                <ScalarProperty Name="paymentMethod" ColumnName="paymentMethod" />
+                <ScalarProperty Name="sessionUser" ColumnName="sessionUser" />
+                <ScalarProperty Name="totalPrice" ColumnName="totalPrice" />
+                <ScalarProperty Name="vatPrice" ColumnName="vatPrice" />
+                <ScalarProperty Name="netPrice" ColumnName="netPrice" />
+                <ScalarProperty Name="numberOfNames" ColumnName="numberOfNames" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="recipientsType" ColumnName="recipientsType" />
+                <ScalarProperty Name="haveCreativity" ColumnName="haveCreativity" />
+                <ScalarProperty Name="productId" ColumnName="productId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lists">
+            <EntityTypeMapping TypeName="ApiH2HModel.Lists">
+              <MappingFragment StoreEntitySet="Lists">
+                <ScalarProperty Name="userParentId" ColumnName="userParentId" />
+                <ScalarProperty Name="temporary" ColumnName="temporary" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NamesLists">
+            <EntityTypeMapping TypeName="ApiH2HModel.NamesLists">
+              <MappingFragment StoreEntitySet="NamesLists">
+                <ScalarProperty Name="tipoDocumento" ColumnName="tipoDocumento" />
+                <ScalarProperty Name="codiceDocumento" ColumnName="codiceDocumento" />
+                <ScalarProperty Name="codiceChiusura" ColumnName="codiceChiusura" />
+                <ScalarProperty Name="NREA" ColumnName="NREA" />
+                <ScalarProperty Name="noUse" ColumnName="noUse" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="fiscalCode" ColumnName="fiscalCode" />
+                <ScalarProperty Name="fileName" ColumnName="fileName" />
+                <ScalarProperty Name="listId" ColumnName="listId" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="province" ColumnName="province" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="cap" ColumnName="cap" />
+                <ScalarProperty Name="houseNumber" ColumnName="houseNumber" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="dug" ColumnName="dug" />
+                <ScalarProperty Name="complementAddress" ColumnName="complementAddress" />
+                <ScalarProperty Name="complementNames" ColumnName="complementNames" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="businessName" ColumnName="businessName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NamesDm">
+            <EntityTypeMapping TypeName="ApiH2HModel.NamesDm">
+              <MappingFragment StoreEntitySet="NamesDm">
+                <ScalarProperty Name="dmId" ColumnName="dmId" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="province" ColumnName="province" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="cap" ColumnName="cap" />
+                <ScalarProperty Name="houseNumber" ColumnName="houseNumber" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="dug" ColumnName="dug" />
+                <ScalarProperty Name="complementAddress" ColumnName="complementAddress" />
+                <ScalarProperty Name="complementNames" ColumnName="complementNames" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="businessName" ColumnName="businessName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DmConfigurations">
+            <EntityTypeMapping TypeName="ApiH2HModel.DmConfigurations">
+              <MappingFragment StoreEntitySet="DmConfigurations">
+                <ScalarProperty Name="sessionUser" ColumnName="sessionUser" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
+                <ScalarProperty Name="ElementiPrincipali" ColumnName="ElementiPrincipali" />
+                <ScalarProperty Name="Target" ColumnName="Target" />
+                <ScalarProperty Name="ObiettivoPrincipale" ColumnName="ObiettivoPrincipale" />
+                <ScalarProperty Name="DiCosaSiOccupaLAzienda" ColumnName="DiCosaSiOccupaLAzienda" />
+                <ScalarProperty Name="dmId" ColumnName="dmId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DmProducts">
+            <EntityTypeMapping TypeName="ApiH2HModel.DmProducts">
+              <MappingFragment StoreEntitySet="DmProducts">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="productDetails" ColumnName="productDetails" />
+                <ScalarProperty Name="productDescription" ColumnName="productDescription" />
+                <ScalarProperty Name="productName" ColumnName="productName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Listini">
+            <EntityTypeMapping TypeName="ApiH2HModel.Listini">
+              <MappingFragment StoreEntitySet="Listini">
+                <ScalarProperty Name="stampa5000" ColumnName="stampa5000" />
+                <ScalarProperty Name="stampa4000" ColumnName="stampa4000" />
+                <ScalarProperty Name="stampa3000" ColumnName="stampa3000" />
+                <ScalarProperty Name="stampa2000" ColumnName="stampa2000" />
+                <ScalarProperty Name="stampa1000" ColumnName="stampa1000" />
+                <ScalarProperty Name="stampa500" ColumnName="stampa500" />
+                <ScalarProperty Name="liste" ColumnName="liste" />
+                <ScalarProperty Name="distrubuzione" ColumnName="distrubuzione" />
+                <ScalarProperty Name="creativita" ColumnName="creativita" />
+                <ScalarProperty Name="productId" ColumnName="productId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SmsUsers">
+            <EntityTypeMapping TypeName="ApiH2HModel.SmsUsers">
+              <MappingFragment StoreEntitySet="SmsUsers">
+                <ScalarProperty Name="userParentId" ColumnName="userParentId" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="vat" ColumnName="vat" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="planned" ColumnName="planned" />
+                <ScalarProperty Name="paymentMethod" ColumnName="paymentMethod" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="paid" ColumnName="paid" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="upperlimit" ColumnName="upperlimit" />
+                <ScalarProperty Name="startdate" ColumnName="startdate" />
+                <ScalarProperty Name="sender" ColumnName="sender" />
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="dlr_wait" ColumnName="dlr_wait" />
+                <ScalarProperty Name="dlr_ko" ColumnName="dlr_ko" />
+                <ScalarProperty Name="dlr_ok" ColumnName="dlr_ok" />
+                <ScalarProperty Name="targetcode" ColumnName="targetcode" />
+                <ScalarProperty Name="extrainfo" ColumnName="extrainfo" />
+                <ScalarProperty Name="errcode" ColumnName="errcode" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SmsLists">
+            <EntityTypeMapping TypeName="ApiH2HModel.SmsLists">
+              <MappingFragment StoreEntitySet="SmsLists">
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="valueMax" ColumnName="valueMax" />
+                <ScalarProperty Name="valueMin" ColumnName="valueMin" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SendersUsers">
+            <EntityTypeMapping TypeName="ApiH2HModel.SendersUsers">
+              <MappingFragment StoreEntitySet="SendersUsers">
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="complementAddress" ColumnName="complementAddress" />
+                <ScalarProperty Name="complementNames" ColumnName="complementNames" />
+                <ScalarProperty Name="temporary" ColumnName="temporary" />
+                <ScalarProperty Name="userParentId" ColumnName="userParentId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="province" ColumnName="province" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="cap" ColumnName="cap" />
+                <ScalarProperty Name="houseNumber" ColumnName="houseNumber" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="dug" ColumnName="dug" />
+                <ScalarProperty Name="businessName" ColumnName="businessName" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bulletins">
+            <EntityTypeMapping TypeName="ApiH2HModel.Bulletins">
+              <MappingFragment StoreEntitySet="Bulletins">
+                <ScalarProperty Name="CodiciAvvisi" ColumnName="CodiciAvvisi" />
+                <ScalarProperty Name="PagoPA" ColumnName="PagoPA" />
+                <ScalarProperty Name="CBILL" ColumnName="CBILL" />
+                <ScalarProperty Name="Scadenza" ColumnName="Scadenza" />
+                <ScalarProperty Name="namesListsId" ColumnName="namesListsId" />
+                <ScalarProperty Name="BulletinType" ColumnName="BulletinType" />
+                <ScalarProperty Name="Causale" ColumnName="Causale" />
+                <ScalarProperty Name="EseguitoDaLocalita" ColumnName="EseguitoDaLocalita" />
+                <ScalarProperty Name="EseguitoDaCAP" ColumnName="EseguitoDaCAP" />
+                <ScalarProperty Name="EseguitoDaIndirizzo" ColumnName="EseguitoDaIndirizzo" />
+                <ScalarProperty Name="EseguitoDaNominativo" ColumnName="EseguitoDaNominativo" />
+                <ScalarProperty Name="ImportoEuro" ColumnName="ImportoEuro" />
+                <ScalarProperty Name="CodiceCliente" ColumnName="CodiceCliente" />
+                <ScalarProperty Name="IBAN" ColumnName="IBAN" />
+                <ScalarProperty Name="AdditionalInfo" ColumnName="AdditionalInfo" />
+                <ScalarProperty Name="Template" ColumnName="Template" />
+                <ScalarProperty Name="FormatoStampa" ColumnName="FormatoStampa" />
+                <ScalarProperty Name="IntestatoA" ColumnName="IntestatoA" />
+                <ScalarProperty Name="NumeroContoCorrente" ColumnName="NumeroContoCorrente" />
+                <ScalarProperty Name="namesId" ColumnName="namesId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notifications">
+            <EntityTypeMapping TypeName="ApiH2HModel.Notifications">
+              <MappingFragment StoreEntitySet="Notifications">
+                <ScalarProperty Name="notificationType" ColumnName="notificationType" />
+                <ScalarProperty Name="usersId" ColumnName="usersId" />
+                <ScalarProperty Name="enabled" ColumnName="enabled" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TemporaryValidateTable">
+            <EntityTypeMapping TypeName="ApiH2HModel.TemporaryValidateTable">
+              <MappingFragment StoreEntitySet="TemporaryValidateTable">
+                <ScalarProperty Name="totalNames" ColumnName="totalNames" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="valid" ColumnName="valid" />
+                <ScalarProperty Name="sessionId" ColumnName="sessionId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Operations">
+            <EntityTypeMapping TypeName="ApiH2HModel.Operations">
+              <MappingFragment StoreEntitySet="Operations">
+                <ScalarProperty Name="csvFileName" ColumnName="csvFileName" />
+                <ScalarProperty Name="errorMessage" ColumnName="errorMessage" />
+                <ScalarProperty Name="error" ColumnName="error" />
+                <ScalarProperty Name="formatoSpecialeInviato" ColumnName="formatoSpecialeInviato" />
+                <ScalarProperty Name="formatoSpeciale" ColumnName="formatoSpeciale" />
+                <ScalarProperty Name="lotto" ColumnName="lotto" />
+                <ScalarProperty Name="lottoCompleto" ColumnName="lottoCompleto" />
+                <ScalarProperty Name="operationPriority" ColumnName="operationPriority" />
+                <ScalarProperty Name="areaTestOperation" ColumnName="areaTestOperation" />
+                <ScalarProperty Name="userParentId" ColumnName="userParentId" />
+                <ScalarProperty Name="complete" ColumnName="complete" />
+                <ScalarProperty Name="demoOperation" ColumnName="demoOperation" />
+                <ScalarProperty Name="operationType" ColumnName="operationType" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserPermits">
+            <EntityTypeMapping TypeName="ApiH2HModel.UserPermits">
+              <MappingFragment StoreEntitySet="UserPermits">
+                <ScalarProperty Name="marketing" ColumnName="marketing" />
+                <ScalarProperty Name="sms" ColumnName="sms" />
+                <ScalarProperty Name="pacchi" ColumnName="pacchi" />
+                <ScalarProperty Name="pec" ColumnName="pec" />
+                <ScalarProperty Name="col" ColumnName="col" />
+                <ScalarProperty Name="mol" ColumnName="mol" />
+                <ScalarProperty Name="tol" ColumnName="tol" />
+                <ScalarProperty Name="lol" ColumnName="lol" />
+                <ScalarProperty Name="rol" ColumnName="rol" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ApiH2HModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="GED" ColumnName="GED" />
+                <ScalarProperty Name="passwordGED" ColumnName="passwordGED" />
+                <ScalarProperty Name="usernameGED" ColumnName="usernameGED" />
+                <ScalarProperty Name="piva" ColumnName="piva" />
+                <ScalarProperty Name="downloadFile" ColumnName="downloadFile" />
+                <ScalarProperty Name="attivoPA" ColumnName="attivoPA" />
+                <ScalarProperty Name="codiceFiscaleEntePA" ColumnName="codiceFiscaleEntePA" />
+                <ScalarProperty Name="settoreEntePA" ColumnName="settoreEntePA" />
+                <ScalarProperty Name="infoEntePA" ColumnName="infoEntePA" />
+                <ScalarProperty Name="denominazioneEntePA" ColumnName="denominazioneEntePA" />
+                <ScalarProperty Name="logoPA" ColumnName="logoPA" />
+                <ScalarProperty Name="col" ColumnName="col" />
+                <ScalarProperty Name="userPriority" ColumnName="userPriority" />
+                <ScalarProperty Name="changePwd" ColumnName="changePwd" />
+                <ScalarProperty Name="CodiceContrattoCOL" ColumnName="CodiceContrattoCOL" />
+                <ScalarProperty Name="CodiceContrattoMOL" ColumnName="CodiceContrattoMOL" />
+                <ScalarProperty Name="mol" ColumnName="mol" />
+                <ScalarProperty Name="areaTestUser" ColumnName="areaTestUser" />
+                <ScalarProperty Name="pwdPosteAreaTest" ColumnName="pwdPosteAreaTest" />
+                <ScalarProperty Name="usernamePosteAreaTest" ColumnName="usernamePosteAreaTest" />
+                <ScalarProperty Name="sendersId" ColumnName="sendersId" />
+                <ScalarProperty Name="parentId" ColumnName="parentId" />
+                <ScalarProperty Name="demoUser" ColumnName="demoUser" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="province" ColumnName="province" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="cap" ColumnName="cap" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="pwd" ColumnName="pwd" />
+                <ScalarProperty Name="baseUrl" ColumnName="baseUrl" />
+                <ScalarProperty Name="businessName" ColumnName="businessName" />
+                <ScalarProperty Name="guidUser" ColumnName="guidUser" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="userType" ColumnName="userType" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="porpertyId" ColumnName="porpertyId" />
+                <ScalarProperty Name="pwdPoste" ColumnName="pwdPoste" />
+                <ScalarProperty Name="usernamePoste" ColumnName="usernamePoste" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GED">
+            <EntityTypeMapping TypeName="ApiH2HModel.GED">
+              <MappingFragment StoreEntitySet="GED">
+                <ScalarProperty Name="pathFile" ColumnName="pathFile" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="fileName" ColumnName="fileName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Nessuno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
